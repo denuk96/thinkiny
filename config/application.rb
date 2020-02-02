@@ -15,7 +15,11 @@ module Thinkiny
       env_file = File.join(Rails.root, 'config', 'database_secret.yml')
       YAML.load(File.open(env_file)).each do |key, value|
         ENV[key.to_s] = value
+<<<<<<< HEAD
       end if File.exists?(env_file)
+=======
+      end if File.exist?(env_file)
+>>>>>>> development
     end
 
     # Settings in config/environments/* take precedence over those specified here.
