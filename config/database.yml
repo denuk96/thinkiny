@@ -6,8 +6,8 @@ default: &default
 development:
   <<: *default
   database: thinkiny_development
-  username: denuk96
-  password: denuk96
+  username: <%= ENV['USERNAME'] %>
+  password: <%= ENV['PASSWORD'] %>
   encoding: unicode
   host: localhost
   pool: 5
@@ -15,8 +15,8 @@ development:
 test:
   <<: *default
   database: thinkiny_test
-  username: denuk96
-  password: denuk96
+  username: <%= ENV['USERNAME'] %>
+  password: <%= ENV['PASSWORD'] %>
   encoding: unicode
   host: localhost
   pool: 5
