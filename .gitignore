@@ -90,7 +90,3 @@ config/master.production.key
 /config/database.production.yml
 /config/secrets.production.yml
 /config/database_secret.yml
-<<<<<<< HEAD
-=======
-
->>>>>>> development
