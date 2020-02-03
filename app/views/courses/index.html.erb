@@ -1,1 +1,8 @@
-<h1>index</h1>
+<div class="container">
+  <%= link_to "New course", new_course_path%>
+  <% @courses.each do |course| %>
+    <h2><%= link_to course.name, course_path(course) %></h2>
+    <%= course.description %>
+    <hr>
+  <% end %>
+</div>
