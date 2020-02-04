@@ -2,6 +2,7 @@
   <h3 class="text-center"><%= @lesson.theme.upcase %></h3>
   <p class="text-center"><small><%= @lesson.time %></small></p>
   <p class="text-center"><%= @lesson.description %></p>
+  <%= link_to 'check_ins', check_ins_path(course_id: @lesson.course.id, lesson_id: @lesson.id) %>
   <%= link_to "Edit", edit_course_lesson_path(@course, @lesson) %> |
   <%= link_to "Destroy", course_lesson_path(@course, @lesson),  method: :delete, data: { confirm: 'Are you sure?' }%>
 </div>

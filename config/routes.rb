@@ -2,7 +2,6 @@ Rails.application.routes.draw do
   root 'courses#index'
 
   resources :check_ins
-  get 'start_lesson', to: 'check_ins#check_in', as: 'start_lesson'
 
   resources :courses do
     resources :lessons
