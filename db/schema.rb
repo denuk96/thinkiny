@@ -10,15 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_04_092508) do
+ActiveRecord::Schema.define(version: 2020_02_04_222214) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "check_ins", force: :cascade do |t|
-    t.bigint "lesson_id", null: false
-    t.bigint "user_id", null: false
-    t.boolean "present", default: false
+    t.bigint "lesson_id"
+    t.bigint "user_id"
+    t.boolean "attendance", default: false
     t.string "note"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

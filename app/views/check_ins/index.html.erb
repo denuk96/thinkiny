@@ -1,4 +1,5 @@
 <div class="container">
+  <h1> CHECK INS in <b><%= @lesson.theme %></b></h1>
   <% @check_ins.each do |check_in| %>
     <%= check_in.user.email %>
   <% end %>
