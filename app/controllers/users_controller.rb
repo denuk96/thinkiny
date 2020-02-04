@@ -1,10 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[show edit update destroy]
-
-  def index
-    @users = User.all
-  end
-
+  before_action :admin_verify, only: [:edit, :update, :destroy]
   def show; end
 
   def new
