@@ -1,0 +1,47 @@
+<%= form_with(model: user, local: true) do |form| %>
+  <% if user.errors.any? %>
+    <div id="error_explanation">
+      <ul>
+        <% user.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="row" style="margin-top: 20px">
+    <div class="col-sm-5 offset-sm-1">
+      <div class="form-group row"  >
+        <%= form.label :first_name, class:"col-sm-3 col-form-label" %>
+        <div class="col-sm-6">
+          <%= form.text_field :first_name, class:"form-control" %>
+        </div>
+      </div>
+      <div class="form-group row"  >
+        <%= form.label :last_name, class:"col-sm-3 col-form-label" %>
+        <div class="col-sm-6">
+          <%= form.text_field :last_name, class:"form-control" %>
+        </div>
+      </div>
+      <div class="form-group row"  >
+        <%= form.label :email, class:"col-sm-3 col-form-label" %>
+        <div class="col-sm-6">
+          <%= form.email_field :email, class:"form-control" %>
+        </div>
+      </div>
+      <!-- <div class="form-group offset-lg" >
+        <%#= form.label :image, "Загрузите автарку", class:"col-form-label" %>
+        <%#= form.file_field :image %>
+      </div>-->
+    </div>
+    <div class="col-sm-5 offset-sm-1">
+      <div class="form-group row"  >
+        <%= form.label :admin, class:"col-sm-3 col-form-label" %>
+        <div class="col-sm-1">
+          <%= form.check_box :admin, class:"form-control" %>
+        </div>
+      </div>
+      <div class="actions" style="padding-top: 15px">
+        <%= form.submit class:"btn btn-outline-dark" %>
+        <%= link_to 'back', _back_url , class:"btn btn-outline-dark" , style:"margin-left: 10px;"%>
+      </div>
+<% end %>
