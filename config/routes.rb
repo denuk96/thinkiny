@@ -6,7 +6,6 @@ Rails.application.routes.draw do
   get 'join', to: 'joins#join_to_course', as: 'join'
   resources :users
   resources :sessions
-  resources :admin_panel
 
   get "logout" => "sessions#destroy", :as => "logout"
   get "login" => "sessions#new", :as => "login"
