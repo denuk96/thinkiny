@@ -15,4 +15,7 @@ class Lesson < ApplicationRecord
   belongs_to :course
   has_many :check_ins
   has_many :users, through: :check_ins
+  validates :theme, presence: true
+  validates :description, presence: true
+  validates :time, presence: true
 end
