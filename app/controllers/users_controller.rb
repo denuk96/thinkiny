@@ -24,7 +24,7 @@ class UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
-      redirect_to users_path, notice: 'User was successfully updated.'
+      redirect_to admin_panel_index_path, notice: 'User was successfully updated.'
     else
       render :edit
     end
@@ -32,7 +32,7 @@ class UsersController < ApplicationController
 
   def destroy
     @user.destroy
-    redirect_to users_url, notice: 'User was successfully destroy.'
+    redirect_to admin_panel_index_path, notice: 'User was successfully destroy.'
   end
 
   private
@@ -43,6 +43,6 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:email, :password, :password_confirmation, :crypted_password, :salt,
-                                 :first_name, :last_name)
+                                 :first_name, :last_name, :admin)
   end
 end
