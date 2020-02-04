@@ -4,5 +4,10 @@
   <%= link_to "Destroy", course_path(@course),  method: :delete, data: { confirm: 'Are you sure?' }%>
   <hr>
   <p><%= @course.description %></p>
+  <p><b>Joined users:</b></p>
+  <% @course.users.each do |user| %>
+    <%= user.email %>
+  <% end %>
+  <br>
   <%= link_to "Back", courses_path %>
 </div>

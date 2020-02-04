@@ -17,6 +17,9 @@
           </li>
         <% end %>
         <li class="nav-item">
+          <%= link_to "Create Course", new_course_path, class:'nav-link btn btn-outline-dark' %>
+        </li>
+        <li class="nav-item">
           <%= link_to "Log out", logout_path, class:'nav-link' %>
         </li>
       <% else %>
@@ -30,4 +33,3 @@
     </ul>
   </div>
 </nav>
-

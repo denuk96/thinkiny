@@ -1,8 +1,7 @@
 <div class="container">
   <h1>All courses</h1>
   <% @courses.each do |course| %>
-    <%= course.name %>
-    <br>
+    <h3><%= link_to course.name, course_path(course) %></h3>
     <%= course.description %>
     <%= link_to 'join', join_path(id: course) %>
     <br>
@@ -10,4 +9,5 @@
       <%= user.email %>
     <% end %>
   <% end %>
+  <hr>
 </div>
