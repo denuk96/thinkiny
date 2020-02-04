@@ -1,1 +1,9 @@
-<h1>index</h1>
+<div class="container">
+  <% @courses.each do |course| %>
+    <%= course.name %>
+    <br>
+    <%= course.description %>
+    <%= link_to 'join', join_path(id: course) %>
+    <br>
+  <% end %>
+</div>
