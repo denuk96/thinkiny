@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
-  get 'admin_panel/index'
   root 'courses#index'
+
+  resources :check_ins
+  get 'start_lesson', to: 'check_ins#check_in', as: 'start_lesson'
 
   resources :courses do
     resources :lessons
@@ -10,7 +12,7 @@ Rails.application.routes.draw do
   resources :users
   resources :sessions
 
-  get "logout" => "sessions#destroy", :as => "logout"
-  get "login" => "sessions#new", :as => "login"
-  get "signup" => "users#new", :as => "signup"
+  get 'signup', to: 'users#new', as: 'signup'
+  get 'login', to: 'sessions#new', as: 'login'
+  get 'logout', to: 'sessions#destroy', as: 'logout'
 end
