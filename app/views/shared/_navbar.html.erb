@@ -6,21 +6,21 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <!-- <%# if user_signed_in? %>
+      <% if current_user %>
         <li class="nav-item active">
-          <span class="nav-link">Здравствуйте, <%#= current_user.email %></span>
+          <span class="nav-link"><%= current_user.email %></span>
         </li>
         <li class="nav-item">
-          <%#= link_to 'Выйти', home_path, :method => :delete , class:'nav-link'%>
+          <%= link_to "Log out", logout_path, class:'nav-link' %>
         </li>
-      <%# else %>
-        <li class="nav-item active">
-          <%#= link_to 'Войти', home_path, class:'nav-link' %>
+      <% else %>
+        <li class="nav-item">
+          <%= link_to "Sign up", signup_path, class:'nav-link' %>
         </li>
         <li class="nav-item">
-          <%#= link_to 'Зарегистрироваться', home_path, class:'nav-link' %>
+         <%= link_to "log in", login_path , class:'nav-link'%>
         </li>
-      <%# end %>-->
+      <% end %>
     </ul>
   </div>
 </nav>

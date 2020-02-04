@@ -1,0 +1,20 @@
+<div class="offset-sm-2 mt-5">
+  <%= form_with url: sessions_path, method: :post do |f| %>
+    <div class="field mb-3">
+      <%= f.label 'Email' %><br />
+      <%= f.text_field :email, class:"form-control col-4" %>
+    </div>
+    <div class="field mb-3">
+      <%= f.label 'Password' %><br />
+      <%= f.password_field :password, class:"form-control col-4" %>
+    </div>
+    <div class="field mb-3">
+      <%= check_box_tag :remember_me, 1 %>
+      <%= label_tag :remember_me %>
+    </div>
+    <div class="actions"><br>
+      <%= f.submit 'Sing in', class:"btn btn-outline-dark" %>
+      <%= link_to 'Sing up', new_user_path, class: "btn btn-outline-dark" %>
+    </div>
+  <% end %>
+</div>
