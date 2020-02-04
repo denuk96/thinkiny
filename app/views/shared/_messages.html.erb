@@ -1,0 +1,20 @@
+<div class="container" id="messages">
+  <% if !notice.nil?  %>
+    <p class="col-lg-12">
+      <p class="alert alert-primary" role="alert">
+        <%= notice %>
+      </p>
+    </p>
+  <% elsif !alert.nil? %>
+    <p class="col-md-12">
+      <p class="alert alert-danger" role="alert">
+        <%= alert %>
+      </p>
+    </p>
+  <% end %>
+</div>
+<script>
+    $(document).ready(function(){
+        $('#messages').show(500);
+    });
+</script>
