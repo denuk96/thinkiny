@@ -1,0 +1,34 @@
+<%= form_for ([@course, @lesson]) do |form| %>
+  <% if @lesson.errors.any? %>
+    <div class="alert alert-danger">
+      <h2><%= pluralize(@course.errors.count, "error") %> prohibited this lesson from being saved:</h2>
+      <ul>
+        <% @lesson.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :theme %>
+    <%= form.text_field :theme, class: "form-control"%>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_area :description, class: "form-control"%>
+  </div>
+
+  <div class="field">
+    <div class="form-group row">
+      <%= form.label :time %>
+      <%= form.text_field :time, class: "form-control", type: "datetime-local" %>
+    </div>
+  </div>
+
+  <br>
+  <div class="text-center">
+      <%= form.submit 'Submit', class: "btn btn-primary" %>
+  </div>
+<% end %>

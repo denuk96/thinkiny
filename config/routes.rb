@@ -2,7 +2,10 @@ Rails.application.routes.draw do
   get 'admin_panel/index'
   root 'courses#index'
 
-  resources :courses
+  resources :courses do
+    resources :lessons
+  end
+  
   get 'join', to: 'joins#join_to_course', as: 'join'
   resources :users
   resources :sessions
