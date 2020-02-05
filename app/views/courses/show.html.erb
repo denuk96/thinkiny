@@ -1,17 +1,30 @@
-<div class="container">
-  <h1><%= @course.name %></h1>
-  <%= link_to "Edit", edit_course_path(@course), class: "btn btn-outline-dark"  %> |
-  <%= link_to "Destroy", course_path(@course), class: "btn btn-outline-dark" ,  method: :delete, data: { confirm: 'Are you sure?' }%>
-  <%= link_to 'join', join_path(id: @course ), class: "btn btn-outline-dark" %>
-  <hr>
-  <p><%= @course.description %></p>
-  <%= link_to "Show lessons", course_lessons_path(@course) %> |
-  <%= link_to "Add lessons", new_course_lesson_path(@course) %>
-  <p><b>Joined users:</b></p>
-  <% @course.users.each do |user| %>
-    <%= user.email %>
-  <% end %>
-  <br>
-
-  <%= link_to "Back", courses_path, class: "btn btn-outline-dark" %>
+<div class="offset-md-1 mt-5"">
+  <div class="col-10">
+    <div class="card">
+      <div class="card-header ">
+        <div class="row">
+          <h3><%= @course.name %></h3>
+          <div class="ml-auto">
+            <%= link_to 'join', join_path(id: @course ), class: "btn btn-outline-dark" %>
+            <%= link_to "Edit", edit_course_path(@course), class: "btn btn-outline-dark"  %>
+            <%= link_to "Destroy", course_path(@course), class: "btn btn-outline-dark" ,
+                        method: :delete, data: { confirm: 'Are you sure?' }%>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title"><%= @course.description %></h5>
+        <%= link_to "Show lessons", course_lessons_path(@course), class: "btn btn-outline-dark" %>
+        <%= link_to "Add lessons", new_course_lesson_path(@course), class: "btn btn-outline-dark" %>
+      </div>
+    </div>
+  </div>
+  <div class="ml-3">
+    <b class="mt-5 blockquote-footer">Joined users:</b>
+    <p class="offset-1 mt-2">
+      <% @course.users.each do |user| %>
+        <%= user.email %>
+      <% end %>
+    </p>
+  </div>
 </div>
