@@ -9,7 +9,7 @@
       <% if current_user %>
         <% if current_user&.admin? %>
           <li class="nav-item active">
-            <%= link_to 'AdminPanel', admin_panel_index_path, class: 'nav-link' %>
+            <%= link_to 'AdminPanel', root_path, class: 'nav-link' %>
           </li>
         <% else %>
           <li class="nav-item active">
