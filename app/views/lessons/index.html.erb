@@ -1,0 +1,11 @@
+<div class="container">
+  <h1>all lessons</h1>
+  <% @lessons.each do |lesson| %>
+    <h3><%= link_to lesson.theme, course_lesson_path(@course, lesson) %></h3>
+    <br>
+    <%= link_to 'check_ins', check_ins_path(course_id: lesson.course.id, lesson_id: lesson.id) %>
+    <br>
+    <hr>
+  <% end %>
+  <%= link_to "Back", courses_path, class: "btn btn-outline-dark" %>
+</div>

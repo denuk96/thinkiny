@@ -9,13 +9,16 @@
       <% if current_user %>
         <% if current_user&.admin? %>
           <li class="nav-item active">
-            <%= link_to 'AdminPanel', admin_panel_index_path, class: 'nav-link' %>
+            <%#= link_to 'AdminPanel', admin_panel_index_path, class: 'nav-link' %>
           </li>
         <% else %>
           <li class="nav-item active">
             <span class="nav-link"><%= current_user.email %></span>
           </li>
         <% end %>
+        <li class="nav-item">
+          <%= link_to "Create Course", new_course_path, class:'nav-link btn btn-outline-dark' %>
+        </li>
         <li class="nav-item">
           <%= link_to "Log out", logout_path, class:'nav-link' %>
         </li>
@@ -30,4 +33,3 @@
     </ul>
   </div>
 </nav>
-
