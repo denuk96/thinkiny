@@ -1,5 +1,9 @@
 <div class="container">
   <h1><%= @course.name %></h1>
+  created by
+  <h2>
+    <%= @course.course_users.find_by(role: 'organizer').user.email %>
+  </h2>
   <%= link_to "Edit", edit_course_path(@course), class: "btn btn-outline-dark"  %> |
   <%= link_to "Destroy", course_path(@course), class: "btn btn-outline-dark" ,  method: :delete, data: { confirm: 'Are you sure?' }%>
   <%= link_to 'join', join_path(id: @course ), class: "btn btn-outline-dark" %>

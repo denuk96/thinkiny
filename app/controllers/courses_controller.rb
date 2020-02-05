@@ -14,6 +14,7 @@ class CoursesController < ApplicationController
   def create
     @course = Course.new(course_params)
     if @course.save
+      CourseUser.create(course_id: @course.id, user_id: current_user.id, role: 'organizer')
       redirect_to @course
     else
       render :new
@@ -33,7 +34,7 @@ class CoursesController < ApplicationController
 
   def destroy
     @course.destroy
-    redirect_to home_path
+    redirect_to root_path
   end
 
   private

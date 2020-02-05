@@ -4,7 +4,7 @@ class CheckInsController < ApplicationController
 
   def index
     @lesson.course.users.each do |user|
-      if CheckIn.find_by(user_id: user.id, lesson_id: @lesson.id).nil?
+      if CheckIn.find_by(user_id: user.id, lesson_id: @lesson.id).nil? && check_in_only_for_participant(user)
         CheckIn.create(user_id: user.id, lesson_id: @lesson.id)
       end
     end
@@ -28,6 +28,10 @@ class CheckInsController < ApplicationController
   end
 
   private
+
+  def check_in_only_for_participant(user)
+    true if user.course_users.where(course_id: @lesson.course.id, role: 'participant').present?
+  end
 
   def set_check_in
     @check_in = CheckIn.find_by(id: params[:id])

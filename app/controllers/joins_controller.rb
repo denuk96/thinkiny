@@ -3,7 +3,7 @@ class JoinsController < ApplicationController
   before_action :set_course, only: %i[join_to_course]
 
   def join_to_course
-    @course_user = CourseUser.new(course_id: @course.id, user_id: current_user.id)
+    @course_user = CourseUser.new(course_id: @course.id, user_id: current_user.id, role: 'participant')
     if @course_user.save
       redirect_to courses_path, notice: 'joined'
     else
