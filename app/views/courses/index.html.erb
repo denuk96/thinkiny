@@ -2,12 +2,11 @@
   <h1>All courses</h1>
   <% @courses.each do |course| %>
     <h3><%= link_to course.name, course_path(course) %></h3>
-    <%= course.description %>
-    <%= link_to 'join', join_path(id: course) %>
-    <br>
-    <% course.users.each do |user| %>
-      <%= user.email %>
-    <% end %>
+    <p>
+      Description: <b><%= course.description %></b>
+    </p>
+    <%= link_to 'join', join_path(id: course), class: "btn btn-outline-dark" %>
+    <hr>
   <% end %>
   <hr>
 </div>
