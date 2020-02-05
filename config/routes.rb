@@ -10,7 +10,7 @@ Rails.application.routes.draw do
       end
     end
   end
-  
+
   get 'join', to: 'joins#join_to_course', as: 'join'
   resources :users
   resources :sessions
