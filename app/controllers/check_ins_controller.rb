@@ -10,6 +10,13 @@ class CheckInsController < ApplicationController
     @check_ins = @lesson.check_ins
   end
 
+  def user_attendance
+    @check_in = CheckIn.find_by(id: params[:id])
+    @check_in.attendance = !@check_in.attendance
+    @check_in.save
+    redirect_to course_lesson_check_ins_path(lesson_id: @check_in.lesson.id)
+  end
+
   private
 
   def set_lesson
