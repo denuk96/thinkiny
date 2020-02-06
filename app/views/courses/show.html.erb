@@ -11,11 +11,28 @@
   <p><%= @course.description %></p>
   <%= link_to "Show lessons", course_lessons_path(@course) %> |
   <%= link_to "Add lessons", new_course_lesson_path(@course) %>
-  <p><b>Joined users:</b></p>
-  <% @course.users.each do |user| %>
-    <%= user.email %>
-  <% end %>
   <br>
-
+  <hr>
+  <p>
+    <b>Instructors:</b>
+      <% @course.course_users.where(role: 'instructor').each do |instructor| %>
+      <div>
+        <%= instructor.user.email %>
+        <%= link_to 'to participant', change_role_courses_path(id: @course.id, course_user_id: instructor.id) %>
+      </div>
+    <% end %>
+  </p>
+  <br>
+  <p>
+    <b>Joined users:</b>
+    <% @course.course_users.where(role: 'participant').each do |participant| %>
+      <div>
+        <%= participant.user.email %>
+        <%= link_to 'to instructor', change_role_courses_path(id: @course.id, course_user_id: participant.id) %>
+      </div>
+    <% end %>
+  </p>
+  <br>
+  <hr>
   <%= link_to "Back", courses_path, class: "btn btn-outline-dark" %>
 </div>
