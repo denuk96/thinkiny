@@ -26,7 +26,7 @@ class CoursesController < ApplicationController
   def update
     if @course.update(course_params)
       redirect_to @course
-      flash[:success] = 'Course has been edited'
+      flash[:notice] = 'Course has been edited'
     else
       render :edit
     end
