@@ -1,7 +1,7 @@
 <div class="container">
   <h1>all lessons</h1>
   <% @lessons.each do |lesson| %>
-    <h3><%= link_to lesson.theme, course_lesson_path(@course, lesson) %></h3>
+    <h3><%= link_to lesson.theme, course_lesson_path(@course, lesson) %></h3><small><%= lesson.time %></small>
     <br>
     <%= link_to 'check_ins', check_ins_path(course_id: lesson.course.id, lesson_id: lesson.id) %>
     <br>
