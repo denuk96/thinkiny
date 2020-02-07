@@ -11,7 +11,9 @@ module CoursesRights
   def verify_moderators
     organizer = @course.course_users.find_by(role: 'organizer', user_id: current_user&.id)&.user&.id
     instructor = @course.course_users.find_by(role: 'instructor', user_id: current_user&.id)&.user&.id
-    unless (current_user&.id == organizer || current_user&.id == instructor || current_user&.admin == true) && current_user.present?
+    unless (current_user&.id == organizer ||
+            current_user&.id == instructor ||
+            current_user&.admin == true) && current_user.present?
       redirect_to course_path(@course), alert: 'You have no right'
     end
   end

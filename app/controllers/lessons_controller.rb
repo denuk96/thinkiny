@@ -1,6 +1,8 @@
 class LessonsController < ApplicationController
+  include CoursesRights
   before_action :set_course
   before_action :set_lesson, only: %i[show edit update destroy]
+  before_action :verify_moderators, except: %i[index show]
 
   def index
     @lessons = Lesson.where(course_id: params[:course_id]).order('time ASC')
@@ -26,8 +28,7 @@ class LessonsController < ApplicationController
 
   def update
     if @lesson.update(lesson_params)
-      redirect_to @course
-      flash[:success] = 'Lesson has been edited'
+      redirect_to @course, notice: 'Lesson has been edited'
     else
       render :edit
     end
