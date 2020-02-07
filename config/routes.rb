@@ -1,13 +1,21 @@
 Rails.application.routes.draw do
   root 'courses#index'
 
-  resources :check_ins
+  get 'join', to: 'joins#join_to_course', as: 'join'
 
   resources :courses do
-    resources :lessons
+    collection do
+      get 'change_role'
+    end
+    resources :lessons do
+      resources :check_ins do
+        collection do
+          get 'user_attendance'
+        end
+      end
+    end
   end
-  
-  get 'join', to: 'joins#join_to_course', as: 'join'
+
   resources :users
   resources :sessions
 
