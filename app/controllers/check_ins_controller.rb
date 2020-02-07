@@ -1,6 +1,8 @@
 class CheckInsController < ApplicationController
+  include CoursesRights
   before_action :set_lesson, only: %i[index]
   before_action :set_check_in, only: %i[user_attendance edit update]
+  before_action :verify_moderators, only: %i[user_attendance edit update]
 
   def index
     @lesson.course.users.each do |user|
@@ -37,6 +39,7 @@ class CheckInsController < ApplicationController
 
   def set_check_in
     @check_in = CheckIn.find_by(id: params[:id])
+    @course = @check_in.lesson.course
   end
 
   def set_lesson

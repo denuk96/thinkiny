@@ -1,5 +1,8 @@
 class CoursesController < ApplicationController
+  include CoursesRights
   before_action :set_course, only: %i[show edit update destroy change_role]
+  before_action :verify_organizer, only: %i[destroy]
+  before_action :verify_moderators, only: %i[edit update change_role]
 
   def index
     @courses = Course.all
@@ -25,8 +28,7 @@ class CoursesController < ApplicationController
 
   def update
     if @course.update(course_params)
-      redirect_to @course
-      flash[:notice] = 'Course has been edited'
+      redirect_to @course, notice: 'Course has been edited'
     else
       render :edit
     end
@@ -38,7 +40,6 @@ class CoursesController < ApplicationController
   end
 
   def change_role
-    verify_organizer
     @course_user = @course.course_users.find_by(id: params[:course_user_id])
     if @course_user.role == 'participant'
       @course_user.update(role: 'instructor')
@@ -50,10 +51,6 @@ class CoursesController < ApplicationController
   end
 
   private
-
-  def verify_organizer
-    true if current_user.id == @course.course_users.find_by(role: 'organizer').user.id
-  end
 
   def set_course
     @course = Course.find(params[:id])
