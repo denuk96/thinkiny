@@ -149,8 +149,8 @@ Rails.application.config.sorcery.configure do |config|
   # config.auth0.callback_url = "https://0.0.0.0:3000/oauth/callback?provider=auth0"
   # config.auth0.site = "https://example.auth0.com"
   #
-  # config.google.key = ""
-  # config.google.secret = ""
+  # config.google.key = "731415562513-kp6m4rjibsuvsuovms16ef4sv20t8d3k.apps.googleusercontent.com"
+  # config.google.secret = "YLzno3VZa1nhYoR79ZZMLU4u"
   # config.google.callback_url = "http://0.0.0.0:3000/oauth/callback?provider=google"
   # config.google.user_info_mapping = {:email => "email", :username => "name"}
   # config.google.scope = "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile"
