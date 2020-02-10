@@ -1,3 +1,26 @@
+<script>
+  function initMap(lat, lng) {
+    var myCoords = new google.maps.LatLng(lat, lng);
+    var mapOptions = {
+    center: myCoords,
+    zoom: 14
+    };
+    var map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+    var marker = new google.maps.Marker({
+    position: myCoords,
+    map: map
+});
+}
+</script>
+<% provide :head_tags do %>
+  <meta name='turbolinks-visit-control' content='reload'>
+  <script>
+    document.addEventListener("DOMContentLoaded", function(){
+      initMap(<%=@course.latitude%>, <%=@course.longitude%>)
+    });
+  </script>
+<% end %>
 <div class="offset-md-1 mt-5">
   <div class="col-10">
     <div class="card">
@@ -45,6 +68,8 @@
       <% end %>
     </p>
   </div>
-  <p class="text-center"><%= image_tag "https://maps.googleapis.com/maps/api/staticmap?zoom=17&size=400x300&center=#{@course.latitude},#{@course.longitude}&key=AIzaSyDaSUECXk7vEFyTqN6XajXccqTL3OU2XJY", alt: "Map" %></p>
   <%= link_to "Back", courses_path, class: "btn btn-outline-dark" %>
+</div>
+<div class="text-center">
+    <div id="map"></div>
 </div>
