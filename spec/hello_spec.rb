@@ -7,5 +7,8 @@ RSpec.describe 'hello spec' do
     it '2+2' do
       expect(2 + 2).to eq(4)
     end
+
+    it 'testing stuff' do
+    end
   end
 end

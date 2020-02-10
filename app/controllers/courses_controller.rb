@@ -1,8 +1,8 @@
 class CoursesController < ApplicationController
   include CoursesRights
   before_action :set_course, only: %i[show edit update destroy change_role]
-  before_action :verify_organizer, only: %i[destroy]
-  before_action :verify_moderators, only: %i[edit update change_role]
+  # before_action :verify_organizer, only: %i[destroy]
+  # before_action :verify_moderators, only: %i[edit update change_role]
 
   def index
     @courses = Course.all
@@ -17,8 +17,8 @@ class CoursesController < ApplicationController
   def create
     @course = Course.new(course_params)
     if @course.save
-      CourseUser.create(course_id: @course.id, user_id: current_user.id, role: 'organizer')
-      redirect_to @course
+      @course.course_users.create(user_id: current_user.id, role: 'organizer')
+      redirect_to course_path(@course)
     else
       render :new
     end
@@ -35,6 +35,7 @@ class CoursesController < ApplicationController
   end
 
   def destroy
+    @course = Course.find(params[:id])
     @course.destroy
     redirect_to root_path
   end
