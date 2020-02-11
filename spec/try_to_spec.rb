@@ -8,7 +8,11 @@ RSpec.describe 'hello spec' do
       expect(2 + 2).to eq(4)
     end
 
-    it 'testing stuff' do
-    end
+    # feature 'Your Feature' do
+    #   let(:user) { FactoryGirl.create(:user) }
+    #   scenario 'Your Scenario' do
+    #     login user
+    #   end
+    # end
   end
 end

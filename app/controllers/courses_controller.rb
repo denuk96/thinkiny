@@ -1,8 +1,8 @@
 class CoursesController < ApplicationController
   include CoursesRights
   before_action :set_course, only: %i[show edit update destroy change_role]
-  # before_action :verify_organizer, only: %i[destroy]
-  # before_action :verify_moderators, only: %i[edit update change_role]
+  before_action :verify_organizer, only: %i[destroy]
+  before_action :verify_moderators, only: %i[edit update change_role]
 
   def index
     @courses = Course.all
