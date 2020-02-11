@@ -87,9 +87,9 @@ RSpec.describe CoursesController, type: :controller do
       # expect(flash[:notice]).to eq 'Product was successfully deleted.'
     end
 
-    it 'should does not delete course and redirect course if user is unloged' do
+    it 'should does not delete course and redirect to root if user is unloged' do
       delete :destroy, params: { id: course.id }
-      response.should redirect_to(course)
+      response.should redirect_to(root_path)
     end
   end
 
