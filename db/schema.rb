@@ -10,10 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_05_205205) do
+
+ActiveRecord::Schema.define(version: 2020_02_09_151358) do
+
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "authentications", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "provider", null: false
+    t.string "uid", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["provider", "uid"], name: "index_authentications_on_provider_and_uid"
+  end
 
   create_table "check_ins", force: :cascade do |t|
     t.bigint "lesson_id"
@@ -42,6 +53,9 @@ ActiveRecord::Schema.define(version: 2020_02_05_205205) do
     t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "address"
+    t.float "latitude"
+    t.float "longitude"
   end
 
   create_table "lessons", force: :cascade do |t|
@@ -65,8 +79,17 @@ ActiveRecord::Schema.define(version: 2020_02_05_205205) do
     t.string "remember_me_token"
     t.datetime "remember_me_token_expires_at"
     t.string "last_name"
+    t.integer "failed_logins_count", default: 0
+    t.datetime "lock_expires_at"
+    t.string "unlock_token"
+    t.datetime "last_login_at"
+    t.datetime "last_logout_at"
+    t.datetime "last_activity_at"
+    t.string "last_login_from_ip_address"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["last_logout_at", "last_activity_at"], name: "index_users_on_last_logout_at_and_last_activity_at"
     t.index ["remember_me_token"], name: "index_users_on_remember_me_token"
+    t.index ["unlock_token"], name: "index_users_on_unlock_token"
   end
 
   add_foreign_key "check_ins", "lessons"
