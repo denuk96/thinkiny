@@ -1,3 +1,18 @@
+# == Schema Information
+#
+# Table name: courses
+#
+#  id          :bigint           not null, primary key
+#  name        :string
+#  description :text
+#  status      :string
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  address     :string
+#  latitude    :float
+#  longitude   :float
+#
+
 require 'rails_helper'
 
 RSpec.describe Course, type: :model do
