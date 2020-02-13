@@ -14,7 +14,6 @@ RSpec.describe LessonsController, type: :controller do
   end
 
   context 'GET #show' do
-
     it 'render show if lesson found' do
       get :show, params: { id: @lesson.id, course_id: @course.id }
       expect(response).to render_template('show')
@@ -40,9 +39,9 @@ RSpec.describe LessonsController, type: :controller do
 
   context 'Create action' do
     it 'should redirect to root if user has no right or unlogged' do
-      expect {
+      expect do
         post :create, params: { id: @lesson.id, course_id: @course.id }
-      }.to change(Course, :count).by(0)
+      end.to change(Course, :count).by(0)
       expect(response).to redirect_to(root_path)
     end
 

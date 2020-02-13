@@ -4,13 +4,11 @@ RSpec.describe 'courses/index', type: :view do
   before(:each) do
     assign(:courses,
            [
-               Course.create!(name: "test name", description:'description'),
-               Course.create!(name: "test name2", description: 'description2')
-           ]
-    )
+             Course.create!(name: 'test name', description: 'description'),
+             Course.create!(name: 'test name2', description: 'description2')
+           ])
   end
   it 'displays course details correctly' do
-
     render
 
     expect(rendered).to match /test name/

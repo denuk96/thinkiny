@@ -26,7 +26,6 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   context 'validation tests' do
-
     it 'ensure email  is valid' do
       user = User.new(email: 'blablabla@mail.com')
       expect(user.valid?).to eq(false)

@@ -58,14 +58,13 @@ RSpec.describe CoursesController, type: :controller do
     # end
   end
 
-
   context 'PUT #update' do
     let!(:course) { FactoryGirl.create :course }
 
     it 'should update course info' do
       params = {
-          name: 'test name',
-          description: 'test description'
+        name: 'test name',
+        description: 'test description'
       }
 
       put :update, params: { id: course.id, course: params }
@@ -76,10 +75,7 @@ RSpec.describe CoursesController, type: :controller do
     end
   end
 
-
-
   context 'DELETE #destroy' do
-
     let!(:course) { FactoryGirl.create :course }
 
     it 'should does not delete course if user is unloged' do
@@ -92,5 +88,4 @@ RSpec.describe CoursesController, type: :controller do
       response.should redirect_to(root_path)
     end
   end
-
 end
