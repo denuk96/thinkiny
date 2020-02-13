@@ -26,6 +26,5 @@ RSpec.describe CourseUser, type: :model do
       course_user = CourseUser.new(course_id: course.id, user_id: user.id, role: 'participant')
       expect(course_user.valid?).to eq(true)
     end
-
   end
 end

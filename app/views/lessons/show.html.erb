@@ -1,9 +1,12 @@
 <div class="container">
   <h3 class="text-center"><%= @lesson.theme.upcase %></h3>
+  <p class="text-center"><b><%= @lesson.time.strftime("%A") %></b></p>
   <p class="text-center"><small><%= @lesson.time %></small></p>
   <p class="text-center"><%= @lesson.description %></p>
-  <%= link_to 'check_ins', course_lesson_check_ins_path(course_id: @lesson.course.id, lesson_id: @lesson.id) %>
-  <%= link_to "Edit", edit_course_lesson_path(@course, @lesson) %> |
-  <%= link_to "Destroy", course_lesson_path(@course, @lesson),  method: :delete, data: { confirm: 'Are you sure?' }%>
+  <% if current_user && verify_instructor(@lesson.course, current_user) %>
+    <%= link_to 'check_ins', course_lesson_check_ins_path(course_id: @lesson.course.id, lesson_id: @lesson.id) %>
+    <%= link_to "Edit", edit_course_lesson_path(@course, @lesson) %> |
+    <%= link_to "Destroy", course_lesson_path(@course, @lesson),  method: :delete, data: { confirm: 'Are you sure?' }%>
+  <% end %>
   <%= link_to "Back", courses_path, class: "btn btn-outline-dark" %>
 </div>

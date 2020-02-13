@@ -14,9 +14,12 @@
 #
 
 class Course < ApplicationRecord
+  geocoded_by :address
+
   has_many :course_users, dependent: :destroy
   has_many :users, through: :course_users
   has_many :lessons
 
+  after_validation :geocode
   validates_presence_of :name, :description
 end

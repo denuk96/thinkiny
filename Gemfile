@@ -4,6 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.6.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+gem 'geocoder'
 gem 'rails', '~> 6.0.2'
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18', '< 2.0'
@@ -28,15 +29,14 @@ gem 'jbuilder', '~> 2.7'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
 
-
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   # https://github.com/rspec/rspec-rails/issues/2177
-  gem 'rspec-rails', '4.0.0.beta3'
+  gem 'capybara'
   gem 'factory_girl_rails'
   gem 'rails-controller-testing'
-  gem 'capybara'
+  gem 'rspec-rails', '4.0.0.beta3'
 end
 
 group :development do

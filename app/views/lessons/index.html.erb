@@ -5,15 +5,24 @@
       <div class="card">
         <div class="card-body">
           <div class="row">
-            <h4><%= link_to lesson.theme, course_lesson_path(@course, lesson) %></h4>
-            <%= link_to 'check_ins', course_lesson_check_ins_path(course_id: lesson.course.id, lesson_id: lesson.id),
-                        class: "btn btn-outline-dark ml-auto"%>
+            <% if lesson.time > Time.now %>
+              <h2><%= lesson.time.strftime("%A") %> </h2>
+              <h4> <%= link_to lesson.theme, course_lesson_path(@course, lesson) %></h4>
+              <%= link_to 'check_ins', course_lesson_check_ins_path(course_id: lesson.course.id, lesson_id: lesson.id),
+                          class: "btn btn-outline-dark ml-auto"%>
+            <% else %>
+              <s><h2><%= lesson.time.strftime("%A") %> </h2></s>
+              <h4> <%= link_to lesson.theme, course_lesson_path(@course, lesson) %></h4>
+              <%= link_to 'check_ins', course_lesson_check_ins_path(course_id: lesson.course.id, lesson_id: lesson.id),
+                          class: "btn btn-outline-dark ml-auto"%>
+            <% end %>
           </div>
         </div>
       </div>
     </div>
   <% end %>
-  <%= link_to "Add lessons", new_course_lesson_path(@course), class: "btn btn-outline-dark ml-3" %>
+  <% if current_user && verify_instructor(@course, current_user) %>
+    <%= link_to "Add lessons", new_course_lesson_path(@course), class: "btn btn-outline-dark ml-3" %>
+  <% end %>
   <%= link_to "Back", _back_url, class: "btn btn-outline-dark ml-1" %>
 </div>
-
