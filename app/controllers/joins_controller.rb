@@ -15,7 +15,7 @@ class JoinsController < ApplicationController
 
   def already_joined?
     if @course.course_users.find_by(user_id: current_user.id).present?
-      redirect_to course_path(@course), notice: 'joined'
+      redirect_to course_path(@course), alert: 'Already joined'
     end
   end
 

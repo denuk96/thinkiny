@@ -1,7 +1,6 @@
 FactoryGirl.define do
   factory :course do
-    name 'test name'
-    # sequence do it uniq
+    sequence(:name) { |i| "test name#{i}" }
     description 'test description'
   end
 end
