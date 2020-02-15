@@ -37,7 +37,7 @@ class CoursesController < ApplicationController
   def destroy
     @course = Course.find(params[:id])
     @course.destroy
-    redirect_to root_path
+    redirect_to courses_path, notice: 'Course has been successfully destroyed'
   end
 
   def change_role
