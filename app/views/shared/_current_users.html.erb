@@ -3,11 +3,7 @@
   <small>Active users: </small>
     <% current_users.each do |user| %>
       <small>
-        <% if user.first_name.present? %>
-          <%= user.first_name %>
-        <% else %>
-          <%= user.email %>
-        <% end %>
+        <%= if user.first_name.present? ? user.first_name : user.email %>
       </small>
     <% end %>
   </div>
