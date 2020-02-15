@@ -1,17 +1,23 @@
 Rails.application.routes.draw do
-  get 'oauths/oauth'
-  get 'oauths/callback'
-  get 'admin_panel/index'
   root 'courses#index'
 
-  resources :courses
+  get 'join', to: 'joins#join_to_course', as: 'join'
+
+  resources :courses do
+    get 'change_role', on: :collection
+    resources :lessons do
+      resources :check_ins do
+        get 'user_attendance', on: :collection
+      end
+    end
+  end
+
   resources :users
   resources :sessions
-  resources :admin_panel
 
-  get "logout" => "sessions#destroy", :as => "logout"
-  get "login" => "sessions#new", :as => "login"
-  get "signup" => "users#new", :as => "signup"
+  get 'signup', to: 'users#new', as: 'signup'
+  get 'login', to: 'sessions#new', as: 'login'
+  get 'logout', to: 'sessions#destroy', as: 'logout'
   post "oauth/callback" => "oauths#callback"
   get "oauth/callback" => "oauths#callback" # for use with Github, Facebook
   get "oauth/:provider" => "oauths#oauth", :as => :auth_at_provider
