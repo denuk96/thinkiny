@@ -13,10 +13,23 @@
 #  remember_me_token            :string
 #  remember_me_token_expires_at :datetime
 #  last_name                    :string
+#  failed_logins_count          :integer          default(0)
+#  lock_expires_at              :datetime
+#  unlock_token                 :string
+#  last_login_at                :datetime
+#  last_logout_at               :datetime
+#  last_activity_at             :datetime
+#  last_login_from_ip_address   :string
 #
 
 class User < ApplicationRecord
-  authenticates_with_sorcery!
+  #attr_accessible :email, :password, :password_confirmation, :crypted_password, :authentications_attributes
+  authenticates_with_sorcery! do |config|
+    config.authentications_class = Authentication
+  end
+
+  has_many :authentications, :dependent => :destroy
+  accepts_nested_attributes_for :authentications
 
   has_many :course_users
   has_many :courses, through: :course_users
@@ -32,9 +45,9 @@ class User < ApplicationRecord
   class << self
     def current_users
       where("#{sorcery_config.last_activity_at_attribute_name} IS NOT NULL") \
-.where("#{sorcery_config.last_logout_at_attribute_name} IS NULL
+        .where("#{sorcery_config.last_logout_at_attribute_name} IS NULL
   OR #{sorcery_config.last_activity_at_attribute_name} > #{sorcery_config.last_logout_at_attribute_name}") \
-.where("#{sorcery_config.last_activity_at_attribute_name} > ? ", sorcery_config.activity_timeout.seconds.ago.utc.to_s(:db))
+        .where("#{sorcery_config.last_activity_at_attribute_name} > ? ", sorcery_config.activity_timeout.seconds.ago.utc.to_s(:db))
     end
   end
 end

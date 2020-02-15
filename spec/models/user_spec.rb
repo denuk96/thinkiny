@@ -22,14 +22,24 @@
 #  last_login_from_ip_address   :string
 #
 
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+require 'rails_helper'
 
-# This model initially had no columns defined. If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-one: {}
-# column: value
-#
-two: {}
-# column: value
+RSpec.describe User, type: :model do
+  context 'validation tests' do
+    it 'ensure email  is valid' do
+      user = User.new(email: 'blablabla@mail.com')
+      expect(user.valid?).to eq(false)
+    end
+
+    it 'ensure password is valid' do
+      user = User.new(password: 'password', password_confirmation: 'password')
+      expect(user.valid?).to eq(false)
+    end
+
+    it 'ensure user can be saved' do
+      user = User.new(email: 'blablabla@mail.com', password: 'password', password_confirmation: 'password')
+      expect(user.valid?).to eq(true)
+      expect(user.save).to eq(true)
+    end
+  end
+end

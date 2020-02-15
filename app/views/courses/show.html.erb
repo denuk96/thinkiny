@@ -8,10 +8,18 @@
             <%= @course.name %>
           </h3>
           <div class="ml-auto">
-            <%= link_to 'join', join_path(id: @course ), class: "btn btn-outline-dark" %>
-            <%= link_to "Edit", edit_course_path(@course), class: "btn btn-outline-dark"  %>
-            <%= link_to "Destroy", course_path(@course), class: "btn btn-outline-dark" ,
-                        method: :delete, data: { confirm: 'Are you sure?' }%>
+            <% if current_user %>
+              <% if already_joined?(@course, current_user) %>
+                <button type="button" class="btn btn-outline-dark" disabled>Joinded</button>
+              <% else %>
+                <%= link_to 'join', join_path(id: @course), class: "btn btn-outline-dark" %>
+              <% end %>
+              <% if verify_organizer(@course, current_user) %>
+                <%= link_to "Edit", edit_course_path(@course), class: "btn btn-outline-dark"  %>
+                <%= link_to "Destroy", course_path(@course), class: "btn btn-outline-dark",
+                            method: :delete, data: { confirm: 'Are you sure?' } %>
+              <% end %>
+            <% end %>
           </div>
         </div>
         <h2>
@@ -22,7 +30,9 @@
       <div class="card-body">
         <h5 class="card-title"><%= @course.description %></h5>
         <%= link_to "Show lessons", course_lessons_path(@course), class: "btn btn-outline-dark" %>
-        <%= link_to "Add lessons", new_course_lesson_path(@course), class: "btn btn-outline-dark" %>
+        <% if current_user && verify_instructor(@course, current_user) %>
+          <%= link_to "Add lessons", new_course_lesson_path(@course), class: "btn btn-outline-dark" %>
+        <% end %>
       </div>
     </div>
   </div>
@@ -31,7 +41,9 @@
     <p class="offset-1 mt-2">
       <% @course&.course_users.where(role: 'instructor').each do |instructor| %>
         <%= instructor.user.email %>
-        <%= link_to 'to participant', change_role_courses_path(id: @course.id, course_user_id: instructor.id) %>
+        <% if current_user && verify_instructor(@course, current_user) %>
+          <%= link_to 'to participant', change_role_courses_path(id: @course.id, course_user_id: instructor.id) %>
+        <% end %>
         <br>
       <% end %>
     </p>
@@ -41,7 +53,9 @@
     <p class="offset-1 mt-2">
       <% @course&.course_users.where(role: 'participant').each do |participant| %>
         <%= participant.user.email %>
-        <%= link_to 'to instructor', change_role_courses_path(id: @course.id, course_user_id: participant.id) %>
+        <% if current_user && verify_instructor(@course, current_user) %>
+          <%= link_to 'to instructor', change_role_courses_path(id: @course.id, course_user_id: participant.id) %>
+        <% end %>
         <br>
       <% end %>
     </p>
@@ -67,6 +81,7 @@
 });
 }
 </script>
+
 <script>
     $('#map').prepend(initMap(<%= @course.latitude %>, <%= @course.longitude %>));
 </script>
