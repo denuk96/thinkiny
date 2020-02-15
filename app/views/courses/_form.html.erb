@@ -1,3 +1,10 @@
+<% provide :head_tags do %>
+  <meta name='turbolinks-visit-control' content='reload'>
+    <script>
+        document.addEventListener("DOMContentLoaded", initMap2);
+    </script>
+<% end %>
+
 <%= form_with(model: @course, local: true) do |form| %>
     <% if @course.errors.any? %>
       <div class="alert alert-danger">
@@ -19,13 +26,71 @@
       <%= form.text_area :description, class: "form-control"%>
     </div>
 
-    <div class="field mt-5">
-      <%= form.label :address %>
-      <%= form.text_field :address, class: "form-control"%>
-    </div>
+    <br>
+
+    <!--<div class="field mt-5">-->
+      <!--<%= form.label :address %>-->
+      <!--<%= form.text_field :address, class: "form-control"%>-->
+    <!--</div>-->
+
+      <%= form.hidden_field :latitude, class: "form-control"%>
+      <%= form.hidden_field :longitude, class: "form-control"%>
+
+
+    <div id="map2"></div>
 
     <br>
     <div class="ml-auto mt-2">
       <%= form.submit 'Submit', class: "btn btn-outline-dark" %>
     </div>
 <% end %>
+<script>
+  function initMap2() {
+      var lat = document.getElementById('course_latitude').value;
+      var lng = document.getElementById('course_longitude').value;
+
+      // if not defined create default position
+      if (!lat || !lng){
+          lat=51.5;
+          lng=-0.125;
+          document.getElementById('course_latitude').value = lat;
+          document.getElementById('course_longitude').value = lng;
+      }
+      var myCoords = new google.maps.LatLng(lat, lng);
+      var mapOptions = {
+      center: myCoords,
+      zoom: 14
+      };
+      var map = new google.maps.Map(document.getElementById('map2'), mapOptions);
+      var marker = new google.maps.Marker({
+          position: myCoords,
+          animation: google.maps.Animation.DROP,
+          map: map,
+          draggable: true
+      });
+      // refresh marker position and recenter map on marker
+      function refreshMarker(){
+          var lat = document.getElementById('course_latitude').value;
+          var lng = document.getElementById('course_longitude').value;
+          var myCoords = new google.maps.LatLng(lat, lng);
+          marker.setPosition(myCoords);
+          map.setCenter(marker.getPosition());
+      }
+      // when input values change call refreshMarker
+      document.getElementById('course_latitude').onchange = refreshMarker;
+      document.getElementById('course_longitude').onchange = refreshMarker;
+      // when marker is dragged update input values
+      marker.addListener('drag', function() {
+          latlng = marker.getPosition();
+          newlat=(Math.round(latlng.lat()*1000000))/1000000;
+          newlng=(Math.round(latlng.lng()*1000000))/1000000;
+          document.getElementById('course_latitude').value = newlat;
+          document.getElementById('course_longitude').value = newlng;
+      });
+      // When drag ends, center (pan) the map on the marker position
+      marker.addListener('dragend', function() {
+          map.panTo(marker.getPosition());
+      });
+  }
+    document.addEventListener("DOMContentLoaded", initMap2);
+</script>
