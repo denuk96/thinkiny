@@ -155,6 +155,8 @@ Rails.application.config.sorcery.configure do |config|
    config.google.callback_url = "http://thinkiny.ddns.net/oauth/callback?provider=google"
    config.google.user_info_mapping = {
        :email => "email",
+       :first_name => "given_name",
+       :last_name => "family_name"
    }
   # For Microsoft Graph, the key will be your App ID, and the secret will be your app password/public key.
   # The callback URL "can't contain a query string or invalid special characters"
