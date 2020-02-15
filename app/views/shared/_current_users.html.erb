@@ -1,9 +1,10 @@
-<!--<div class="col-sm-3 well well-sm">-->
-<!--  <h5>Active users:</h5>-->
-<!--  <ul>-->
-    <%# current_users.each do |user| %>
-<!--      <li><%#= user.email %></li>-->
-    <%# end %>
-    <%#= current_user.id %>
-<!--  </ul>-->
-<!--</div>-->
+<div class="row mb-4 ml-0">
+  <div class="col">
+  <small>Active users: </small>
+    <% current_users.each do |user| %>
+      <small>
+        <%= if user.first_name.present? ? user.first_name : user.email %>
+      </small>
+    <% end %>
+  </div>
+</div>
