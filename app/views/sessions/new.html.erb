@@ -13,6 +13,7 @@
       <%= label_tag :remember_me %>
     </div>
     <div class="actions"><br>
+      <%= link_to 'Login with Facebook', auth_at_provider_path(:provider => :facebook) %>
       <%= f.submit 'Sing in', class:"btn btn-outline-dark" %>
       <%= link_to 'Sing up', new_user_path, class: "btn btn-outline-dark" %>
     </div>
