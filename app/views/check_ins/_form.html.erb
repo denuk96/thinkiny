@@ -1,0 +1,12 @@
+<%= form_with(model: [:course, :lesson, @check_in],local: true) do |form| %>
+
+  <div class="field">
+    <%= form.label :note %>
+    <%= form.text_field :note, class: "form-control" %>
+  </div>
+
+  <p>
+    <%= form.submit class: "btn btn-light" %>
+  </p>
+
+<% end %>

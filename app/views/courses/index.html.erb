@@ -1,0 +1,29 @@
+<%= render 'shared/current_users' %>
+<h1 class="text-sm-center mt-5">All courses</h1>
+<div class="offset-1 offset-sm-2 offset-md-2 mt-5">
+  <% @courses.each do |course| %>
+    <div class="col-10 mb-4">
+      <div class="card">
+        <div class="card-header">
+          <div class="row">
+            <h3><%= link_to course.name, course_path(course) %></h3>
+            <div class="ml-auto">
+              <% if current_user %>
+                <% if already_joined?(course, current_user) %>
+                  <button type="button" class="btn btn-outline-dark" disabled>Joinded</button>
+                <% else %>
+                  <%= link_to 'join', join_path(id: course), class: "btn btn-outline-dark" %>
+                <% end %>
+              <% else %>
+                <%= link_to 'join', login_path, class: "btn btn-outline-dark"  %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="card-text">Description: <b><%= course.description %></b></p>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

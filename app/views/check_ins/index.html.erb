@@ -1,0 +1,18 @@
+<div class="container">
+  <h1> CHECK INS in <b><%= @lesson.theme %></b></h1>
+  <% @check_ins.each do |check_in| %>
+    <%= check_in.user.email %>
+    <%= check_in.attendance %>
+    <br>
+    note:
+    <b><%= check_in.note %></b>
+    <br>
+    <% if current_user && verify_instructor(@lesson.course, current_user) %>
+      <%= link_to 'check', user_attendance_course_lesson_check_ins_path(id: check_in) %>
+      <%= link_to 'note', edit_course_lesson_check_in_path(id: check_in) %>
+    <% end %>
+    <br>
+  <% end %>
+  <hr>
+  <%= link_to "Back", courses_path, class: "btn btn-outline-dark" %>
+</div>

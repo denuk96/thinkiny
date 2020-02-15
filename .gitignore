@@ -89,3 +89,5 @@ config/master.production.key
 /config/master.production.key
 /config/database.production.yml
 /config/secrets.production.yml
+/config/database_secret.yml
+config/local_env.yml
