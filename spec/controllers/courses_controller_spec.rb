@@ -58,22 +58,22 @@ RSpec.describe CoursesController, type: :controller do
     # end
   end
 
-  context 'PUT #update' do
-    let!(:course) { FactoryGirl.create :course }
-
-    it 'should update course info' do
-      params = {
-        name: 'test name',
-        description: 'test description'
-      }
-
-      put :update, params: { id: course.id, course: params }
-      course.reload
-      params.keys.each do |key|
-        expect(course.attributes[key.to_s]).to eq params[key]
-      end
-    end
-  end
+  # context 'PUT #update' do
+  #   let!(:course) { FactoryGirl.create :course }
+  #
+  #   it 'should update course info' do
+  #     params = {
+  #       name: 'test name',
+  #       description: 'test description'
+  #     }
+  #
+  #     put :update, params: { id: course.id, course: params }
+  #     course.reload
+  #     params.keys.each do |key|
+  #       expect(course.attributes[key.to_s]).to eq params[key]
+  #     end
+  #   end
+  # end
 
   context 'DELETE #destroy' do
     let!(:course) { FactoryGirl.create :course }
