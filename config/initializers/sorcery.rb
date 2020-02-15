@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # The first thing you need to configure is which modules you need in your app.
 # The default is nothing which will include only core features (password encryption, login/logout).
 #
@@ -81,7 +83,7 @@ Rails.application.config.sorcery.configure do |config|
   # i.e. [:twitter, :facebook, :github, :linkedin, :xing, :google, :liveid, :salesforce, :slack, :line].
   # Default: `[]`
   #
-   config.external_providers = [:facebook, :google]
+  config.external_providers = %i[facebook google]
 
   # You can change it by your local ca_file. i.e. '/etc/pki/tls/certs/ca-bundle.crt'
   # Path to ca_file. By default use a internal ca-bundle.crt.
@@ -113,12 +115,12 @@ Rails.application.config.sorcery.configure do |config|
   # config.twitter.callback_url = "http://0.0.0.0:3000/oauth/callback?provider=twitter"
   # config.twitter.user_info_mapping = {:email => "screen_name"}
   #
-   config.facebook.key = ENV['FACEBOOK_KEY']
-   config.facebook.secret = ENV['FACEBOOK_SECRET']
-   config.facebook.callback_url = "http://localhost:3000/oauth/callback?provider=facebook"
-   config.facebook.user_info_mapping = {:email => "email"} #etc
-   config.facebook.scope = "email" #etc
-   config.facebook.display = "popup"
+  config.facebook.key = ENV['FACEBOOK_KEY']
+  config.facebook.secret = ENV['FACEBOOK_SECRET']
+  config.facebook.callback_url = 'http://localhost:3000/oauth/callback?provider=facebook'
+  config.facebook.user_info_mapping = { email: 'email' } # etc
+  config.facebook.scope = 'email' # etc
+  config.facebook.display = 'popup'
   # config.facebook.api_version = "v2.3"
   # config.facebook.parse = :json
   #
@@ -150,14 +152,14 @@ Rails.application.config.sorcery.configure do |config|
   # config.auth0.callback_url = "https://0.0.0.0:3000/oauth/callback?provider=auth0"
   # config.auth0.site = "https://example.auth0.com"
   #
-   config.google.key = ENV['GOOGLE_KEY']
-   config.google.secret = ENV['GOOGLE_SECRET']
-   config.google.callback_url = "http://thinkiny.ddns.net/oauth/callback?provider=google"
-   config.google.user_info_mapping = {
-       :email => "email",
-       :first_name => "given_name",
-       :last_name => "family_name"
-   }
+  config.google.key = ENV['GOOGLE_KEY']
+  config.google.secret = ENV['GOOGLE_SECRET']
+  config.google.callback_url = 'http://thinkiny.ddns.net/oauth/callback?provider=google'
+  config.google.user_info_mapping = {
+      email: 'email',
+      first_name: 'given_name',
+      last_name: 'family_name'
+  }
   # For Microsoft Graph, the key will be your App ID, and the secret will be your app password/public key.
   # The callback URL "can't contain a query string or invalid special characters"
   # See: https://docs.microsoft.com/en-us/azure/active-directory/active-directory-v2-limitations#restrictions-on-redirect-uris
@@ -509,7 +511,7 @@ Rails.application.config.sorcery.configure do |config|
     # Class which holds the various external provider data for this user.
     # Default: `nil`
     #
-     user.authentications_class = Authentication
+    user.authentications_class = Authentication
 
     # User's identifier in the `authentications` class.
     # Default: `:user_id`
@@ -529,5 +531,5 @@ Rails.application.config.sorcery.configure do |config|
 
   # This line must come after the 'user config' block.
   # Define which model authenticates with sorcery.
-  config.user_class = "User"
+  config.user_class = 'User'
 end

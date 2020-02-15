@@ -1,8 +1,14 @@
-<div class="col-sm-3 well well-sm">
-  <h5>Active users:</h5>
-  <ul>
+<div class="row mb-4 ml-0">
+  <div class="col">
+  <small>Active users: </small>
     <% current_users.each do |user| %>
-      <li><%= user.email %></li>
+      <small>
+        <% if user.first_name.present? %>
+          <%= user.first_name %>
+        <% else %>
+          <%= user.email %>
+        <% end %>
+      </small>
     <% end %>
-  </ul>
+  </div>
 </div>
