@@ -1,10 +1,15 @@
 class UsersController < ApplicationController
   include CheckAuthorization
   before_action :current_user_already_exist?
-
+  before_action :set_user, only: %i[show edit update destroy]
+  before_action :admin_verify, only: [:edit, :update, :destroy]
+  
   def index
     redirect_to signup_path
   end
+  
+  def show; end
+
 
   def new
     @user = User.new
