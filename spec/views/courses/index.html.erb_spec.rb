@@ -18,7 +18,6 @@ RSpec.describe 'courses/index', type: :view do
   end
 
   it 'displays course details correctly' do
-
     render
 
     expect(rendered).to match /test name/

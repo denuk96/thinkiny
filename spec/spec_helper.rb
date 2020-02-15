@@ -18,7 +18,6 @@
 require 'sorcery/test_helpers/rails/controller'
 require 'sorcery/test_helpers/rails/integration'
 
-
 RSpec.configure do |config|
   # config.include Sorcery::TestHelpers::Rails
   config.include Sorcery::TestHelpers::Rails::Controller, type: :controller

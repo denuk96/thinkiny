@@ -34,10 +34,10 @@ group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   # For testing
   # https://github.com/rspec/rspec-rails/issues/2177
-  gem 'rspec-rails', '4.0.0.beta3'
   gem 'capybara'
   gem 'factory_girl_rails'
   gem 'rails-controller-testing'
+  gem 'rspec-rails', '4.0.0.beta3'
 end
 
 group :development do
