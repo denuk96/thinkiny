@@ -1,3 +1,4 @@
+<h1><%= request.location.ip %></h1>
 <div class="offset-md-1 mt-5">
   <div class="col-10">
     <div class="card">
@@ -64,22 +65,23 @@
 <div class="text-center">
     <div id="map"></div>
 </div>
-<script>
-    function initMap(lat, lng) {
-        var myCoords = new google.maps.LatLng(lat, lng);
-        var mapOptions = {
-            center: myCoords,
-            zoom: 14
-        };
-        var map = new google.maps.Map(document.getElementById('map'), mapOptions);
 
-        var marker = new google.maps.Marker({
-            position: myCoords,
-            map: map
-        });
-    }
+<script>
+  function initMap(lat, lng) {
+    var myCoords = new google.maps.LatLng(lat, lng);
+    var mapOptions = {
+    center: myCoords,
+    zoom: 14
+    };
+    var map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+    var marker = new google.maps.Marker({
+    position: myCoords,
+    map: map
+});
+}
 </script>
+
 <script>
     $('#map').prepend(initMap(<%= @course.latitude %>, <%= @course.longitude %>));
 </script>
-
