@@ -25,6 +25,12 @@
         <h2>
           Created by:
           <b><%= @course.course_users&.find_by(role: 'organizer')&.user&.email %></b>
+          <br>
+          Pre-moderation:
+          <%= @course.pre_moderation %>
+          <br>
+          Place quantities:
+          <%= @course.place_quantities %>
         </h2>
       </div>
       <div class="card-body">
@@ -51,10 +57,24 @@
   <div class="ml-3">
     <b class="mt-5 blockquote-footer">Joined users:</b>
     <p class="offset-1 mt-2">
-      <% @course&.course_users.where(role: 'participant').each do |participant| %>
+      <% @course&.course_users.where(role: 'participant', confirmed: true).each do |participant| %>
         <%= participant.user.email %>
         <% if current_user && verify_instructor(@course, current_user) %>
           <%= link_to 'to instructor', change_role_courses_path(id: @course.id, course_user_id: participant.id) %>
+          <%= link_to 'Unconfirm', set_user_confirmation_courses_path(id: @course.id, course_user_id: participant.id) %>
+        <% end %>
+        <br>
+      <% end %>
+    </p>
+  </div>
+  <div class="ml-3">
+    <b class="mt-5 blockquote-footer">Candidates: </b>
+    <p class="offset-1 mt-2">
+      <% @course&.course_users.where(role: 'participant', confirmed: false).each do |candidate| %>
+        <%= candidate.user.email %>
+        <% if current_user && verify_instructor(@course, current_user) %>
+          <%= link_to 'to instructor', change_role_courses_path(id: @course.id, course_user_id: candidate.id) %>
+          <%= link_to 'Confirm', set_user_confirmation_courses_path(id: @course.id, course_user_id: candidate.id) %>
         <% end %>
         <br>
       <% end %>

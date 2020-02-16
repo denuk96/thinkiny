@@ -1,11 +1,11 @@
 class CoursesController < ApplicationController
   include CoursesRights
-  before_action :set_course, only: %i[show edit update destroy change_role]
+  before_action :set_course, only: %i[show edit update destroy change_role set_user_confirmation]
   before_action :verify_organizer, only: %i[destroy]
-  before_action :verify_moderators, only: %i[edit update change_role]
+  before_action :verify_moderators, only: %i[edit update change_role set_user_confirmation]
 
   def index
-    @courses = Course.all
+    @courses = Course.all.order(created_at: :asc)
   end
 
   def show; end
@@ -51,6 +51,13 @@ class CoursesController < ApplicationController
     end
   end
 
+  def set_user_confirmation
+    @course_user = @course.course_users.find_by(id: params[:course_user_id])
+    @course_user.confirmed = !@course_user.confirmed
+    @course_user.save
+    redirect_to course_path(@course)
+  end
+
   private
 
   def set_course
@@ -58,6 +65,7 @@ class CoursesController < ApplicationController
   end
 
   def course_params
-    params.require(:course).permit(:name, :description, :status, :address, :latitude, :longitude)
+    params.require(:course).permit(:name, :description, :status, :pre_moderation, :place_quantities,
+                                   :address, :latitude, :longitude)
   end
 end

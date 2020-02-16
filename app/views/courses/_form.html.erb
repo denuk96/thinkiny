@@ -19,6 +19,22 @@
     <%= form.text_area :description, class: "form-control"%>
   </div>
 
+  <div class="field mt-5">
+    <%= form.label :place_quantities %>
+    <%= form.text_area :place_quantities, class: "form-control"%>
+  </div>
+
+  <div class="field mt-5">
+    Pre-moderation
+    <br>
+
+    <%= form.radio_button(:pre_moderation, "true") %>
+    <%= form.label(:pre_moderation, "On") %>
+
+    <%= form.radio_button(:pre_moderation, "false") %>
+    <%= form.label(:pre_moderation, "off") %>
+  </div>
+
   <br>
 
   <!--<div class="field mt-5">-->
@@ -28,7 +44,6 @@
 
   <%= form.hidden_field :latitude, class: "form-control"%>
   <%= form.hidden_field :longitude, class: "form-control"%>
-
 
   <div id="map2"></div>
 

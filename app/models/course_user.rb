@@ -8,6 +8,7 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  role       :string
+#  confirmed  :boolean          default(TRUE)
 #
 
 class CourseUser < ApplicationRecord
