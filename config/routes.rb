@@ -15,10 +15,11 @@ Rails.application.routes.draw do
   resources :users
   resources :sessions
 
-  get 'signup', to: 'users#new', as: 'signup'
-  get 'login', to: 'sessions#new', as: 'login'
+  get  'oauth/:provider', to: 'oauths#oauth', as: :auth_at_provider
+  post 'oauth/callback',  to: 'oauths#callback'
+  get  'oauth/callback',  to: 'oauths#callback'
+  get 'login',  to: 'sessions#new',     as: 'login'
   get 'logout', to: 'sessions#destroy', as: 'logout'
-  post 'oauth/callback' => 'oauths#callback'
-  get 'oauth/callback' => 'oauths#callback' # for use with Github, Facebook
-  get 'oauth/:provider' => 'oauths#oauth', :as => :auth_at_provider
+  get 'signup', to: 'users#new',        as: 'signup'
+
 end
