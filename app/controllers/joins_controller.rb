@@ -7,9 +7,10 @@ class JoinsController < ApplicationController
     @course_user = @course.course_users.create(user_id: current_user.id, role: 'participant',
                                                confirmed: !@course.pre_moderation)
     if @course_user.save
-      redirect_to course_path(@course), notice: 'joined'
+      @course_user.confirmed ? (flash[:notice] = 'Automatically joined') : (flash[:notice] = 'Request leaved')
+      redirect_to course_path(@course)
     else
-      redirect_to course_path(@course), alert: 'smth went wrong'
+      redirect_to course_path(@course), alert: 'smth went wrong..'
     end
   end
 

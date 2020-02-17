@@ -29,8 +29,18 @@ RSpec.describe Course, type: :model do
       expect(course_test.valid?).to eq(false)
     end
 
+    it 'ensure course place_quantities is valid' do
+      course_test = Course.new(name: 'test', description: 'test', place_quantities: 0)
+      expect(course_test.valid?).to eq(false)
+    end
+
+    it 'ensure course pre_moderation is valid' do
+      course_test = Course.new(name: 'test', description: 'test', pre_moderation: nil)
+      expect(course_test.valid?).to eq(false)
+    end
+
     it 'ensure course can be saved' do
-      course_test = Course.new(name: 'test', description: 'test')
+      course_test = Course.new(name: 'test', description: 'test', place_quantities: 1)
       expect(course_test.save).to eq(true)
     end
   end

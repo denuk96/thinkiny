@@ -23,5 +23,7 @@ class Course < ApplicationRecord
   has_many :lessons
 
   after_validation :geocode
-  validates_presence_of :name, :description
+  validates_presence_of :name, :description, :place_quantities
+  validates :pre_moderation, inclusion: { in: [true, false] }
+  validates :place_quantities, numericality: { greater_than: 0 }
 end

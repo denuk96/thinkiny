@@ -18,4 +18,5 @@ class CourseUser < ApplicationRecord
   belongs_to :user
 
   validates :role, inclusion: COURSE_ROLES
+  validates :confirmed, inclusion: { in: [true, false] }
 end

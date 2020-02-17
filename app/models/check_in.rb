@@ -14,4 +14,6 @@
 class CheckIn < ApplicationRecord
   belongs_to :lesson
   belongs_to :user
+
+  validates :attendance, inclusion: { in: [true, false] }
 end
