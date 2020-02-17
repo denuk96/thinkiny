@@ -23,7 +23,7 @@
 #
 
 class User < ApplicationRecord
-  # attr_accessible :email, :password, :password_confirmation, :crypted_password, :authentications_attributes
+  has_one_attached :picture
   authenticates_with_sorcery! do |config|
     config.authentications_class = Authentication
   end
