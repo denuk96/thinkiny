@@ -51,8 +51,8 @@
 
       // if not defined create default position
       if (!lat || !lng){
-          lat=51.5;
-          lng=-0.125;
+          lat=<%= request.location.latitude %>;
+          lng=<%= request.location.longitude %>;
           document.getElementById('course_latitude').value = lat;
           document.getElementById('course_longitude').value = lng;
       }
