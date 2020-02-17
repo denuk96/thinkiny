@@ -29,6 +29,25 @@
       </div>
       <div class="card-body">
         <h5 class="card-title"><%= @course.description %></h5>
+        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+          <div class="carousel-inner">
+            <% if @course.pictures.attached? %>
+              <% @course.pictures.each_with_index do |picture, index| %>
+                <div class="carousel-item <%= 'active' if index == 0 %>" >
+                  <%= image_tag picture, id: index, class: 'd-block carousel__image'%>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+          <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">←</span>
+          </a>
+          <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">→</span>
+          </a>
+        </div>
         <%= link_to "Show lessons", course_lessons_path(@course), class: "btn btn-outline-dark" %>
         <% if current_user && verify_instructor(@course, current_user) %>
           <%= link_to "Add lessons", new_course_lesson_path(@course), class: "btn btn-outline-dark" %>
