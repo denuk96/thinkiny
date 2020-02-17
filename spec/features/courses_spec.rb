@@ -48,11 +48,11 @@ RSpec.feature 'Courses', type: :feature do
       expect(page).to have_content('New course')
       expect(page).to have_content('Name')
       expect(page).to have_content('Description')
-      expect(page).to have_content('Address')
+      # expect(page).to have_content('Address')
 
       fill_in 'Name', with: 'test name'
       fill_in 'Description', with: 'test description'
-      fill_in 'Address', with: 'default city'
+      # fill_in 'Address', with: 'default city'
       click_button 'Submit'
 
       expect(page).to have_current_path(course_path(Course.last))
@@ -72,7 +72,7 @@ RSpec.feature 'Courses', type: :feature do
       expect(page).to have_content('Edit course')
       expect(page).to have_content('Name')
       expect(page).to have_content('Description')
-      expect(page).to have_content('Address')
+      # expect(page).to have_content('Address')
 
       click_button 'Submit'
       expect(current_path).to eq course_path(@course)

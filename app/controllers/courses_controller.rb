@@ -5,7 +5,7 @@ class CoursesController < ApplicationController
   before_action :verify_moderators, only: %i[edit update change_role set_user_confirmation]
 
   def index
-    @courses = Course.all.order(created_at: :asc)
+    @courses = Course.all.order(created_at: :desc)
   end
 
   def show; end
@@ -18,7 +18,7 @@ class CoursesController < ApplicationController
     @course = Course.new(course_params)
     if @course.save
       @course.course_users.create(user_id: current_user.id, role: 'organizer')
-      redirect_to course_path(@course)
+      redirect_to course_path(@course), notice: 'Course has been created'
     else
       render :new
     end
@@ -41,7 +41,6 @@ class CoursesController < ApplicationController
   end
 
   def change_role
-    @course_user = @course.course_users.find_by(id: params[:course_user_id])
     if @course_user.role == 'participant'
       @course_user.update(role: 'instructor')
       redirect_to course_path(@course)
@@ -52,7 +51,6 @@ class CoursesController < ApplicationController
   end
 
   def set_user_confirmation
-    @course_user = @course.course_users.find_by(id: params[:course_user_id])
     @course_user.confirmed = !@course_user.confirmed
     @course_user.save
     redirect_to course_path(@course)
@@ -62,6 +60,7 @@ class CoursesController < ApplicationController
 
   def set_course
     @course = Course.find(params[:id])
+    @course_user = @course.course_users.find_by(id: params[:course_user_id])
   end
 
   def course_params
