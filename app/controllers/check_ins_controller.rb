@@ -34,7 +34,7 @@ class CheckInsController < ApplicationController
   private
 
   def check_in_only_for_participant(user)
-    true if user.course_users.where(course_id: @lesson.course.id, role: 'participant').present?
+    true if user.course_users.where(course_id: @lesson.course.id, role: 'participant', confirmed: true).present?
   end
 
   def set_check_in

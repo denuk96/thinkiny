@@ -15,4 +15,12 @@ module CoursesHelper
   def already_joined?(course, user)
     true if course.course_users.find_by(user_id: user.id).present?
   end
+
+  def free_places?(course)
+    true if course.place_quantities > course.course_users.where(role: 'participant', confirmed: true).count
+  end
+
+  def count_free_places(course)
+    course.place_quantities - course.course_users.where(role: 'participant', confirmed: true).count
+  end
 end

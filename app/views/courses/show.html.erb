@@ -11,8 +11,10 @@
             <% if current_user %>
               <% if already_joined?(@course, current_user) %>
                 <button type="button" class="btn btn-outline-dark" disabled>Joined</button>
-              <% else %>
+              <% elsif free_places?(@course) %>
                 <%= link_to 'Join', join_path(id: @course), class: "btn btn-outline-dark" %>
+              <% else %>
+                has no free places
               <% end %>
               <% if verify_organizer(@course, current_user) %>
                 <%= link_to "Edit", edit_course_path(@course), class: "btn btn-outline-dark"  %>
@@ -22,10 +24,18 @@
             <% end %>
           </div>
         </div>
-        <h2>
+        <div>
           Created by:
           <b><%= @course.course_users&.find_by(role: 'organizer')&.user&.email %></b>
-        </h2>
+          <br>
+          Pre-moderation:
+          <%= @course.pre_moderation %>
+          <br>
+          Place quantities:
+          <%= @course.place_quantities %>
+          Free places:
+          <%= count_free_places(@course) %>
+        </div>
       </div>
       <div class="card-body">
         <h5 class="card-title"><%= @course.description %></h5>
@@ -37,8 +47,9 @@
     </div>
   </div>
   <div class="ml-3">
-    <b class="mt-5 blockquote-footer">Instructors:</b>
+    <b class="mt-5 blockquote-footer">Instructors(<%= @course&.course_users.where(role: 'instructor').count %>):</b>
     <p class="offset-1 mt-2">
+
       <% @course&.course_users.where(role: 'instructor').each do |instructor| %>
         <%= instructor.user.email %>
         <% if current_user && verify_instructor(@course, current_user) %>
@@ -49,12 +60,30 @@
     </p>
   </div>
   <div class="ml-3">
-    <b class="mt-5 blockquote-footer">Joined users:</b>
+    <b class="mt-5 blockquote-footer">
+      Joined users(<%= @course&.course_users.where(role: 'participant', confirmed: true).count %>):
+    </b>
     <p class="offset-1 mt-2">
-      <% @course&.course_users.where(role: 'participant').each do |participant| %>
+      <% @course&.course_users.where(role: 'participant', confirmed: true).each do |participant| %>
         <%= participant.user.email %>
         <% if current_user && verify_instructor(@course, current_user) %>
           <%= link_to 'to instructor', change_role_courses_path(id: @course.id, course_user_id: participant.id) %>
+          <%= link_to 'Unconfirm', set_user_confirmation_courses_path(id: @course.id, course_user_id: participant.id) %>
+        <% end %>
+        <br>
+      <% end %>
+    </p>
+  </div>
+  <div class="ml-3">
+    <b class="mt-5 blockquote-footer">
+      Candidates(<%= @course&.course_users.where(role: 'participant', confirmed: false).count %>):
+    </b>
+    <p class="offset-1 mt-2">
+      <% @course&.course_users.where(role: 'participant', confirmed: false).each do |candidate| %>
+        <%= candidate.user.email %>
+        <% if current_user && verify_instructor(@course, current_user) %>
+          <%= link_to 'to instructor', change_role_courses_path(id: @course.id, course_user_id: candidate.id) %>
+          <%= link_to 'Confirm', set_user_confirmation_courses_path(id: @course.id, course_user_id: candidate.id) %>
         <% end %>
         <br>
       <% end %>
