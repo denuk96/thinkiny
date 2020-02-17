@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
   resources :courses do
     get 'change_role', on: :collection
+    get 'set_user_confirmation', on: :collection
     resources :lessons do
       resources :check_ins do
         get 'user_attendance', on: :collection
@@ -18,7 +19,7 @@ Rails.application.routes.draw do
   get 'signup', to: 'users#new', as: 'signup'
   get 'login', to: 'sessions#new', as: 'login'
   get 'logout', to: 'sessions#destroy', as: 'logout'
-  post "oauth/callback" => "oauths#callback"
-  get "oauth/callback" => "oauths#callback" # for use with Github, Facebook
-  get "oauth/:provider" => "oauths#oauth", :as => :auth_at_provider
+  post 'oauth/callback' => 'oauths#callback'
+  get 'oauth/callback' => 'oauths#callback' # for use with Github, Facebook
+  get 'oauth/:provider' => 'oauths#oauth', :as => :auth_at_provider
 end

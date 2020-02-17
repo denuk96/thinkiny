@@ -8,6 +8,7 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  role       :string
+#  confirmed  :boolean          default(TRUE)
 #
 
 class CourseUser < ApplicationRecord
@@ -17,4 +18,5 @@ class CourseUser < ApplicationRecord
   belongs_to :user
 
   validates :role, inclusion: COURSE_ROLES
+  validates :confirmed, inclusion: { in: [true, false] }
 end

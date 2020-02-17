@@ -1,3 +1,4 @@
+
 <% provide :head_tags do %>
     <meta name='turbolinks-visit-control' content='reload'>
     <script>
@@ -6,44 +7,67 @@
 <% end %>
 
 <%= form_with(model: @course, local: true) do |form| %>
-    <% if @course.errors.any? %>
-      <div class="alert alert-danger">
-        <ul>
-          <% @course.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
-
-    <div class="field mt-5">
-      <%= form.label :name %>
-      <%= form.text_field :name, class: "form-control"%>
+  <% if @course.errors.any? %>
+    <div class="alert alert-danger">
+      <ul>
+        <% @course.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
     </div>
+  <% end %>
 
-    <div class="field mt-5">
-      <%= form.label :description %>
-      <%= form.text_area :description, class: "form-control"%>
-    </div>
+  <div class="field mt-5">
+    <%= form.label :name %>
+    <%= form.text_field :name, class: "form-control"%>
+  </div>
 
+  <div class="field mt-5">
+    <%= form.label :description %>
+    <%= form.text_area :description, class: "form-control"%>
+  </div>
+
+  <div class="field mt-5">
+    <%= form.label :place_quantities %>
+    <%= form.text_area :place_quantities, class: "form-control"%>
+  </div>
+
+  <div class="field mt-5">
+    Pre-moderation
     <br>
 
-    <!--<div class="field mt-5">-->
-      <!--<%= form.label :address %>-->
-      <!--<%= form.text_field :address, class: "form-control"%>-->
-    <!--</div>-->
+    <%= form.radio_button(:pre_moderation, "true") %>
+    <%= form.label(:pre_moderation, "On") %>
 
-      <%= form.hidden_field :latitude, class: "form-control"%>
-      <%= form.hidden_field :longitude, class: "form-control"%>
+    <%= form.radio_button(:pre_moderation, "false") %>
+    <%= form.label(:pre_moderation, "off") %>
+  </div>
 
+  <br>
 
-    <div id="map2"></div>
+  <!--<div class="field mt-5">-->
+  <!--<%= form.label :address %>-->
+  <!--<%= form.text_field :address, class: "form-control"%>-->
+  <!--</div>-->
 
-    <br>
-    <div class="ml-auto mt-2">
-      <%= form.submit 'Submit', class: "btn btn-outline-dark" %>
-    </div>
+  <%= form.hidden_field :latitude, class: "form-control"%>
+  <%= form.hidden_field :longitude, class: "form-control"%>
+
+  <div id="map2"></div>
+
+  <br>
+  <div class="ml-auto mt-2">
+    <%= form.submit 'Submit', class: "btn btn-outline-dark" %>
+  </div>
 <% end %>
+
+<% provide :head_tags do %>
+  <meta name='turbolinks-visit-control' content='reload'>
+  <script>
+      document.addEventListener("DOMContentLoaded", initMap2);
+  </script>
+<% end %>
+
 <script>
   function initMap2() {
       var lat = document.getElementById('course_latitude').value;

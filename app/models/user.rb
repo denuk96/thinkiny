@@ -23,12 +23,12 @@
 #
 
 class User < ApplicationRecord
-  #attr_accessible :email, :password, :password_confirmation, :crypted_password, :authentications_attributes
+  # attr_accessible :email, :password, :password_confirmation, :crypted_password, :authentications_attributes
   authenticates_with_sorcery! do |config|
     config.authentications_class = Authentication
   end
 
-  has_many :authentications, :dependent => :destroy
+  has_many :authentications, dependent: :destroy
   accepts_nested_attributes_for :authentications
 
   has_many :course_users
