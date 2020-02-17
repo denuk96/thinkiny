@@ -3,7 +3,7 @@ class JoinsController < ApplicationController
   before_action :already_joined?, only: %i[join_to_course]
 
   def join_to_course
-    @course_user = CourseUser.new(course_id: @course.id, user_id: current_user.id, role: 'participant')
+    @course_user = @course.course_users.create(user_id: current_user.id, role: 'participant')
     if @course_user.save
       redirect_to course_path(@course), notice: 'joined'
     else
@@ -14,8 +14,8 @@ class JoinsController < ApplicationController
   private
 
   def already_joined?
-    if CourseUser.find_by(course_id: params[:id], user_id: current_user.id).present?
-      redirect_to course_path(id: @course.id), alert: 'already joined'
+    if @course.course_users.find_by(user_id: current_user.id).present?
+      redirect_to course_path(@course), notice: 'joined'
     end
   end
 

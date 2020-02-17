@@ -12,7 +12,7 @@ class CheckInsController < ApplicationController
         @lesson.check_ins.find_by(user_id: user.id).destroy
       end
     end
-    @check_ins = @lesson.check_ins
+    @check_ins = @lesson.check_ins.joins(:user).order(email: :asc)
   end
 
   def user_attendance

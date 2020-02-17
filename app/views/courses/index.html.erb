@@ -8,7 +8,15 @@
           <div class="row">
             <h3><%= link_to course.name, course_path(course) %></h3>
             <div class="ml-auto">
-              <%= link_to 'join', join_path(id: course), class: "btn btn-outline-dark" %>
+              <% if current_user %>
+                <% if already_joined?(course, current_user) %>
+                  <button type="button" class="btn btn-outline-dark" disabled>Joinded</button>
+                <% else %>
+                  <%= link_to 'join', join_path(id: course), class: "btn btn-outline-dark" %>
+                <% end %>
+              <% else %>
+                <%= link_to 'join', login_path, class: "btn btn-outline-dark"  %>
+              <% end %>
             </div>
           </div>
         </div>

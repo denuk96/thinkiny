@@ -8,14 +8,18 @@
 #  status      :string
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  address     :string
+#  latitude    :float
+#  longitude   :float
 #
 
 class Course < ApplicationRecord
   geocoded_by :address
-  after_validation :geocode
+
   has_many :course_users, dependent: :destroy
   has_many :users, through: :course_users
   has_many :lessons
-  validates :name, uniqueness: true, presence: true
-  validates :description, presence: true
+
+  after_validation :geocode
+  validates_presence_of :name, :description
 end
