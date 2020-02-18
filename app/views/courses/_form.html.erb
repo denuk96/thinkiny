@@ -19,9 +19,25 @@
     <%= form.text_area :description, class: "form-control"%>
   </div>
 
+    <%= form.label :place_quantities %>
+    <%= form.text_area :place_quantities, class: "form-control"%>
+  </div>
+
+  <div class="field mt-5">
+    Pre-moderation
+    <br>
+
+    <%= form.radio_button(:pre_moderation, "true") %>
+    <%= form.label(:pre_moderation, "On") %>
+
+    <%= form.radio_button(:pre_moderation, "false") %>
+    <%= form.label(:pre_moderation, "off") %>
+  </div>
+
   <div class="field mt-5">
     <%= form.file_field :pictures, multiple: true %>
   </div>
+
   <br>
   <!--<div class="field mt-5">-->
   <!--<%= form.label :address %>-->
@@ -30,7 +46,6 @@
 
   <%= form.hidden_field :latitude, class: "form-control"%>
   <%= form.hidden_field :longitude, class: "form-control"%>
-
 
   <div id="map2"></div>
 
@@ -46,7 +61,6 @@
       document.addEventListener("DOMContentLoaded", initMap2);
   </script>
 <% end %>
-
 <script>
   function initMap2() {
       var lat = document.getElementById('course_latitude').value;
@@ -54,8 +68,12 @@
 
       // if not defined create default position
       if (!lat || !lng){
-          lat=51.5;
-          lng=-0.125;
+          lat = <%= request.location.latitude.nil? ? 'lat=51.5' : request.location.latitude %>;
+          lng = <%= request.location.longitude.nil? ? 'lng=-0.125' : request.location.longitude %>;
+<!--          lat=<%#= request.location.latitude %>;-->
+<!--          lng=<%#= request.location.longitude %>;-->
+          // lat=51.5;
+          // lng=-0.125;
           document.getElementById('course_latitude').value = lat;
           document.getElementById('course_longitude').value = lng;
       }

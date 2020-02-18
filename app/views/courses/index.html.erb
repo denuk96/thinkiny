@@ -11,17 +11,30 @@
               <% if current_user %>
                 <% if already_joined?(course, current_user) %>
                   <button type="button" class="btn btn-outline-dark" disabled>Joinded</button>
-                <% else %>
+                <% elsif free_places?(course) %>
                   <%= link_to 'join', join_path(id: course), class: "btn btn-outline-dark" %>
+                <% else %>
+                  has no free places
                 <% end %>
               <% else %>
-                <%= link_to 'join', login_path, class: "btn btn-outline-dark"  %>
+                <%#= link_to 'join', login_path, class: "btn btn-outline-dark" %>
+                log in first
               <% end %>
             </div>
           </div>
         </div>
         <div class="card-body">
-          <p class="card-text">Description: <b><%= course.description %></b></p>
+          <p class="card-text">
+            Description: <b><%= course.description %></b>
+            <br>
+            Organizer: <b><%= course.course_users&.find_by(role: 'organizer')&.user&.email %></b>
+            <br>
+            Free entry: <b><%= course.pre_moderation %></b>
+            <br>
+            Places: <b><%= course.place_quantities %></b>
+            Free:
+            <%= count_free_places(course) %>
+          </p>
         </div>
       </div>
     </div>

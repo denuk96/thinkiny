@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_17_143652) do
+ActiveRecord::Schema.define(version: 2020_02_16_100706) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,6 +62,7 @@ ActiveRecord::Schema.define(version: 2020_02_17_143652) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "role"
+    t.boolean "confirmed", default: true
     t.index ["course_id"], name: "index_course_users_on_course_id"
     t.index ["user_id"], name: "index_course_users_on_user_id"
   end
@@ -75,6 +76,8 @@ ActiveRecord::Schema.define(version: 2020_02_17_143652) do
     t.string "address"
     t.float "latitude"
     t.float "longitude"
+    t.boolean "pre_moderation", default: false
+    t.integer "place_quantities", default: 9999
   end
 
   create_table "lessons", force: :cascade do |t|
