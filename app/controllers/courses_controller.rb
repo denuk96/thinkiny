@@ -8,7 +8,9 @@ class CoursesController < ApplicationController
     @courses = Course.all
   end
 
-  def show; end
+  def show
+    @lessons = Lesson.order('time ASC')
+  end
 
   def new
     @course = Course.new

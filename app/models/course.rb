@@ -18,7 +18,7 @@ class Course < ApplicationRecord
   has_many_attached :pictures
   has_many :course_users, dependent: :destroy
   has_many :users, through: :course_users
-  has_many :lessons
+  has_many :lessons, dependent: :destroy
 
   after_validation :geocode
   validates_presence_of :name, :description

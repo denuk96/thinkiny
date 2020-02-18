@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   include CheckAuthorization
   before_action :current_user_already_exist?, except: %i[ show edit update ]
-  before_action :set_user
+  before_action :set_user, except: %i[new create]
   before_action :not_authenticated, only: %i[show index edit update]
 
   def index; end

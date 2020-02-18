@@ -31,9 +31,9 @@ class User < ApplicationRecord
   has_many :authentications, dependent: :destroy
   accepts_nested_attributes_for :authentications
 
-  has_many :course_users
+  has_many :course_users, dependent: :destroy
   has_many :courses, through: :course_users
-  has_many :check_ins
+  has_many :check_ins, dependent: :destroy
   has_many :lessons, through: :check_ins
 
   validates :password, length: { minimum: 3 }, if: -> { new_record? || changes[:crypted_password] }

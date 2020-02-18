@@ -48,13 +48,10 @@
             <span class="sr-only">→</span>
           </a>
         </div>
-        <%= link_to "Show lessons", course_lessons_path(@course), class: "btn btn-outline-dark" %>
-        <% if current_user && verify_instructor(@course, current_user) %>
-          <%= link_to "Add lessons", new_course_lesson_path(@course), class: "btn btn-outline-dark" %>
-        <% end %>
       </div>
     </div>
   </div>
+  <%= render 'lessons/lessons' %>
   <div class="ml-3">
     <b class="mt-5 blockquote-footer">Instructors:</b>
     <p class="offset-1 mt-2">

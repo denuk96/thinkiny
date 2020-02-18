@@ -4,9 +4,6 @@ class LessonsController < ApplicationController
   before_action :set_lesson, only: %i[show edit update destroy]
   before_action :verify_moderators, except: %i[index show]
 
-  def index
-    @lessons = Lesson.where(course_id: params[:course_id]).order('time ASC')
-  end
 
   def show; end
 
