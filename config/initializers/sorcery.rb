@@ -158,7 +158,7 @@ Rails.application.config.sorcery.configure do |config|
   config.google.user_info_mapping = {
     email: 'email',
     first_name: 'given_name',
-    last_name: 'family_name',
+    last_name: 'family_name'
     #picture: 'picture'
   }
   # For Microsoft Graph, the key will be your App ID, and the secret will be your app password/public key.
