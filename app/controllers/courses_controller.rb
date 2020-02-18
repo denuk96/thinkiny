@@ -8,7 +8,9 @@ class CoursesController < ApplicationController
     @courses = Course.all.order(created_at: :desc)
   end
 
-  def show; end
+  def show
+    @lessons = Lesson.order('time ASC')
+  end
 
   def new
     @course = Course.new
@@ -65,6 +67,6 @@ class CoursesController < ApplicationController
 
   def course_params
     params.require(:course).permit(:name, :description, :status, :pre_moderation, :place_quantities,
-                                   :address, :latitude, :longitude)
+                                   :address, :latitude, :longitude, pictures: [])
   end
 end
