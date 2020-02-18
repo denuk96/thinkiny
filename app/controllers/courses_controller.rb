@@ -9,7 +9,7 @@ class CoursesController < ApplicationController
   end
 
   def show
-    @lessons = Lesson.order('time ASC')
+    @lessons = @course.lessons.order('time ASC')
   end
 
   def new
@@ -37,7 +37,6 @@ class CoursesController < ApplicationController
   end
 
   def destroy
-    @course = Course.find(params[:id])
     @course.destroy
     redirect_to courses_path, notice: 'Course has been successfully destroyed'
   end

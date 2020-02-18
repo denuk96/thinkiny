@@ -29,7 +29,7 @@
             <br>
             Organizer: <b><%= course.course_users&.find_by(role: 'organizer')&.user&.email %></b>
             <br>
-            Free entry: <b><%= course.pre_moderation %></b>
+            Pre-moderation: <b><%= course.pre_moderation %></b>
             <br>
             Places: <b><%= course.place_quantities %></b>
             Free:

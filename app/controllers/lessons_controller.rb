@@ -2,7 +2,7 @@ class LessonsController < ApplicationController
   include CoursesRights
   before_action :set_course
   before_action :set_lesson, only: %i[show edit update destroy]
-  before_action :verify_moderators, except: %i[index show]
+  before_action :verify_moderators, except: %i[show]
 
 
   def show; end

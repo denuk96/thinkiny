@@ -1,8 +1,7 @@
 class UsersController < ApplicationController
   include CheckAuthorization
-  before_action :current_user_already_exist?, except: %i[ show edit update ]
+  before_action :current_user_already_exist?, except: %i[index show edit update]
   before_action :set_user, except: %i[new create]
-  before_action :not_authenticated, only: %i[show index edit update]
 
   def index; end
 
@@ -16,7 +15,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       auto_login(@user)
-      redirect_to root_path, notice: 'Welcome!'
+      redirect_to courses_path, notice: 'Welcome aboard!'
     else
       render :new
     end
