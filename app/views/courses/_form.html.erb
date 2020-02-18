@@ -40,10 +40,13 @@
   </div>
 
   <br>
-  <!--<div class="field mt-5">-->
-  <!--<%= form.label :address %>-->
-  <!--<%= form.text_field :address, class: "form-control"%>-->
-  <!--</div>-->
+
+  <div class="field mt-5">
+  <%= form.label :address %>
+  <%= form.text_field :address, class: "form-control address", id: "address"%>
+  </div>
+
+  <br>
 
   <%= form.hidden_field :latitude, class: "form-control"%>
   <%= form.hidden_field :longitude, class: "form-control"%>
@@ -62,6 +65,7 @@
       document.addEventListener("DOMContentLoaded", initMap2);
   </script>
 <% end %>
+
 <script>
   function initMap2() {
       var lat = document.getElementById('course_latitude').value;
@@ -115,4 +119,9 @@
       });
   }
     document.addEventListener("DOMContentLoaded", initMap2);
+</script>
+<script>
+    $("#address").geocomplete({
+        map: "#map2"
+    });
 </script>
