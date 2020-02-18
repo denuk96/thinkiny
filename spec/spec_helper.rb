@@ -15,10 +15,31 @@
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 #
 
+require 'sorcery/test_helpers/rails/controller'
+require 'sorcery/test_helpers/rails/integration'
+
 RSpec.configure do |config|
   # config.include Sorcery::TestHelpers::Rails
-  # config.include Sorcery::TestHelpers::Rails::Controller, type: :controller
-  #  config.include Sorcery::TestHelpers::Rails::Integration, type: :feature
+  config.include Sorcery::TestHelpers::Rails::Controller, type: :controller
+  config.include Sorcery::TestHelpers::Rails::Integration, type: :feature
+
+  config.before(:suite) do
+    DatabaseCleaner[:active_record].strategy = :transaction
+    DatabaseCleaner.clean_with(:truncation)
+  end
+
+  config.after(:suite) do
+    DatabaseCleaner[:active_record].strategy = :transaction
+    DatabaseCleaner.clean_with(:truncation)
+  end
+
+  config.before(:each) do
+    DatabaseCleaner.clean
+  end
+
+  config.after(:each) do
+    DatabaseCleaner.clean
+  end
   # config.include AuthenticationForFeatureRequest, type: :feature
 
   # rspec-expectations config goes here. You can use an alternate

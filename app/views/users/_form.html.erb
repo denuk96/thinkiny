@@ -45,6 +45,10 @@
         </div>
       </div>
       <div class="actions" style="padding-top: 15px">
+        <div class="field">
+          <%= form.label :picture %>
+          <%= form.file_field :picture %>
+        </div>
         <%= form.submit class:"btn btn-outline-dark" %>
         <%= link_to 'back', root_path , class:"btn btn-outline-dark" , style:"margin-left: 10px;"%>
       </div>

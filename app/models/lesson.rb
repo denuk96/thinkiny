@@ -12,8 +12,10 @@
 #
 
 class Lesson < ApplicationRecord
+  has_one_attached :picture
+
   belongs_to :course
-  has_many :check_ins
+  has_many :check_ins, dependent: :destroy
   has_many :users, through: :check_ins
 
   validates_presence_of :theme, :description, :time

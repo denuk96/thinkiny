@@ -8,7 +8,9 @@ class CoursesController < ApplicationController
     @courses = Course.all
   end
 
-  def show; end
+  def show
+    @lessons = Lesson.order('time ASC')
+  end
 
   def new
     @course = Course.new
@@ -37,7 +39,7 @@ class CoursesController < ApplicationController
   def destroy
     @course = Course.find(params[:id])
     @course.destroy
-    redirect_to root_path
+    redirect_to courses_path, notice: 'Course has been successfully destroyed'
   end
 
   def change_role
@@ -58,6 +60,6 @@ class CoursesController < ApplicationController
   end
 
   def course_params
-    params.require(:course).permit(:name, :description, :status, :address, :latitude, :longitude)
+    params.require(:course).permit(:name, :description, :status, :address, :latitude, :longitude, pictures: [])
   end
 end

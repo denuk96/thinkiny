@@ -12,7 +12,8 @@
           </li>
         <% else %>
           <li class="nav-item active">
-            <b><span class="nav-link"><%= current_user.email %></span></b>
+            <%= link_to current_user.first_name.present? ? current_user.first_name : current_user.email,
+                        user_path(current_user.id), class:'nav-link' %>
           </li>
         <% end %>
         <li class="nav-item active">
