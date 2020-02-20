@@ -1,10 +1,10 @@
 class CheckInsController < ApplicationController
   include CoursesRights
-  before_action :set_lesson, only: %i[index]
   before_action :set_check_in, only: %i[user_attendance edit update]
   before_action :verify_moderators, only: %i[user_attendance edit update]
 
   def index
+    @lesson = Lesson.includes(course: [{ course_users: :user }]).find_by(id: params[:lesson_id])
     @lesson.course.users.each do |user|
       if @lesson.check_ins.find_by(user_id: user.id).nil? && check_in_only_for_participant(user)
         @lesson.check_ins.create(user_id: user.id)
@@ -40,10 +40,6 @@ class CheckInsController < ApplicationController
   def set_check_in
     @check_in = CheckIn.find_by(id: params[:id])
     @course = @check_in.lesson.course
-  end
-
-  def set_lesson
-    @lesson = Lesson.find_by(id: params[:lesson_id])
   end
 
   def check_in_params

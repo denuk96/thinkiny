@@ -1,15 +1,13 @@
 module CoursesHelper
   def verify_instructor(course, user)
-    organizer = course.course_users.includes(:user).find_by(role: 'organizer', user_id: user.id)&.user&.id
-    instructor = course.course_users.find_by(role: 'instructor', user_id: user.id)&.user&.id
-    true if  user.id == organizer ||
-             user.id == instructor ||
-             user.admin == true
+    true if course.course_users.find_by(user_id: user.id, role: 'organizer').present? ||
+            course.course_users.find_by(user_id: user.id, role: 'instructor').present? ||
+            user.admin
   end
 
   def verify_organizer(course, user)
-    organizer = course.course_users.includes(:user).find_by(role: 'organizer', user_id: user.id)&.user&.id
-    true if user.id == organizer || user.admin == true
+    true if course.course_users.find_by(user_id: user.id, role: 'organizer').present? ||
+            user.admin
   end
 
   def already_joined?(course, user)
