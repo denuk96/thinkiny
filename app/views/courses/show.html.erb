@@ -65,6 +65,7 @@
     <b class="mt-5 blockquote-footer">Instructors(<%= @course&.course_users.where(role: 'instructor').size %>):</b>
     <p class="offset-1 mt-2">
       <% @course&.course_users.includes(:user).where(role: 'instructor').each do |instructor| %>
+
         <%= instructor.user.email %>
         <% if current_user && verify_instructor(@course, current_user) %>
           <%= link_to 'to participant', change_role_courses_path(id: @course.id, course_user_id: instructor.id) %>
