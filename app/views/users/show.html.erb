@@ -18,12 +18,12 @@
 <p>
   <strong>My Courses:</strong>
   <p>
-    <% @user.course_users.where(role: 'organizer').each do |course| %>
+    <% @user.course_users.includes(:course).where(role: 'organizer').each do |course| %>
       <%= course.course.name %>
     <% end %>
   </p>
 <strong>Join to course:</strong>
-<p><% @user.course_users.where(role: 'participant').each do |course| %>
+<p><% @user.course_users.includes(:course).where(role: 'participant').each do |course| %>
     <%= course.course.name %>
   <% end %></p>
 <%= link_to 'Edit', edit_user_path(@user), class:"btn btn-outline-dark" %>
