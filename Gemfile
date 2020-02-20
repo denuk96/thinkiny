@@ -50,6 +50,8 @@ group :development do
   gem 'rubocop', '~> 0.77.0'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  # to count DB queries
+  gem 'bullet'
 end
 
 group :test do

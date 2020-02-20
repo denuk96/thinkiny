@@ -5,7 +5,6 @@
 #  id                           :bigint           not null, primary key
 #  first_name                   :string
 #  admin                        :boolean          default(FALSE)
-#  email                        :string           not null
 #  crypted_password             :string
 #  salt                         :string
 #  created_at                   :datetime         not null
@@ -20,6 +19,8 @@
 #  last_logout_at               :datetime
 #  last_activity_at             :datetime
 #  last_login_from_ip_address   :string
+#  google_calendar_id           :string
+#  email                        :string
 #
 
 require 'rails_helper'

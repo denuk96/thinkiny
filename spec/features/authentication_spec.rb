@@ -17,7 +17,7 @@ RSpec.feature 'authentication', type: :feature do
     fill_in 'Password confirmation', with: 'password'
 
     expect { click_button 'Sign up' }.to change(User, :count).by(1)
-    expect(page).to have_current_path(login_path)
+    expect(page).to have_current_path(courses_path)
     expect(page).to have_content 'Welcome aboard'
   end
 
@@ -29,7 +29,7 @@ RSpec.feature 'authentication', type: :feature do
     fill_in 'password', with: 'password'
 
     click_button 'Log in'
-    expect(page).to have_current_path(root_path)
+    expect(page).to have_current_path(courses_path)
     expect(page).to have_content 'Logged in!'
   end
 end
