@@ -27,7 +27,7 @@ RSpec.feature 'Lessons', type: :feature do
     before(:all) do
       @user = User.create(email: 'email777@mail.com', password: 'password', password_confirmation: 'password')
       @course = FactoryGirl.create(:course)
-      CourseUser.create(user_id: @user.id, course_id: @course.id, role: 'participant')
+      CourseUser.create(user_id: @user.id, course_id: @course.id, role: 'participant', confirmed: true)
       @lesson = FactoryGirl.create(:lesson)
     end
     scenario 'Visitor should see in lesson' do
