@@ -4,7 +4,7 @@
   <p class="text-center"><small><%= @lesson.time %></small></p>
   <p class="text-center"><%= @lesson.description %></p>
   <p class="text-center">
-    <%= image_tag(@lesson.picture, width: 400) if @lesson.picture.attached? %>
+    <%= image_tag(@lesson.picture_url) if @lesson.picture? %>
   </p>
   <% if current_user && verify_instructor(@lesson.course, current_user) %>
     <%= link_to 'check_ins', course_lesson_check_ins_path(course_id: @lesson.course.id, lesson_id: @lesson.id) %>
