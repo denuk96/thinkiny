@@ -45,7 +45,7 @@
           <%= count_free_places(@course) %>
           <br>
           Course status:
-          <%= @course.status %>
+          <%= @course.status&.humanize %>
         </div>
       </div>
       <div class="card-body">

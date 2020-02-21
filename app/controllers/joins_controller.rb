@@ -1,5 +1,7 @@
 class JoinsController < ApplicationController
+  include CoursesRights
   before_action :set_course, only: %i[join_to_course]
+  before_action :check_course_status, only: %i[join_to_course]
   before_action :already_joined?, only: %i[join_to_course]
   before_action :has_places?, only: %i[join_to_course]
 

@@ -14,6 +14,6 @@ module CoursesRights
   end
 
   def check_course_status
-    redirect_to course_path(@course), alert: 'Course is done' if @course.status == 'completed'
+    redirect_to course_path(@course), alert: 'Course is completed' if @course.status == 'completed'
   end
 end
