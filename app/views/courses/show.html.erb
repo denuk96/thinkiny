@@ -40,10 +40,10 @@
         <h5 class="card-title"><%= @course.description %></h5>
         <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
           <div class="carousel-inner">
-            <% if @course.pictures.attached? %>
+            <% if @course.pictures? %>
               <% @course.pictures.each_with_index do |picture, index| %>
                 <div class="carousel-item <%= 'active' if index == 0 %>" >
-                  <%= image_tag picture, id: index, class: 'd-block carousel__image'%>
+                  <%= image_tag picture.url, id: index, class: 'd-block carousel__image'%>
                 </div>
               <% end %>
             <% end %>

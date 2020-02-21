@@ -12,7 +12,7 @@
 #
 
 class Lesson < ApplicationRecord
-  has_one_attached :picture
+  mount_uploader :picture, PictureUploader
 
   belongs_to :course
   has_many :check_ins, dependent: :destroy
