@@ -1,8 +1,9 @@
 class CoursesController < ApplicationController
   include CoursesRights
-  before_action :set_course, only: %i[show edit update destroy change_role set_user_confirmation]
+  before_action :set_course, only: %i[show edit update destroy change_role set_user_confirmation change_course_status]
+  before_action :check_course_status, except: %i[index show new create]
   before_action :verify_organizer, only: %i[destroy]
-  before_action :verify_moderators, only: %i[edit update change_role set_user_confirmation]
+  before_action :verify_moderators, only: %i[edit update change_role set_user_confirmation change_course_status]
 
   def index
     @courses = Course.all.order(created_at: :desc)
@@ -54,6 +55,19 @@ class CoursesController < ApplicationController
   def set_user_confirmation
     @course_user.confirmed = !@course_user.confirmed
     @course_user.save
+    redirect_to course_path(@course)
+  end
+
+  def change_course_status
+    case @course.status
+    when 'new'
+      @course.update(status: 'in_process', pre_moderation: true)
+    when 'in_process'
+      @course.update(status: 'completed', pre_moderation: true)
+    else
+      flash[:alert] = 'Course is already completed'
+    end
+    flash[:notice] = "Status has changed to #{@course.status}"
     redirect_to course_path(@course)
   end
 

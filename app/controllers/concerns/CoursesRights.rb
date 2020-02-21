@@ -12,4 +12,8 @@ module CoursesRights
     instructor = CourseUser.find_by(user_id: current_user.id, course_id: @course.id, role: 'instructor').present?
     redirect_to root_path, alert: 'You have no rights' unless organizer || instructor || current_user.admin
   end
+
+  def check_course_status
+    redirect_to course_path(@course), alert: 'Course is done' if @course.status == 'completed'
+  end
 end
