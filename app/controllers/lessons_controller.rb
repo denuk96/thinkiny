@@ -48,7 +48,7 @@ class LessonsController < ApplicationController
   end
 
   def create_check_ins
-    @course_users = @course.course_users.where(role: 'participant', confirmed: true)
+    @course_users = @course.course_users.confirmed_participant
     @course_users.each do |course_user|
       @lesson.check_ins.create(user_id: course_user.user.id)
     end

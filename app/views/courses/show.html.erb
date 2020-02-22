@@ -76,9 +76,9 @@
   </div>
   <%= render 'lessons/lessons' %>
   <div class="ml-3">
-    <b class="mt-5 blockquote-footer">Instructors(<%= @course&.course_users.where(role: 'instructor').size %>):</b>
+    <b class="mt-5 blockquote-footer">Instructors(<%= @course&.course_users.instructors.size %>):</b>
     <p class="offset-1 mt-2">
-      <% @course&.course_users.includes(:user).where(role: 'instructor').each do |instructor| %>
+      <% @course&.course_users.includes(:user).instructors.each do |instructor| %>
         <%= instructor.user.email %>
         <% if current_user && verify_instructor(@course, current_user) %>
           <%= link_to 'to participant', change_role_courses_path(id: @course.id, course_user_id: instructor.id) %>
@@ -89,10 +89,10 @@
   </div>
   <div class="ml-3">
     <b class="mt-5 blockquote-footer">
-      Joined users(<%= @course&.course_users.where(role: 'participant', confirmed: true).size %>):
+      Joined users(<%= @course&.course_users.confirmed_participant.size %>):
     </b>
     <p class="offset-1 mt-2">
-      <% @course&.course_users.includes(:user).where(role: 'participant', confirmed: true).each do |participant| %>
+      <% @course&.course_users.includes(:user).confirmed_participant.each do |participant| %>
         <%= participant.user.email %>
         <% if current_user && verify_instructor(@course, current_user) %>
           <%= link_to 'to instructor', change_role_courses_path(id: @course.id, course_user_id: participant.id) %>
@@ -104,10 +104,10 @@
   </div>
   <div class="ml-3">
     <b class="mt-5 blockquote-footer">
-      Candidates(<%= @course&.course_users.where(role: 'participant', confirmed: false).size %>):
+      Candidates(<%= @course&.course_users.un_confirmed_participant.size %>):
     </b>
     <p class="offset-1 mt-2">
-      <% @course&.course_users.includes(:user).where(role: 'participant', confirmed: false).each do |candidate| %>
+      <% @course&.course_users.includes(:user).un_confirmed_participant.each do |candidate| %>
         <%= candidate.user.email %>
         <% if current_user && verify_instructor(@course, current_user) %>
           <%= link_to 'to instructor', change_role_courses_path(id: @course.id, course_user_id: candidate.id) %>

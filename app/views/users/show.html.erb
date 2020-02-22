@@ -18,7 +18,7 @@
 <p>
   <strong>My Courses:</strong>
   <p>
-    <% @user.course_users.includes(:course).where(role: 'organizer').each do |course| %>
+    <% @user.course_users.includes(:course).organizers.each do |course| %>
       <%= course.course.name %>
     <% end %>
   </p>
