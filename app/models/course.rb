@@ -5,7 +5,7 @@
 #  id               :bigint           not null, primary key
 #  name             :string
 #  description      :text
-#  status           :string
+#  status           :string           default("new")
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #  address          :string

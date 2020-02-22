@@ -10,12 +10,14 @@
             <% if current_user %>
               <% if already_joined?(@course, current_user) %>
                 <button type="button" class="btn btn-outline-dark" disabled>Joined</button>
+              <% elsif @course.status == 'completed' %>
+                <button type="button" class="btn btn-outline-dark" disabled>Completed</button>
               <% elsif free_places?(@course) %>
                 <%= link_to 'Join', join_path(id: @course), class: "btn btn-outline-dark" %>
               <% else %>
                 has no free places
               <% end %>
-              <% if verify_organizer(@course, current_user) %>
+              <% if verify_organizer(@course, current_user) && @course.status != 'completed' %>
                 <%= link_to "Edit", edit_course_path(@course), class: "btn btn-outline-dark"  %>
                 <%= link_to "Destroy", course_path(@course), class: "btn btn-outline-dark",
                             method: :delete, data: { confirm: 'Are you sure?' } %>

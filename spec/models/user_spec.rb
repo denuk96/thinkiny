@@ -19,7 +19,6 @@
 #  last_logout_at               :datetime
 #  last_activity_at             :datetime
 #  last_login_from_ip_address   :string
-#  google_calendar_id           :string
 #  email                        :string
 #
 

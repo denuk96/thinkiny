@@ -77,7 +77,7 @@ class CoursesController < ApplicationController
     else
       flash[:alert] = 'Course is already completed'
     end
-    flash[:notice] = "Status has changed to #{@course.status}"
+    flash[:notice] = "Status has changed to #{@course.status&.humanize}"
     redirect_to course_path(@course)
   end
 
