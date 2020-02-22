@@ -1,14 +1,11 @@
 class CheckInsController < ApplicationController
-  before_action :set_lesson, only: %i[index]
+  include CoursesRights
   before_action :set_check_in, only: %i[user_attendance edit update]
+  before_action :verify_moderators, only: %i[user_attendance edit update]
 
   def index
-    @lesson.course.users.each do |user|
-      if CheckIn.find_by(user_id: user.id, lesson_id: @lesson.id).nil?
-        CheckIn.create(user_id: user.id, lesson_id: @lesson.id)
-      end
-    end
-    @check_ins = @lesson.check_ins
+    @lesson = Lesson.find_by(id: params[:lesson_id])
+    @check_ins = @lesson.check_ins.joins(:user).order(email: :asc)
   end
 
   def user_attendance
@@ -31,10 +28,7 @@ class CheckInsController < ApplicationController
 
   def set_check_in
     @check_in = CheckIn.find_by(id: params[:id])
-  end
-
-  def set_lesson
-    @lesson = Lesson.find_by(id: params[:lesson_id])
+    @course = @check_in.lesson.course
   end
 
   def check_in_params

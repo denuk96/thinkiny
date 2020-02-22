@@ -23,6 +23,9 @@
     <%= form.label :time %>
     <%= form.text_field :time, class: "form-control", type: "datetime-local" %>
   </div>
+  <div class="field mt-5">
+    <%= form.file_field :picture , class: 'form-control'%>
+  </div>
 
   <div class="mt-5">
     <%= form.submit 'Submit', class: "btn btn-outline-dark" %>

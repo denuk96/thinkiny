@@ -1,17 +1,20 @@
 class SessionsController < ApplicationController
-  def new
-  end
+  include CheckAuthorization
+  before_action :current_user_already_exist?, except: :destroy
+
+  def new; end
+
   def create
     @user = login(params[:email], params[:password], params[:remember_me])
     if @user
-      redirect_to root_path, notice: "Logged in!"
+      redirect_to courses_path, notice: 'Logged in!'
     else
-      redirect_to new_session_path, notice: "Email or password was invalid"
+      redirect_to new_session_path, notice: 'Email or password was invalid'
     end
   end
 
   def destroy
     logout
-    redirect_to root_url, :notice => "Logged out!"
+    redirect_to root_url, notice: 'Logged out!'
   end
 end

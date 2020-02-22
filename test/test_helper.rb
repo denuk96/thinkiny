@@ -10,4 +10,11 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
+  include Sorcery::TestHelpers::Rails
+end
+
+Rspec.configure do |config|
+  config.include Sorcery::TestHelpers::Rails
+  config.include Sorcery::TestHelpers::Rails::Controller, type: :controller
+  config.include Sorcery::TestHelpers::Rails::Integration, type: :feature
 end
