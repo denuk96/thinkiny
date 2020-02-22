@@ -4,14 +4,7 @@ class CheckInsController < ApplicationController
   before_action :verify_moderators, only: %i[user_attendance edit update]
 
   def index
-    @lesson = Lesson.includes(course: [{ course_users: :user }]).find_by(id: params[:lesson_id])
-    @lesson.course.users.each do |user|
-      if @lesson.check_ins.find_by(user_id: user.id).nil? && check_in_only_for_participant(user)
-        @lesson.check_ins.create(user_id: user.id)
-      elsif @lesson.check_ins.find_by(user_id: user.id).present? && !check_in_only_for_participant(user)
-        @lesson.check_ins.find_by(user_id: user.id).destroy
-      end
-    end
+    @lesson = Lesson.find_by(id: params[:lesson_id])
     @check_ins = @lesson.check_ins.joins(:user).order(email: :asc)
   end
 
@@ -32,10 +25,6 @@ class CheckInsController < ApplicationController
   end
 
   private
-
-  def check_in_only_for_participant(user)
-    true if user.course_users.where(course_id: @lesson.course.id, role: 'participant', confirmed: true).present?
-  end
 
   def set_check_in
     @check_in = CheckIn.find_by(id: params[:id])

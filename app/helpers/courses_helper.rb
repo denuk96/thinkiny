@@ -15,10 +15,10 @@ module CoursesHelper
   end
 
   def free_places?(course)
-    true if course.place_quantities > course.course_users.where(role: 'participant', confirmed: true).size
+    true if course.place_quantities > course.course_users.confirmed_participant.size
   end
 
   def count_free_places(course)
-    course.place_quantities - course.course_users.where(role: 'participant', confirmed: true).size
+    course.place_quantities - course.course_users.confirmed_participant.size
   end
 end
