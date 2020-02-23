@@ -11,6 +11,7 @@ class CoursesController < ApplicationController
   end
 
   def show
+    @lesson  = Lesson.find(params[:id])
     @lessons = @course.lessons.order('time ASC')
   end
 

@@ -1,0 +1,46 @@
+/*container__course*/
+#container__course{
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/*logo*/
+#logo{
+  display: block ;
+  margin-left: auto;
+  margin-right: auto;
+  height:400px;
+}
+/*carousel__image*/
+.carousel__image{
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  height: 400px;
+}
+
+
+
+
+/*course__lesson*/
+#course__lesson{
+  display: block;
+  /*border: 1px solid #555555; !* Параметры рамки *!*/
+  background-color: #0b0b41;
+}
+h3{
+  color: #e1e1e1;
+  text-transform: uppercase;
+}
+.info{
+  color: #F7F7F7;
+}
+
+
+
+/*lesson__show*/
+#lesson__show{
+  display: block;
+  background-color: #f8f2ed;
+}
+
