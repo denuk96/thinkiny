@@ -21,7 +21,7 @@
 
   <div class="field mt-5">
     <%= form.label :place_quantities %>
-    <%= form.text_area :place_quantities, class: "form-control"%>
+    <%= form.text_field :place_quantities, class: "form-control"%>
   </div>
 
   <div class="field mt-5">
@@ -33,6 +33,11 @@
 
     <%= form.radio_button(:pre_moderation, "false") %>
     <%= form.label(:pre_moderation, "off") %>
+  </div>
+
+  <div class="field mt-5">
+    <%= form.label :attendance_rate %>
+    <%= form.text_field :attendance_rate, class: "form-control"%>
   </div>
 
   <div class="field mt-5">
@@ -58,6 +63,8 @@
     <%= form.submit 'Submit', class: "btn btn-outline-dark" %>
   </div>
 <% end %>
+
+<!--map goes here-->
 
 <% provide :head_tags do %>
   <meta name='turbolinks-visit-control' content='reload'>
