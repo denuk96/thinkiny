@@ -20,27 +20,53 @@
 }
 
 
-
-
 /*course__lesson*/
 #course__lesson{
   display: block;
   /*border: 1px solid #555555; !* Параметры рамки *!*/
-  background-color: #0b0b41;
+  background: linear-gradient(to bottom, #0f0f57, #0c0c44, #060623);
 }
 h3{
-  color: #e1e1e1;
+  color: #f3f3f3;
   text-transform: uppercase;
 }
-.info{
-  color: #F7F7F7;
+h4{
+  color: #c0c0c0;
+  text-transform: uppercase;
 }
+#info{
+  color: #8e8e8e;
+}
+.btn__panel{
+  width: 89px;
+}
+#btn__status{
+  margin-top: 15%;
+  text-align: center
+}
+#all_lessons_title{
+  border-left: 1px solid #e1e1e1;
+  background: #08082f;
+  padding: 5px;
+  margin-bottom: 0;
+}
+#all__lessons{
+  border-left: 1px solid #e1e1e1;
+}
+.card-body:hover{
+  background: #08082f;
+}
+.lesson:link { color: #e1e1e1; text-decoration: none;}
+.lesson:visited { color: #c8c8c8; text-decoration: none;}
+.lesson:active {  color: #e1e1e1; text-decoration: none;}
+.lesson:hover { color: #ffffff; text-decoration: none;}
 
-
-
+h5{
+  text-transform: uppercase;
+}
+#lessonday{
+  text-decoration: line-through;
+}
 /*lesson__show*/
 #lesson__show{
-  display: block;
-  background-color: #f8f2ed;
 }
-
