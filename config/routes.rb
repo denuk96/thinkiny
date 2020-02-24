@@ -14,7 +14,11 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :users
+  resources :users do
+    member do
+      get :activate
+    end
+  end
   resources :sessions
 
   post "oauth/callback" => "oauths#callback"
