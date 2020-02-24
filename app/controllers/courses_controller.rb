@@ -71,9 +71,19 @@ class CoursesController < ApplicationController
   def change_course_status
     case @course.status
     when 'new'
-      @course.update(status: 'in_process', pre_moderation: true)
+      @course.update(status: 'in_process')
     when 'in_process'
       @course.update(status: 'completed', pre_moderation: true)
+      ### check attendance for completing course ###
+      @course.course_users.confirmed_participant.each do |course_user|
+        lessons_count = @course.lessons.size
+        @user_attendance = 0
+        @course.lessons.each do |lesson|
+          @user_attendance += 1 if lesson.check_ins.find_by(user_id: course_user.user_id, attendance: true).present?
+        end
+        user_attendance_rate = @user_attendance.to_f / lessons_count * 100
+        course_user.update(completed: true) if @course.attendance_rate <= user_attendance_rate
+      end
     else
       flash[:alert] = 'Course is already completed'
     end
@@ -89,7 +99,7 @@ class CoursesController < ApplicationController
   end
 
   def course_params
-    params.require(:course).permit(:name, :description, :status, :pre_moderation, :place_quantities,
+    params.require(:course).permit(:name, :description, :attendance_rate, :pre_moderation, :place_quantities,
                                    :address, :latitude, :longitude, pictures: [])
   end
 end

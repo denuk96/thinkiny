@@ -1,3 +1,10 @@
+Что бы было видно, завершили юзеры курс успешно или нет. Потом удалить)
+<br>
+<% @course.course_users.includes(:user).each do |course_user| %>
+  <%= course_user.user.email %>
+  <%= course_user.completed %>
+  <br>
+<% end %>
 <div class="offset-md-1 mt-5">
   <div class="col-10">
     <div class="card">
@@ -48,6 +55,9 @@
           <br>
           Course status:
           <%= @course.status&.humanize %>
+          <br>
+          Required attendance rate:
+          <%= @course.attendance_rate %>%
         </div>
       </div>
       <div class="card-body">
