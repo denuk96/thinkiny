@@ -59,6 +59,14 @@
 <% end %>
 
 <script>
+  var lat = document.getElementById('course_latitude').value;
+  var lng = document.getElementById('course_longitude').value;
+  if (!lat || !lng){
+    lat=<%= request.location.latitude.nil? ? 51.5 : request.location.latitude %>;
+    lng=<%= request.location.longitude.nil? ? -0.125 : request.location.longitude %>;
+    document.getElementById('course_latitude').value = lat;
+    document.getElementById('course_longitude').value = lng;
+}
   $("#address").geocomplete({
     map: "#map2",
     mapOptions: {
@@ -67,20 +75,6 @@
     markerOptions: {
       draggable: false
     },
-    location: [<%= request.location.latitude.nil? ? 51.5 : request.location.latitude %>, <%= request.location.longitude.nil? ? -0.125 : request.location.longitude %>]
+    location: [lat, lng]
   });
-  GMaps.geolocate({
-  success: function(position){
-    map.setCenter(position.coords.latitude, position.coords.longitude);
-  },
-  error: function(error){
-    alert('Geolocation failed: '+error.message);
-  },
-  not_supported: function(){
-    alert("Your browser does not support geolocation");
-  },
-  always: function(){
-    alert("Done!");
-  }
-});
 </script>
