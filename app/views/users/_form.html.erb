@@ -1,7 +1,7 @@
 <%= form_with(model: user, local: true) do |form| %>
   <div class="offset-sm-3 mt-4">
     <% if user.errors.any? %>
-      <div id="error_explanation">
+      <div class="alert alert-danger">
         <ul>
           <% user.errors.full_messages.each do |message| %>
             <li><%= message %></li>

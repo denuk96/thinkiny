@@ -8,7 +8,7 @@
 # :magic_login, :external
 
 Rails.application.config.sorcery.submodules = %i[core remember_me brute_force_protection activity_logging external 
-                                                 user_activation]
+                                                 user_activation reset_password]
 
 # Here you can configure each submodule's features.
 Rails.application.config.sorcery.configure do |config|
@@ -372,7 +372,7 @@ Rails.application.config.sorcery.configure do |config|
     # Password reset mailer class.
     # Default: `nil`
     #
-    # user.reset_password_mailer =
+    user.reset_password_mailer = UserMailer
 
     # Reset password email method on your mailer class.
     # Default: `:reset_password_email`

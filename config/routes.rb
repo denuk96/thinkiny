@@ -20,6 +20,7 @@ Rails.application.routes.draw do
     end
   end
   resources :sessions
+  resources :reset_passwords, only: %i[new create update edit]
 
   post "oauth/callback" => "oauths#callback"
   get "oauth/callback" => "oauths#callback"
