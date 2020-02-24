@@ -1,4 +1,3 @@
-
 <%= form_with(model: @course, local: true) do |form| %>
   <% if @course.errors.any? %>
     <div class="alert alert-danger">
@@ -22,7 +21,7 @@
 
   <div class="field mt-5">
     <%= form.label :place_quantities %>
-    <%= form.text_area :place_quantities, class: "form-control"%>
+    <%= form.text_field :place_quantities, class: "form-control"%>
   </div>
 
   <div class="field mt-5">
@@ -36,12 +35,23 @@
     <%= form.label(:pre_moderation, "off") %>
   </div>
 
+  <div class="field mt-5">
+    <%= form.label :attendance_rate %>
+    <%= form.text_field :attendance_rate, class: "form-control"%>
+  </div>
+
+  <div class="field mt-5">
+    <%= form.file_field :pictures, multiple: true %>
+  </div>
+
   <br>
 
-  <!--<div class="field mt-5">-->
-  <!--<%= form.label :address %>-->
+  <div class="field mt-5">
+  <%= form.label :address %>
   <%= form.text_field :address, class: "form-control address", id: "address"%>
-  <!--</div>-->
+  </div>
+
+  <br>
 
   <%= form.hidden_field :latitude, class: "form-control"%>
   <%= form.hidden_field :longitude, class: "form-control"%>
@@ -53,6 +63,8 @@
     <%= form.submit 'Submit', class: "btn btn-outline-dark" %>
   </div>
 <% end %>
+
+<!--map goes here-->
 
 <% provide :head_tags do %>
   <meta name='turbolinks-visit-control' content='reload'>
@@ -77,4 +89,9 @@
     },
     location: [lat, lng]
   });
+</script>
+<script>
+    $("#address").geocomplete({
+        map: "#map2"
+    });
 </script>

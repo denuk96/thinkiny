@@ -6,14 +6,15 @@
         <div class="card-body">
           <div class="row">
             <% if lesson.time > Time.now %>
-              <h2><%= lesson.time.strftime("%A") %> </h2>
-              <h4> <%= link_to lesson.theme, course_lesson_path(@course, lesson) %></h4>
-              <%= link_to 'check_ins', course_lesson_check_ins_path(course_id: lesson.course.id, lesson_id: lesson.id),
+              <h3> <%= link_to lesson.theme, course_lesson_path(@course, lesson) %></h3>
+              <h5><%= lesson.time.strftime("%A") %> </h5>
+
+              <%#= link_to 'check_ins', course_lesson_check_ins_path(course_id: lesson.course.id, lesson_id: lesson.id),
                           class: "btn btn-outline-dark ml-auto"%>
             <% else %>
-              <s><h2><%= lesson.time.strftime("%A") %> </h2></s>
-              <h4> <%= link_to lesson.theme, course_lesson_path(@course, lesson) %></h4>
-              <%= link_to 'check_ins', course_lesson_check_ins_path(course_id: lesson.course.id, lesson_id: lesson.id),
+              <h3> <%= link_to lesson.theme, course_lesson_path(@course, lesson) %></h3>
+              <s><h5><%= lesson.time.strftime("%A") %> </h5></s>
+              <%#= link_to 'check_ins', course_lesson_check_ins_path(course_id: lesson.course.id, lesson_id: lesson.id),
                           class: "btn btn-outline-dark ml-auto"%>
             <% end %>
           </div>

@@ -9,6 +9,7 @@
 #  updated_at :datetime         not null
 #  role       :string
 #  confirmed  :boolean          default(TRUE)
+#  completed  :boolean          default(FALSE)
 #
 
 class CourseUser < ApplicationRecord
@@ -19,4 +20,9 @@ class CourseUser < ApplicationRecord
 
   validates :role, inclusion: COURSE_ROLES
   validates :confirmed, inclusion: { in: [true, false] }
+
+  scope :organizers, -> { where(role: 'organizer') }
+  scope :instructors, -> { where(role: 'instructor') }
+  scope :confirmed_participant, -> { where(role: 'participant', confirmed: true) }
+  scope :un_confirmed_participant, -> { where(role: 'participant', confirmed: false) }
 end
