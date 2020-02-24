@@ -65,8 +65,22 @@
       zoom: 10
     },
     markerOptions: {
-      draggable: true
+      draggable: false
     },
     location: [<%= request.location.latitude.nil? ? 51.5 : request.location.latitude %>, <%= request.location.longitude.nil? ? -0.125 : request.location.longitude %>]
   });
+  GMaps.geolocate({
+  success: function(position){
+    map.setCenter(position.coords.latitude, position.coords.longitude);
+  },
+  error: function(error){
+    alert('Geolocation failed: '+error.message);
+  },
+  not_supported: function(){
+    alert("Your browser does not support geolocation");
+  },
+  always: function(){
+    alert("Done!");
+  }
+});
 </script>

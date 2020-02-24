@@ -9,6 +9,7 @@ require("@rails/activestorage").start()
 require("channels")
 require("jquery")
 require("packs/geocomplete")
+require("packs/gmaps")
 import '../stylesheets/application'
 import './bootstrap_custom.js'
 
