@@ -19,7 +19,7 @@
   <strong>My Courses:</strong>
   <p>
     <% @user.course_users.includes(:course).organizers.each do |course| %>
-      <%= course&.course&.name %>
+      <%= course.course&.name %>
     <% end %>
   </p>
 <strong>Join to course:</strong>

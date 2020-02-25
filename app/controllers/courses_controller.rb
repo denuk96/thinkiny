@@ -2,7 +2,7 @@ class CoursesController < ApplicationController
   include CoursesRights
   include CheckInsChecker
   before_action :set_course, only: %i[show edit update destroy change_role set_user_confirmation change_course_status]
-  before_action :check_course_status, except: %i[index show new create]
+  before_action :check_course_status, except: %i[index show new create nearbys]
   before_action :verify_organizer, only: %i[destroy]
   before_action :verify_moderators, only: %i[edit update change_role set_user_confirmation change_course_status]
 
@@ -53,6 +53,16 @@ class CoursesController < ApplicationController
       @course_user.update(role: 'participant', confirmed: true)
       check_ins_create(@lessons, @course_user)
       redirect_to course_path(@course)
+    end
+  end
+
+  def nearbys
+    @courses = Course.all
+    location_info = request.location
+    @courses_near = Course.near([location_info.latitude, location_info.longitude], 10)
+    @a = []
+    @courses.each do |course|
+    @a.push([course.name, course.latitude, course.longitude])
     end
   end
 
