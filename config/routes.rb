@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     get 'change_role', on: :collection
     get 'set_user_confirmation', on: :collection
     get 'change_course_status', on: :collection
+    get 'nearbys', on: :collection
     resources :lessons do
       resources :check_ins do
         get 'user_attendance', on: :collection
