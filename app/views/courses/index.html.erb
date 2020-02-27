@@ -27,6 +27,10 @@
         </div>
         <div class="card-body">
           <p class="card-text">
+            <% course.categories.each do |category| %>
+              Category: <b><%= category.title %></b>
+            <% end %>
+            <br>
             Description: <b><%= course.description %></b>
             <br>
             Organizer: <b><%= course.course_users&.find_by(role: 'organizer')&.user&.email %></b>

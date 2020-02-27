@@ -20,6 +20,11 @@
   </div>
 
   <div class="field mt-5">
+    <%= form.label :category %>
+    <%= form.collection_check_boxes :category_ids, Category.all, :id, :title, class:'form-control' %>
+  </div>
+
+  <div class="field mt-5">
     <%= form.label :place_quantities %>
     <%= form.text_field :place_quantities, class: "form-control"%>
   </div>

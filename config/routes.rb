@@ -20,7 +20,7 @@ Rails.application.routes.draw do
       get :activate
     end
   end
-  resources :sessions
+  resources :sessions, :categories
   resources :reset_passwords, only: %i[new create update edit]
 
   post "oauth/callback" => "oauths#callback"
