@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_24_100812) do
+ActiveRecord::Schema.define(version: 2020_02_27_104326) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,6 +45,12 @@ ActiveRecord::Schema.define(version: 2020_02_24_100812) do
     t.index ["provider", "uid"], name: "index_authentications_on_provider_and_uid"
   end
 
+  create_table "categories", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "title"
+  end
+
   create_table "check_ins", force: :cascade do |t|
     t.bigint "lesson_id"
     t.bigint "user_id"
@@ -54,6 +60,15 @@ ActiveRecord::Schema.define(version: 2020_02_24_100812) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["lesson_id"], name: "index_check_ins_on_lesson_id"
     t.index ["user_id"], name: "index_check_ins_on_user_id"
+  end
+
+  create_table "course_categories", force: :cascade do |t|
+    t.bigint "course_id"
+    t.bigint "category_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["category_id"], name: "index_course_categories_on_category_id"
+    t.index ["course_id"], name: "index_course_categories_on_course_id"
   end
 
   create_table "course_users", force: :cascade do |t|
@@ -80,6 +95,8 @@ ActiveRecord::Schema.define(version: 2020_02_24_100812) do
     t.boolean "pre_moderation", default: false
     t.integer "place_quantities", default: 9999
     t.integer "attendance_rate", default: 50
+    t.bigint "category_id"
+    t.index ["category_id"], name: "index_courses_on_category_id"
   end
 
   create_table "lessons", force: :cascade do |t|
@@ -110,7 +127,6 @@ ActiveRecord::Schema.define(version: 2020_02_24_100812) do
     t.datetime "last_activity_at"
     t.string "last_login_from_ip_address"
     t.string "email"
-    t.string "google_calendar_id"
     t.string "activation_state"
     t.string "activation_token"
     t.datetime "activation_token_expires_at"
