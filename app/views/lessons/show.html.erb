@@ -1,7 +1,7 @@
 <div class="container">
   <h3 class="text-center"><%= @lesson.theme.upcase %></h3>
   <p class="text-center"><b><%= @lesson.time.strftime("%A") %></b></p>
-  <p class="text-center"><small><%= @lesson.time %></small></p>
+  <p class="text-center"><small><%= @lesson.time.strftime("%F %H:%M") %></small></p>
   <p class="text-center"><%= @lesson.description %></p>
   <p class="text-center">
     <%= image_tag(@lesson.picture, width: 400) if @lesson.picture.attached? %>
