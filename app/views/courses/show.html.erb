@@ -45,7 +45,7 @@
           <% end %>
         </div>
 
-        <table class="mt-5" id="info">
+        <table class="offset-1 mt-5 " id="info">
           <tr >
             <td>Free place:</td>
             <td><%= count_free_places(@course) %> / <%= @course.place_quantities %></td>
@@ -63,33 +63,33 @@
             <td><%= @course.status&.humanize %></td>
           </tr>
         </table>
-
-        <h3 class="text-center mt-5" id="all_lessons_title">all lessons</h3>
-        <div id="all__lessons">
-          <% @lessons.each do |lesson| %>
-            <%= link_to course_lesson_path(@course, lesson), class:"lesson" do %>
-              <div class="card-body" id="card_lesson">
-                <% if lesson.time > Time.now %>
-                  <div>
-                    <h5><%=lesson.theme%></h5>
-                    <p id="lessonday"><%= lesson.time.strftime("%A") %> </p>
-                  </div>
-                <% else %>
-                  <div>
-                    <h5> <%=lesson.theme%></h5>
-                    <p id="lessonday"><%= lesson.time.strftime("%A")%></p>
-                  </div>
-                <% end %>
-              </div>
+        <div class="offset-1 ">
+          <h3 class="text-center mt-5" id="all_lessons_title">all lessons</h3>
+          <div  id="all__lessons">
+            <% @lessons.each do |lesson| %>
+              <%= link_to course_lesson_path(@course, lesson), class:"lesson" do %>
+                <div class="card-body" id="card_lesson">
+                  <% if lesson.time > Time.now %>
+                    <div>
+                      <h5><%=lesson.theme%></h5>
+                      <p id="lessonday"><%= lesson.time.strftime("%A") %> </p>
+                    </div>
+                  <% else %>
+                    <div>
+                      <h5> <%=lesson.theme%></h5>
+                      <p id="lessonday"><%= lesson.time.strftime("%A")%></p>
+                    </div>
+                  <% end %>
+                </div>
+              <% end %>
             <% end %>
-          <% end %>
+          </div>
+          <div>
+            <% if current_user && verify_instructor(@course, current_user) %>
+              <%= link_to "Add lessons", new_course_lesson_path(@course), class: "btn btn-outline-light btn-block" %>
+            <% end %>
+          </div>
         </div>
-        <div>
-          <% if current_user && verify_instructor(@course, current_user) %>
-            <%= link_to "Add lessons", new_course_lesson_path(@course), class: "btn btn-outline-light btn-block" %>
-          <% end %>898989
-        </div>
-
         <div class="ml-3">
           <b class="mt-5 blockquote-footer">Instructors(<%= @course&.course_users.instructors.size %>):</b>
           <p class="offset-1 mt-2">
