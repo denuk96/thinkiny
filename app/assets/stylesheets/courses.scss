@@ -53,7 +53,7 @@ h4{
 #all__lessons{
   border-left: 1px solid #e1e1e1;
 }
-.card-body:hover{
+#card_lesson:hover{
   background: #08082f;
 }
 .lesson:link { color: #e1e1e1; text-decoration: none;}
@@ -67,6 +67,4 @@ h5{
 #lessonday{
   text-decoration: line-through;
 }
-/*lesson__show*/
-#lesson__show{
-}
+
