@@ -1,0 +1,70 @@
+/*container__course*/
+#container__course{
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/*logo*/
+#logo{
+  display: block ;
+  margin-left: auto;
+  margin-right: auto;
+  height:400px;
+}
+/*carousel__image*/
+.carousel__image{
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  height: 400px;
+}
+
+
+/*course__lesson*/
+#course__lesson{
+  display: block;
+  /*border: 1px solid #555555; !* Параметры рамки *!*/
+  background: linear-gradient(to bottom, #0f0f57, #0c0c44, #060623);
+}
+h3{
+  color: #f3f3f3;
+  text-transform: uppercase;
+}
+h4{
+  color: #c0c0c0;
+  text-transform: uppercase;
+}
+#info{
+  color: #8e8e8e;
+}
+.btn__panel{
+  width: 89px;
+}
+#btn__status{
+  margin-top: 15%;
+  text-align: center
+}
+#all_lessons_title{
+  border-left: 1px solid #e1e1e1;
+  background: #08082f;
+  padding: 5px;
+  margin-bottom: 0;
+}
+#all__lessons{
+  border-left: 1px solid #e1e1e1;
+}
+#card_lesson:hover{
+  background: #08082f;
+}
+.lesson:link { color: #e1e1e1; text-decoration: none;}
+.lesson:visited { color: #c8c8c8; text-decoration: none;}
+.lesson:active {  color: #e1e1e1; text-decoration: none;}
+.lesson:hover { color: #ffffff; text-decoration: none;}
+
+h5{
+  text-transform: uppercase;
+}
+#lessonday{
+  text-decoration: line-through;
+}
+

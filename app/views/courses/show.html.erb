@@ -1,138 +1,149 @@
-Что бы было видно, завершили юзеры курс успешно или нет. Потом удалить)
-<br>
-<% @course.course_users.includes(:user).each do |course_user| %>
-  <%= course_user.user.email %>
-  <%= course_user.completed %>
-  <br>
-<% end %>
-<div class="offset-md-1 mt-5">
-  <div class="col-10">
-    <div class="card">
-      <div class="card-header ">
-        <div class="row">
-          <h3>
-            <%= @course.name %>
-          </h3>
-          <div class="ml-auto">
-            <% if current_user %>
-              <% if already_joined?(@course, current_user) %>
-                <button type="button" class="btn btn-outline-dark" disabled>Joined</button>
-              <% elsif @course.status == 'completed' %>
-                <button type="button" class="btn btn-outline-dark" disabled>Completed</button>
-              <% elsif free_places?(@course) %>
-                <%= link_to 'Join', join_path(id: @course), class: "btn btn-outline-dark" %>
-              <% else %>
-                has no free places
-              <% end %>
-              <% if verify_organizer(@course, current_user) && @course.status != 'completed' %>
-                <%= link_to "Edit", edit_course_path(@course), class: "btn btn-outline-dark"  %>
-                <%= link_to "Destroy", course_path(@course), class: "btn btn-outline-dark",
+<div id="container__course">
+  <section id="logo">
+    <% if @course.pictures.attached? %>
+      <% @course.pictures.each_with_index do |picture, index| %>
+        <div class="carousel-item <%= 'active' if index == 0 %>" >
+          <%= image_tag picture, id: index, class: 'd-block carousel__image'%>
+        </div>
+      <% end %>
+    <% end %>
+    <% if current_user %>
+      <% if already_joined?(@course, current_user) %>
+        <button type="button" class="btn btn-outline-dark" disabled>Joined</button>
+      <% elsif @course.status == 'completed' %>
+        <button type="button" class="btn btn-outline-dark" disabled>Completed</button>
+      <% elsif free_places?(@course) %>
+        <%= link_to 'Join', join_path(id: @course), class: "btn btn-outline-dark" %>
+      <% end %>
+    <% end %>
+  </section>
+  <div class="contdainer-fluid">
+    <div class="row">
+      <section class="col-12 col-md-5 col-lg-3" id="course__lesson">
+        <h3 class="text-sm-center pt-5"><%= @course.name %></h3>
+
+        <div id="btn__status">
+          <% if current_user %>
+            <% if verify_organizer(@course, current_user) && @course.status != 'completed' %>
+              <div>
+                <%= link_to "Edit", edit_course_path(@course), class: "btn btn-outline-light btn__panel"  %>
+                <%= link_to "Destroy", course_path(@course), class: "btn btn-outline-light btn__panel",
                             method: :delete, data: { confirm: 'Are you sure?' } %>
+              </div>
+              <div class="mt-1">
                 <% if @course.status == 'new'  %>
                   <%= link_to 'Start course', change_course_status_courses_path(id: @course),
-                             class: "btn btn-outline-dark" %>
+                              class: "btn btn-outline-light" %>
                 <% elsif @course.status == 'in_process' %>
                   <%= link_to 'Complete course', change_course_status_courses_path(id: @course),
-                              class: "btn btn-outline-dark" %>
+                              class: "btn btn-outline-light" %>
                 <% else %>
-                  <button type="button" class="btn btn-outline-dark" disabled>Completed</button>
+                  <button type="button" class="btn btn-outline-light" disabled>Completed</button>
                 <% end %>
-              <% end %>
+              </div>
             <% end %>
-          </div>
+          <% end %>
+        </div>
+
+        <table class="mt-5" id="info">
+          <tr >
+            <td>Free place:</td>
+            <td><%= count_free_places(@course) %> / <%= @course.place_quantities %></td>
+          </tr>
+          <tr>
+            <td>Admittance:</td>
+            <td><%= @course.pre_moderation ? 'free for all' : 'on the confirmation' %></td>
+          </tr>
+          <tr>
+            <td>Created by:</td>
+            <td><%= @course.course_users&.includes(:user).find_by(role: 'organizer')&.user&.email %></td>
+          </tr>
+          <tr>
+            <td>Status:</td>
+            <td><%= @course.status&.humanize %></td>
+          </tr>
+        </table>
+
+        <h3 class="text-center mt-5" id="all_lessons_title">all lessons</h3>
+        <div id="all__lessons">
+          <% @lessons.each do |lesson| %>
+            <%= link_to course_lesson_path(@course, lesson), class:"lesson" do %>
+              <div class="card-body" id="card_lesson">
+                <% if lesson.time > Time.now %>
+                  <div>
+                    <h5><%=lesson.theme%></h5>
+                    <p id="lessonday"><%= lesson.time.strftime("%A") %> </p>
+                  </div>
+                <% else %>
+                  <div>
+                    <h5> <%=lesson.theme%></h5>
+                    <p id="lessonday"><%= lesson.time.strftime("%A")%></p>
+                  </div>
+                <% end %>
+              </div>
+            <% end %>
+          <% end %>
         </div>
         <div>
-          Created by:
-          <b><%= @course.course_users&.includes(:user).find_by(role: 'organizer')&.user&.email %></b>
-          <br>
-          Pre-moderation:
-          <%= @course.pre_moderation %>
-          <br>
-          Place quantities:
-          <%= @course.place_quantities %>
-          Free places:
-          <%= count_free_places(@course) %>
-          <br>
-          Course status:
-          <%= @course.status&.humanize %>
-          <br>
-          Required attendance rate:
-          <%= @course.attendance_rate %>%
+          <% if current_user && verify_instructor(@course, current_user) %>
+            <%= link_to "Add lessons", new_course_lesson_path(@course), class: "btn btn-outline-light btn-block" %>
+          <% end %>898989
         </div>
-      </div>
-      <div class="card-body">
-        <h5 class="card-title"><%= @course.description %></h5>
-        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-          <div class="carousel-inner">
-            <% if @course.pictures.attached? %>
-              <% @course.pictures.each_with_index do |picture, index| %>
-                <div class="carousel-item <%= 'active' if index == 0 %>" >
-                  <%= image_tag picture, id: index, class: 'd-block carousel__image'%>
-                </div>
+
+        <div class="ml-3">
+          <b class="mt-5 blockquote-footer">Instructors(<%= @course&.course_users.instructors.size %>):</b>
+          <p class="offset-1 mt-2">
+            <% @course&.course_users.includes(:user).instructors.each do |instructor| %>
+              <%= instructor.user.email %>
+              <% if current_user && verify_instructor(@course, current_user) %>
+                <%= link_to 'to participant', change_role_courses_path(id: @course.id, course_user_id: instructor.id) %>
               <% end %>
+              <br>
             <% end %>
-          </div>
-          <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">←</span>
-          </a>
-          <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">→</span>
-          </a>
+          </p>
         </div>
-      </div>
+        <div class="ml-3">
+          <b class="mt-5 blockquote-footer">Joined users(<%= @course&.course_users.confirmed_participant.size %>):
+          </b>
+          <p class="offset-1 mt-2">
+            <% @course&.course_users.includes(:user).confirmed_participant.each do |participant| %>
+              <%= participant.user.email %>
+              <% if current_user && verify_instructor(@course, current_user) %>
+                <%= link_to 'to instructor', change_role_courses_path(id: @course.id, course_user_id: participant.id) %>
+                <%= link_to 'Unconfirm', set_user_confirmation_courses_path(id: @course.id, course_user_id: participant.id) %>
+              <% end %>
+              <br>
+            <% end %>
+          </p>
+        </div>
+        <div class="ml-3">
+          <b class="mt-5 blockquote-footer">
+            Candidates(<%= @course&.course_users.un_confirmed_participant.size %>):
+          </b>
+          <p class="offset-1 mt-2">
+            <% @course&.course_users.includes(:user).un_confirmed_participant.each do |candidate| %>
+              <%= candidate.user.email %>
+              <% if current_user && verify_instructor(@course, current_user) %>
+                <%= link_to 'to instructor', change_role_courses_path(id: @course.id, course_user_id: candidate.id) %>
+                <%= link_to 'Confirm', set_user_confirmation_courses_path(id: @course.id, course_user_id: candidate.id) %>
+              <% end %>
+              <br>
+            <% end %>
+          </p>
+        </div>
+
+      </section>
+      <section class="col-12 col-md-7 col-lg-9" id="lesson__show">
+        <%= render 'lessons/lesson'%>
+      </section>
     </div>
   </div>
-  <%= render 'lessons/lessons' %>
-  <div class="ml-3">
-    <b class="mt-5 blockquote-footer">Instructors(<%= @course&.course_users.instructors.size %>):</b>
-    <p class="offset-1 mt-2">
-      <% @course&.course_users.includes(:user).instructors.each do |instructor| %>
-        <%= instructor.user.email %>
-        <% if current_user && verify_instructor(@course, current_user) %>
-          <%= link_to 'to participant', change_role_courses_path(id: @course.id, course_user_id: instructor.id) %>
-        <% end %>
-        <br>
-      <% end %>
-    </p>
-  </div>
-  <div class="ml-3">
-    <b class="mt-5 blockquote-footer">
-      Joined users(<%= @course&.course_users.confirmed_participant.size %>):
-    </b>
-    <p class="offset-1 mt-2">
-      <% @course&.course_users.includes(:user).confirmed_participant.each do |participant| %>
-        <%= participant.user.email %>
-        <% if current_user && verify_instructor(@course, current_user) %>
-          <%= link_to 'to instructor', change_role_courses_path(id: @course.id, course_user_id: participant.id) %>
-          <%= link_to 'Unconfirm', set_user_confirmation_courses_path(id: @course.id, course_user_id: participant.id) %>
-        <% end %>
-        <br>
-      <% end %>
-    </p>
-  </div>
-  <div class="ml-3">
-    <b class="mt-5 blockquote-footer">
-      Candidates(<%= @course&.course_users.un_confirmed_participant.size %>):
-    </b>
-    <p class="offset-1 mt-2">
-      <% @course&.course_users.includes(:user).un_confirmed_participant.each do |candidate| %>
-        <%= candidate.user.email %>
-        <% if current_user && verify_instructor(@course, current_user) %>
-          <%= link_to 'to instructor', change_role_courses_path(id: @course.id, course_user_id: candidate.id) %>
-          <%= link_to 'Confirm', set_user_confirmation_courses_path(id: @course.id, course_user_id: candidate.id) %>
-        <% end %>
-        <br>
-      <% end %>
-    </p>
-  </div>
-  <%= link_to "Back", courses_path, class: "btn btn-outline-dark" %>
+  <section>
+    <div class="text-center">
+      <div id="map"></div>
+    </div>
+  </section>
 </div>
-<div class="text-center">
-    <div id="map"></div>
-</div>
-
 <script>
   function initMap(lat, lng) {
     var myCoords = new google.maps.LatLng(lat, lng);

@@ -1,6 +1,14 @@
 @import './bootstrap_custom.scss';
 @import "navbar";
-@import "courses";
+/*@import "courses";*/
+
+
+body{
+    width: 100%;
+    min-width: 375px;
+    margin: 0;
+    padding: 0;
+}
 #map {
     width: 600px;
     height: 400px;
