@@ -9,6 +9,7 @@
 #  updated_at :datetime         not null
 #  role       :string
 #  confirmed  :boolean          default(TRUE)
+#  completed  :boolean          default(FALSE)
 #
 
 require 'rails_helper'

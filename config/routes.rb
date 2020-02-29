@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     get 'change_role', on: :collection
     get 'set_user_confirmation', on: :collection
     get 'change_course_status', on: :collection
+    get 'nearbys', on: :collection
     resources :lessons do
       resources :check_ins do
         get 'user_attendance', on: :collection
@@ -14,8 +15,13 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :users
-  resources :sessions
+  resources :users do
+    member do
+      get :activate
+    end
+  end
+  resources :sessions, :categories
+  resources :reset_passwords, only: %i[new create update edit]
 
   post "oauth/callback" => "oauths#callback"
   get "oauth/callback" => "oauths#callback"

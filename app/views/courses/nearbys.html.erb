@@ -1,0 +1,41 @@
+<div class="container">
+  <h1>Courses near you</h1>
+  <% if request.location.latitude.nil? %>
+    <b>Na localke ne rabotaet</b>
+  <% else %>
+    <% @courses_near.each do |course_near| %>
+      <li><%= link_to course_near.name, course_path(course_near) %> (<%= course_near.distance.round(2) %> miles)</li>
+    <% end %>
+  <% end %>
+</div>
+<div class="text-center">
+    <div id="map"></div>
+</div>
+
+<script type="text/javascript">
+    var locations = <%= raw @a %>;
+
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 4,
+      center: new google.maps.LatLng(49.4447888, 32.0587805),
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    });
+
+    var infowindow = new google.maps.InfoWindow();
+
+    var marker, i;
+
+    for (i = 0; i < locations.length; i++) {
+      marker = new google.maps.Marker({
+        position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+        map: map
+      });
+
+      google.maps.event.addListener(marker, 'click', (function(marker, i) {
+        return function() {
+          infowindow.setContent(locations[i][0]);
+          infowindow.open(map, marker);
+        }
+      })(marker, i));
+    }
+  </script>

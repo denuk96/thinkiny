@@ -1,0 +1,5 @@
+Welcome, <%= @user.first_name %>!
+
+To login to the site, just follow <%= link_to 'this link', activate_user_url(id: @user, activation_token: @user.activation_token) %>.
+
+Thanks for joining and have a great day!

@@ -13,6 +13,7 @@
 #  longitude        :float
 #  pre_moderation   :boolean          default(FALSE)
 #  place_quantities :integer          default(9999)
+#  attendance_rate  :integer          default(50)
 #
 
 require 'rails_helper'

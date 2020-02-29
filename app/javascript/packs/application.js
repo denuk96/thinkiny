@@ -8,8 +8,8 @@ require("turbolinks").start()
 require("@rails/activestorage").start()
 require("channels")
 require("jquery")
-require('geocomplete')
-
+require("packs/geocomplete")
+require("packs/gmaps")
 import '../stylesheets/application'
 import './bootstrap_custom.js'
 
