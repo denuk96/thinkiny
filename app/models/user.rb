@@ -24,7 +24,7 @@
 
 class User < ApplicationRecord
   authenticates_with_sorcery!
-  has_one_attached :picture
+  mount_uploader :picture, PictureUploader
 
   has_many :authentications, dependent: :destroy
   accepts_nested_attributes_for :authentications

@@ -1,9 +1,9 @@
 <div id="container__course">
   <section id="logo">
-    <% if @course.pictures.attached? %>
+    <% if @course.pictures? %>
       <% @course.pictures.each_with_index do |picture, index| %>
-        <div class="carousel-item <%= 'active' if index == 0 %>" >
-          <%= image_tag picture, id: index, class: 'd-block carousel__image'%>
+        <div>
+          <%= image_tag (picture.url)%>
         </div>
       <% end %>
     <% end %>
