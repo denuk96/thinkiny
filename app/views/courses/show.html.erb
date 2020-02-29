@@ -7,19 +7,20 @@
         </div>
       <% end %>
     <% end %>
-    <% if current_user %>
-      <% if already_joined?(@course, current_user) %>
-        <button type="button" class="btn btn-outline-dark" disabled>Joined</button>
-      <% elsif @course.status == 'completed' %>
-        <button type="button" class="btn btn-outline-dark" disabled>Completed</button>
-      <% elsif free_places?(@course) %>
-        <%= link_to 'Join', join_path(id: @course), class: "btn btn-outline-dark" %>
-      <% end %>
-    <% end %>
   </section>
   <div class="contdainer-fluid">
     <div class="row">
       <section class="col-12 col-md-5 col-lg-3" id="course__lesson">
+        <div class="text-center mt-5"><% if current_user %>
+          <% if already_joined?(@course, current_user) %>
+              <button type="button" class="btn btn-outline-light btn-block" disabled>You joined to course</button>
+            <% elsif @course.status == 'completed' %>
+              <button type="button" class="btn btn-outline-light btn-block" disabled>Course completed!</button>
+            <% elsif free_places?(@course) %>
+              <%= link_to 'Join to course', join_path(id: @course), class: "btn btn-outline-light btn-block" %>
+            <% end %>
+          <% end %>
+        </div>
         <h3 class="text-sm-center pt-5"><%= @course.name %></h3>
 
         <div id="btn__status">
@@ -52,7 +53,7 @@
           </tr>
           <tr>
             <td>Admittance:</td>
-            <td><%= @course.pre_moderation ? 'free for all' : 'on the confirmation' %></td>
+            <td><%= @course.pre_moderation ? 'on the confirmation' : 'free for all' %></td>
           </tr>
           <tr>
             <td>Created by:</td>
@@ -94,7 +95,7 @@
           <b class="mt-5 blockquote-footer">Instructors(<%= @course&.course_users.instructors.size %>):</b>
           <p class="offset-1 mt-2">
             <% @course&.course_users.includes(:user).instructors.each do |instructor| %>
-              <%= instructor.user.email %>
+              <small id="users_mail"><%= instructor.user.email %></small>
               <% if current_user && verify_instructor(@course, current_user) %>
                 <%= link_to 'to participant', change_role_courses_path(id: @course.id, course_user_id: instructor.id) %>
               <% end %>
@@ -107,7 +108,7 @@
           </b>
           <p class="offset-1 mt-2">
             <% @course&.course_users.includes(:user).confirmed_participant.each do |participant| %>
-              <%= participant.user.email %>
+            <small id="users_mail"><%= participant.user.email %></small>
               <% if current_user && verify_instructor(@course, current_user) %>
                 <%= link_to 'to instructor', change_role_courses_path(id: @course.id, course_user_id: participant.id) %>
                 <%= link_to 'Unconfirm', set_user_confirmation_courses_path(id: @course.id, course_user_id: participant.id) %>
@@ -122,7 +123,7 @@
           </b>
           <p class="offset-1 mt-2">
             <% @course&.course_users.includes(:user).un_confirmed_participant.each do |candidate| %>
-              <%= candidate.user.email %>
+              <small id="users_mail"><%= candidate.user.email %></small>
               <% if current_user && verify_instructor(@course, current_user) %>
                 <%= link_to 'to instructor', change_role_courses_path(id: @course.id, course_user_id: candidate.id) %>
                 <%= link_to 'Confirm', set_user_confirmation_courses_path(id: @course.id, course_user_id: candidate.id) %>

@@ -45,7 +45,6 @@ h4{
   text-align: center
 }
 #all_lessons_title{
-  border-left: 1px solid #e1e1e1;
   background: #08082f;
   padding: 5px;
   margin-bottom: 0;
@@ -61,7 +60,9 @@ h4{
 .lesson:visited { color: #c8c8c8; text-decoration: none;}
 .lesson:active {  color: #e1e1e1; text-decoration: none;}
 .lesson:hover { color: #ffffff; text-decoration: none;}
-
+#users_mail{
+  color: #cdcdcd;
+}
 h5{
   text-transform: uppercase;
 }
