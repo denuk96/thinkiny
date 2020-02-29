@@ -9,7 +9,6 @@ class JoinsController < ApplicationController
   def join_to_course
     @course_user = @course.course_users.create(user_id: current_user.id, role: 'participant',
                                                confirmed: !@course.pre_moderation)
-    @course_user.save
     if @course_user.confirmed
       flash[:notice] = 'Automatically joined'
       check_ins_create(@course_user.course.lessons, @course_user)

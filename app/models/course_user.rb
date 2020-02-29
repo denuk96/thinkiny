@@ -21,7 +21,6 @@ class CourseUser < ApplicationRecord
 
   validates :role, inclusion: COURSE_ROLES
   validates :confirmed, inclusion: { in: [true, false] }
-  validates :course_rating, inclusion: { in: 1..5, message: 'must be of 1 to 5' }
 
   scope :organizers, -> { where(role: 'organizer') }
   scope :instructors, -> { where(role: 'instructor') }

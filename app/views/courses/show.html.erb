@@ -113,6 +113,7 @@
           </b>
           <p class="offset-1 mt-2">
             <% @course&.course_users.includes(:user).un_confirmed_participant.each do |candidate| %>
+            <%# @course&.course_users.includes(:user).un_confirmed_participant.each do |candidate| %>
               <%= candidate.user.email %>
               <% if current_user && verify_instructor(@course, current_user) %>
                 <%= link_to 'to instructor', change_role_courses_path(id: @course.id, course_user_id: candidate.id) %>

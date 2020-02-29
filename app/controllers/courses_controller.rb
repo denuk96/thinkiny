@@ -44,7 +44,7 @@ class CoursesController < ApplicationController
     @course.destroy
     redirect_to courses_path, notice: 'Course has been successfully destroyed'
   end
-
+  
   def change_role
     @lessons = @course.lessons
     if @course_user.role == 'participant'

@@ -15,7 +15,7 @@ module CoursesHelper
   end
 
   def completed_course?(course, user)
-    true if course.course_users.find_by(user_id: user.id, completed: true).present?
+    true if course.course_users.find_by(user_id: user.id, completed: true, role: 'participant').present?
   end
 
   def free_places?(course)
