@@ -7,15 +7,6 @@
         </div>
       <% end %>
     <% end %>
-    <% if current_user %>
-      <% if already_joined?(@course, current_user) %>
-        <button type="button" class="btn btn-outline-dark" disabled>Joined</button>
-      <% elsif @course.status == 'completed' %>
-        <button type="button" class="btn btn-outline-dark" disabled>Completed</button>
-      <% elsif free_places?(@course) %>
-        <%= link_to 'Join', join_path(id: @course), class: "btn btn-outline-dark" %>
-      <% end %>
-    <% end %>
   </section>
   <div class="contdainer-fluid">
     <div class="row">
@@ -46,7 +37,7 @@
         </div>
 
         <table class="offset-1 mt-5 " id="info">
-          <tr >
+          <tr>
             <td>Free place:</td>
             <td><%= count_free_places(@course) %> / <%= @course.place_quantities %></td>
           </tr>
@@ -138,6 +129,15 @@
       </section>
     </div>
   </div>
+  <% if current_user %>
+    <% if already_joined?(@course, current_user) %>
+      <button type="button" class="btn btn-outline-dark" disabled>Joined</button>
+    <% elsif @course.status == 'completed' %>
+      <button type="button" class="btn btn-outline-dark" disabled>Completed</button>
+    <% elsif free_places?(@course) %>
+      <%= link_to 'Join', join_path(id: @course), class: "btn btn-outline-dark" %>
+    <% end %>
+  <% end %>
   <section>
     <div class="text-center">
       <div id="map"></div>

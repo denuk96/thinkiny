@@ -1,0 +1,23 @@
+<div class="container">
+  <%= form_for @course_user, url: course_save_rating_path(course_id: @course) do |form| %>
+    <% if @course_user.errors.any? %>
+      <div class="alert alert-danger">
+        <ul>
+          <% @course_user.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    
+    <div class="field">
+      <%= form.label :course_rating %>
+      <%= form.text_field :course_rating, class: "form-control" %>
+    </div>
+
+    <div class="text-center actions">
+      <%= form.submit 'submit', class: "btn btn-light" %>
+    </div>
+
+  <% end %>
+</div>

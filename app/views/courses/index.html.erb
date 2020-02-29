@@ -12,6 +12,7 @@
               <% if current_user %>
                 <% if already_joined?(course, current_user) %>
                   <button type="button" class="btn btn-outline-dark" disabled>Joinded</button>
+                  <%= link_to 'leave rating', course_rating_form_path(course_id: course.id) if completed_course?(course, current_user) %>
                 <% elsif course.status == 'completed' %>
                   Completed
                 <% elsif free_places?(course) %>

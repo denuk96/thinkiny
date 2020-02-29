@@ -14,6 +14,7 @@
 #  pre_moderation   :boolean          default(FALSE)
 #  place_quantities :integer          default(9999)
 #  attendance_rate  :integer          default(50)
+#  category_id      :bigint
 #
 
 class Course < ApplicationRecord
@@ -33,5 +34,5 @@ class Course < ApplicationRecord
   validates_presence_of :name, :description, :place_quantities, :attendance_rate, :category_ids
   validates :pre_moderation, inclusion: { in: [true, false] }
   validates :place_quantities, numericality: { greater_than: 0 }
-  validates :attendance_rate, inclusion: { in: 0..100, message: 'must be 1 to 100' }
+  validates :attendance_rate, inclusion: { in: 0..100, message: 'must be of 1 to 100' }
 end

@@ -7,11 +7,12 @@ class CoursesController < ApplicationController
   before_action :verify_moderators, only: %i[edit update change_role set_user_confirmation change_course_status]
 
   def index
-    @courses = Course.all.order(created_at: :desc)
+    @courses = Course.includes([:categories]).all.order(created_at: :desc)
   end
 
   def show
-    @lesson  = Lesson.find(params[:lesson_id]) if @course.lessons.present?
+    @lesson = @course.lessons.first if @course.lessons.exists?
+    # @lesson  = Lesson.find(params[:lesson_id]) if @course.lessons.present?
     @lessons = @course.lessons.order('time ASC')
   end
 
