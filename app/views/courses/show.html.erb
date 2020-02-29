@@ -134,7 +134,7 @@
 
       </section>
       <section class="col-12 col-md-7 col-lg-9" id="lesson__show">
-        <%= render 'lessons/lesson' if @course.lessons.present?%>
+        <%= @course.lessons.present? ?  (render 'lessons/lesson') : (render 'shared/lesson_instruction') %>
       </section>
     </div>
   </div>
