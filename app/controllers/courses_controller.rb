@@ -11,7 +11,7 @@ class CoursesController < ApplicationController
   end
 
   def show
-    @lesson  = Lesson.find(params[:lesson_id])
+    @lesson  = Lesson.find(params[:lesson_id]) if @course.lessons.present?
     @lessons = @course.lessons.order('time ASC')
   end
 
