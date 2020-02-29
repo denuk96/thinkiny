@@ -25,6 +25,11 @@
   </div>
 
   <div class="field mt-5">
+    <%= form.label :type %>
+    <%= form.select :type, Course::COURSE_TYPES, prompt: '--Choose type--' %>
+  </div>
+
+  <div class="field mt-5">
     <%= form.label :place_quantities %>
     <%= form.text_field :place_quantities, class: "form-control"%>
   </div>

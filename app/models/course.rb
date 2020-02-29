@@ -18,6 +18,7 @@
 
 class Course < ApplicationRecord
   COURSE_STATUS = %w[new in_process completed].freeze
+  COURSE_TYPES = %w[course webinar lecture training masterclass]
 
   geocoded_by :address
   after_validation :geocode

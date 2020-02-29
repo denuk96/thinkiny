@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_27_104326) do
+ActiveRecord::Schema.define(version: 2020_02_29_113853) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -96,6 +96,7 @@ ActiveRecord::Schema.define(version: 2020_02_27_104326) do
     t.integer "place_quantities", default: 9999
     t.integer "attendance_rate", default: 50
     t.bigint "category_id"
+    t.string "type"
     t.index ["category_id"], name: "index_courses_on_category_id"
   end
 
