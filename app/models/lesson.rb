@@ -19,4 +19,6 @@ class Lesson < ApplicationRecord
   has_many :users, through: :check_ins
 
   validates_presence_of :theme, :description, :time
+  validates :picture, file_size: { less_than: 5.megabytes }
+
 end

@@ -6,20 +6,33 @@
 
 /*logo*/
 #logo{
+  background: linear-gradient(to right,  #fff, #fff, #dbdfc3, #dbdfc3, #fff);
   display: block ;
   margin-left: auto;
   margin-right: auto;
-  height:400px;
 }
-/*carousel__image*/
-.carousel__image{
-  margin-left: auto;
-  margin-right: auto;
+#form__nologo{
+  padding: 50px;
+  display: block;
   width: 100%;
   height: 400px;
 }
-
-
+#form__nologo p{
+  font-size: 30px;
+  text-transform: uppercase;
+  color: #696969;
+}
+.img_logo{
+  height:400px ;
+  width: 100%;
+}
+.my-img {
+  max-width: 200px;
+  max-height: 200px;
+  border: 1px solid black;
+  border-radius: 5px;
+  margin: 0 10px 10px 10px;
+}
 /*course__lesson*/
 #course__lesson{
   display: block;
@@ -62,6 +75,7 @@ h4{
 .lesson:hover { color: #ffffff; text-decoration: none;}
 #users_mail{
   color: #cdcdcd;
+  margin-bottom: 10px;
 }
 h5{
   text-transform: uppercase;
@@ -70,3 +84,24 @@ h5{
   text-decoration: line-through;
 }
 
+.carousel-inner, #map {
+  border: 1px solid #424196; /* Параметры рамки */
+  box-shadow: 0 0 10px #4847a4; /* Параметры тени */
+}
+#footer_course{
+  background: linear-gradient(to bottom, #060623, #000);
+  padding: 200px 50px;
+}
+#map{
+  margin-left: auto;
+  margin-right: auto;
+  width: 96%;
+  height: 450px;
+  margin-bottom: 50px;
+}
+.carousel__image{
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  height: 450px;
+}

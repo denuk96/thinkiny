@@ -44,9 +44,23 @@
     <%= form.label :attendance_rate %>
     <%= form.text_field :attendance_rate, class: "form-control"%>
   </div>
+  <div class="field mt-5 row">
+    <% if @course.save and @course.pictures.present? %>
+      <% @course.pictures.each_with_index do |picture, index| %>
+        <p class="mt-5"><%= image_tag(picture.big_thumb.url) %></p>
+      <% end %>
+    <% end %>
+    <br>
+    <div class="upload-preview field">
+      <img />
+    </div>
+  </div>
+  <% @course.pictures.each do |picture| %>
+    <%= hidden_field :course, :pictures, multiple: true, value: picture.identifier %>
+  <% end %>
 
-  <div class="field mt-5">
-    <%= form.file_field :pictures, multiple: true %>
+  <div class="field">
+    <%= form.file_field :pictures, multiple: true, class: "file" %>
   </div>
 
   <br>
@@ -99,4 +113,19 @@
     $("#address").geocomplete({
         map: "#map2"
     });
+</script>
+<script>
+    document.querySelector('.file').addEventListener('change', event => {
+        [...event.target.files].forEach(file => {
+            const url = URL.createObjectURL(file)
+            addImageToBody(url)
+        })
+    })
+    // add image to html
+    function addImageToBody (src) {
+        const img = document.createElement('img')
+        img.src = src
+        img.className = 'my-img'
+        $('.upload-preview').append(img)
+    }
 </script>

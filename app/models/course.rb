@@ -32,9 +32,11 @@ class Course < ApplicationRecord
   has_many :course_categories
   has_many :categories, through: :course_categories
 
+
   validates :status, inclusion: COURSE_STATUS
   validates_presence_of :name, :description, :place_quantities, :attendance_rate
   validates :pre_moderation, inclusion: { in: [true, false] }
   validates :place_quantities, numericality: { greater_than: 0 }
   validates :attendance_rate, inclusion: { in: 0..100, message: 'must be 1 to 100' }
+  validates :logo, :pictures, file_size: { less_than: 5.megabytes }
 end

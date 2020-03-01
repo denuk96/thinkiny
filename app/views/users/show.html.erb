@@ -4,7 +4,7 @@
 </p>
 
 <p>
-  <%= image_tag(@user.picture.url, width: 200) if @user.picture? %>
+  <%= image_tag(@user.picture.thumb.url, id:'icon_show_author') if @user.picture? %>
 </p>
 <p>
   <strong>First name:</strong>

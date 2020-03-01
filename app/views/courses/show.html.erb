@@ -1,12 +1,25 @@
 <div id="container__course">
   <section id="logo">
-    <% if @course.pictures? %>
-      <% @course.pictures.each_with_index do |picture, index| %>
-        <div>
-          <%= image_tag (picture.url)%>
-        </div>
+    <% if @course.logo? %>
+      <%= image_tag @course.logo.url , class: 'img_logo'%>
+        <% if current_user %>
+          <% if  verify_organizer(@course, current_user) %>
+            <div id='form__logo' class="container row">
+              <h5 class="mr-5 p-2">Edit logo</h5>
+              <div class="p-1"><%= render 'courses/add_logo' %></div>
+            </div>
+          <% end %>
+        <% end %>
+    <% else %>
+      <% if current_user %>
+        <% if  verify_organizer(@course, current_user) %>
+          <div id='form__nologo' class="offset-md-1 offset-lg-2 offset-xl-4">
+            <p class="mr-5 p-2">Add logo to your course</p>
+            <div class="p-1 "><%= render 'courses/add_logo' %></div>
+          </div>
+        <% end %>
       <% end %>
-    <% end %>
+    <% end%>
   </section>
   <div class="contdainer-fluid">
     <div class="row">
@@ -92,7 +105,7 @@
           </div>
         </div>
         <div class="ml-3">
-          <b class="mt-5 blockquote-footer">Instructors(<%= @course&.course_users.instructors.size %>):</b>
+          <b class="mt-5 blockquote-footer">Instructors (<%= @course&.course_users.instructors.size %>):</b>
           <p class="offset-1 mt-2">
             <% @course&.course_users.includes(:user).instructors.each do |instructor| %>
               <small id="users_mail"><%= instructor.user.email %></small>
@@ -104,7 +117,7 @@
           </p>
         </div>
         <div class="ml-3">
-          <b class="mt-5 blockquote-footer">Joined users(<%= @course&.course_users.confirmed_participant.size %>):
+          <b class="mt-5 blockquote-footer">Joined users (<%= @course&.course_users.confirmed_participant.size %>):
           </b>
           <p class="offset-1 mt-2">
             <% @course&.course_users.includes(:user).confirmed_participant.each do |participant| %>
@@ -119,7 +132,7 @@
         </div>
         <div class="ml-3">
           <b class="mt-5 blockquote-footer">
-            Candidates(<%= @course&.course_users.un_confirmed_participant.size %>):
+            Candidates (<%= @course&.course_users.un_confirmed_participant.size %>):
           </b>
           <p class="offset-1 mt-2">
             <% @course&.course_users.includes(:user).un_confirmed_participant.each do |candidate| %>
@@ -139,12 +152,40 @@
       </section>
     </div>
   </div>
-  <section>
-    <div class="text-center">
-      <div id="map"></div>
+  <section id="footer_course">
+    <div class="row">
+      <div class="col-lg-5 col-xl-4" id="map"></div>
+      <div class="col-lg-7 col-xl-8">
+        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+            <% if @course.pictures? %>
+              <% @course.pictures.each_with_index do |picture, index| %>
+                <div class="carousel-item <%= 'active' if index == 0 %>" >
+                  <%= image_tag(picture.url, id: index, class: 'd-block carousel__image') %>
+                </div>
+              <% end %>
+            <% else %>
+              <div class="carousel-item active">
+                <%#= image_tag , class: 'carousel__image' %>
+              </div>
+            <% end %>
+          </div>
+          <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">←</span>
+          </a>
+          <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">→</span>
+          </a>
+        </div>
+      </div>
     </div>
+
   </section>
 </div>
+
+
 <script>
   function initMap(lat, lng) {
     var myCoords = new google.maps.LatLng(lat, lng);

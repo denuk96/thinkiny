@@ -1,0 +1,15 @@
+<%= form_with(model: @course, local: true) do |form| %>
+  <% if @course.errors.any? %>
+    <div class="alert alert-danger">
+      <ul>
+        <% @course.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="row">
+    <div><%= form.file_field :logo %></div>
+    <div><%= form.submit 'Submit', class: "btn btn-outline-dark btn-sm" %></div>
+  </div>
+<% end %>
