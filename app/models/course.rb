@@ -34,4 +34,9 @@ class Course < ApplicationRecord
   validates :pre_moderation, inclusion: { in: [true, false] }
   validates :place_quantities, numericality: { greater_than: 0 }
   validates :attendance_rate, inclusion: { in: 0..100, message: 'must be 1 to 100' }
+
+  scope :newest, -> { order("created_at ASC") }
+  scope :popular, -> {
+    left_outer_joins(:users).group('courses.id').order('COUNT(users.id) DESC')
+  }
 end

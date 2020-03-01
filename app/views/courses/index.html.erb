@@ -1,4 +1,8 @@
 <%= render 'shared/current_users' %>
+<ul>Sort by:
+  <li><%= link_to "Newest", courses_path(sort: "newest") %></li>
+  <li><%= link_to "Most popular", courses_path(sort: "popular") %></li>
+</ul>
 <h1 class="text-sm-center mt-5">All courses</h1>
 <small><%= link_to "Courses near you", nearbys_courses_path%></small>
 <div class="offset-1 offset-sm-2 offset-md-2 mt-5">
