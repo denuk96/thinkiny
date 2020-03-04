@@ -44,10 +44,15 @@
     <%= form.label :attendance_rate %>
     <%= form.text_field :attendance_rate, class: "form-control"%>
   </div>
-  <div class="field mt-5 row">
+
+  <div class="field mt-5">
     <% if @course.save and @course.pictures.present? %>
       <% @course.pictures.each_with_index do |picture, index| %>
-        <p class="mt-5"><%= image_tag(picture.big_thumb.url) %></p>
+        <p>
+          <%= image_tag(picture.url(:medium), id:'shared_pict_in_form') %>
+          <%= link_to 'Delete', course_picture_path(@course, index), method: :delete,
+                      data: { confirm: 'Are you sure' }, class:'btn btn-outline-dark btn-sm' %>
+        </p>
       <% end %>
     <% end %>
     <br>
@@ -55,6 +60,7 @@
       <img />
     </div>
   </div>
+
   <% @course.pictures.each do |picture| %>
     <%= hidden_field :course, :pictures, multiple: true, value: picture.identifier %>
   <% end %>
