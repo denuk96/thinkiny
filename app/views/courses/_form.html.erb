@@ -46,7 +46,27 @@
   </div>
 
   <div class="field mt-5">
-    <%= form.file_field :pictures, multiple: true %>
+    <% if @course.save and @course.pictures.present? %>
+      <% @course.pictures.each_with_index do |picture, index| %>
+        <p>
+          <%= image_tag(picture.url(:medium), id:'shared_pict_in_form') %>
+          <%= link_to 'Delete', course_picture_path(@course, index), method: :delete,
+                      data: { confirm: 'Are you sure' }, class:'btn btn-outline-dark btn-sm' %>
+        </p>
+      <% end %>
+    <% end %>
+    <br>
+    <div class="upload-preview field">
+      <img />
+    </div>
+  </div>
+
+  <% @course.pictures.each do |picture| %>
+    <%= hidden_field :course, :pictures, multiple: true, value: picture.identifier %>
+  <% end %>
+
+  <div class="field">
+    <%= form.file_field :pictures, multiple: true, class: "file" %>
   </div>
 
   <br>
@@ -266,4 +286,19 @@
     $("#address").geocomplete({
         map: "#map2"
     });
+</script>
+<script>
+    document.querySelector('.file').addEventListener('change', event => {
+        [...event.target.files].forEach(file => {
+            const url = URL.createObjectURL(file)
+            addImageToBody(url)
+        })
+    })
+    // add image to html
+    function addImageToBody (src) {
+        const img = document.createElement('img')
+        img.src = src
+        img.className = 'my-img'
+        $('.upload-preview').append(img)
+    }
 </script>

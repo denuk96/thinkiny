@@ -1,11 +1,11 @@
 class CoursesController < ApplicationController
   include CoursesRights
   include CheckInsChecker
-  before_action :set_course, only: %i[show edit update destroy change_role set_user_confirmation change_course_status]
+  before_action :set_course, only: %i[show edit update destroy change_role set_user_confirmation change_course_status ]
   before_action :check_course_status, except: %i[index show new create nearbys]
-  before_action :verify_organizer, only: %i[destroy]
-  before_action :verify_moderators, only: %i[edit update change_role set_user_confirmation change_course_status]
-
+  before_action :verify_organizer, only: %i[destroy ]
+  before_action :verify_moderators, only: %i[edit update change_role set_user_confirmation change_course_status ]
+  before_action :check_on_nil_params, only: :update
   def index
     @courses =  if params[:sort] == "newest"
       Course.all.newest
@@ -17,7 +17,7 @@ class CoursesController < ApplicationController
   end
 
   def show
-    @lesson  = Lesson.find(params[:lesson_id]) if @course.lessons.present?
+    @lesson  = Lesson.first if @course.lessons.present?
     @lessons = @course.lessons.order('time ASC')
   end
 
@@ -38,11 +38,13 @@ class CoursesController < ApplicationController
   def edit; end
 
   def update
+
     if @course.update(course_params)
       redirect_to @course, notice: 'Course has been edited'
     else
       render :edit
     end
+
   end
 
   def destroy
@@ -117,6 +119,9 @@ class CoursesController < ApplicationController
 
   def course_params
     params.require(:course).permit(:name, :description, :attendance_rate, :pre_moderation, :place_quantities,
-                                   :address, :latitude, :longitude, pictures: [], category_ids: [])
+                                   :address, :latitude, :longitude, :logo, pictures: [], category_ids: [])
+  end
+  def check_on_nil_params
+    redirect_to @course if params[:course].nil?
   end
 end
