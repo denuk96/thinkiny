@@ -8,11 +8,11 @@ class CoursesController < ApplicationController
   before_action :check_on_nil_params, only: :update
   def index
     @courses =  if params[:sort] == "newest"
-      Course.all.newest
+      Course.includes([:categories]).all.newest
     elsif params[:sort] == "popular"
-      Course.all.popular
+      Course.includes([:categories]).all.popular
     else
-      Course.all.order(created_at: :desc)
+      Course.includes([:categories]).all.order(created_at: :desc)
     end
   end
 
