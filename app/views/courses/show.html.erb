@@ -86,7 +86,7 @@
                   <% if lesson.time > Time.now %>
                     <div>
                       <h5><%=lesson.theme%></h5>
-                      <p id="lessonday"><%= lesson.time.strftime("%A") %> </p>
+                      <p><%= lesson.time.strftime("%A") %> </p>
                     </div>
                   <% else %>
                     <div>
