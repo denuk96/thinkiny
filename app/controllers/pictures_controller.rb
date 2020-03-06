@@ -9,7 +9,7 @@ class PicturesController < ApplicationController
   def destroy
     remove_picture_at_index(params[:id].to_i)
     flash[:error] = "Failed deleting picture" unless @course.save
-    redirect_to edit_course_path(@course)
+    render layout: false
   end
   private
 
