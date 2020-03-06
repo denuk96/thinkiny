@@ -227,6 +227,8 @@ GEM
     selenium-webdriver (3.142.7)
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
+    simple_calendar (2.3.0)
+      rails (>= 3.0)
     sorcery (0.14.0)
       bcrypt (~> 3.1)
       oauth (~> 0.4, >= 0.4.4)
@@ -295,6 +297,7 @@ DEPENDENCIES
   rubocop (~> 0.77.0)
   sass-rails (>= 6)
   selenium-webdriver
+  simple_calendar (~> 2.0)
   sorcery
   spring
   spring-watcher-listen (~> 2.0.0)

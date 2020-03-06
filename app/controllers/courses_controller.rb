@@ -29,7 +29,7 @@ class CoursesController < ApplicationController
     @course = Course.new(course_params)
     if @course.save
       @course.course_users.create(user_id: current_user.id, role: 'organizer')
-      redirect_to course_path(@course), notice: 'Course has been created'
+      redirect_to course_path(@course, lesson_id: @course&.lessons&.first&.id), notice: 'Course has been created'
     else
       render :new
     end

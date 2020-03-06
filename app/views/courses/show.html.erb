@@ -1,3 +1,14 @@
+<div class="calendar">
+  <%= month_calendar events: @lessons do |time, lessons| %>
+    <%= time.to_formatted_s(:short) %>
+
+    <% lessons.each do |lesson| %>
+      <div>
+        <%= link_to lesson.theme, course_lesson_path(@course, lesson) %>
+      </div>
+    <% end %>
+  <% end %>
+</div>
 <div id="container__course">
   <section id="logo">
     <% if @course.pictures.attached? %>
@@ -77,7 +88,7 @@
                   <% else %>
                     <div>
                       <h5> <%=lesson.theme%></h5>
-                      <p id="lessonday"><%= lesson.time.strftime("%A")%></p>
+                      <p id="lessonday"><s><%= lesson.time.strftime("%A")%></s></p>
                     </div>
                   <% end %>
                 </div>

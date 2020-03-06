@@ -19,4 +19,8 @@ class Lesson < ApplicationRecord
   has_many :users, through: :check_ins
 
   validates_presence_of :theme, :description, :time
+
+  def start_time
+    self.time
+  end
 end
