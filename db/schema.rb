@@ -58,6 +58,7 @@ ActiveRecord::Schema.define(version: 2020_02_29_144937) do
     t.string "role"
     t.boolean "confirmed", default: true
     t.boolean "completed", default: false
+    t.integer "course_rating"
     t.index ["course_id"], name: "index_course_users_on_course_id"
     t.index ["user_id"], name: "index_course_users_on_user_id"
   end
@@ -117,6 +118,7 @@ ActiveRecord::Schema.define(version: 2020_02_29_144937) do
     t.datetime "reset_password_email_sent_at"
     t.integer "access_count_to_reset_password_page", default: 0
     t.string "picture"
+    t.integer "rating", default: 0
     t.index ["activation_token"], name: "index_users_on_activation_token"
     t.index ["last_logout_at", "last_activity_at"], name: "index_users_on_last_logout_at_and_last_activity_at"
     t.index ["remember_me_token"], name: "index_users_on_remember_me_token"

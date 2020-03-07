@@ -2,6 +2,8 @@
 <ul>Sort by:
   <li><%= link_to "Newest", courses_path(sort: "newest") %></li>
   <li><%= link_to "Most popular", courses_path(sort: "popular") %></li>
+  <li><%= link_to "rating", courses_path(sort: "rating") %></li>
+
 </ul>
 <h1 class="text-sm-center mt-5">All courses</h1>
 <small><%= link_to "Courses near you", nearbys_courses_path%></small>
@@ -16,6 +18,7 @@
               <% if current_user %>
                 <% if already_joined?(course, current_user) %>
                   <button type="button" class="btn btn-outline-dark" disabled>Joinded</button>
+                  <%= link_to 'leave rating', course_rating_form_path(course_id: course.id) if completed_course?(course, current_user) %>
                 <% elsif course.status == 'completed' %>
                   Completed
                 <% elsif free_places?(course) %>
