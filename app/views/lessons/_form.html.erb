@@ -1,5 +1,5 @@
 <div class="container p-5">
-  <%= form_for ([@course, @lesson]) do |form| %>
+  <%= form_for [@course, @lesson], remote: true do |form| %>
     <% if @lesson.errors.any? %>
       <div class="alert alert-danger">
         <ul>
