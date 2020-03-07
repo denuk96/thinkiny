@@ -25,19 +25,27 @@
         </li>
       <% else %>
         <li class="nav-item active">
-          <%= link_to "Log in", login_path ,{ remote: true,  'data-toggle': "modal",
-                                              'data-target':'#modal-window',
-                                              class: "nav-link"}%>
-          <div id="modal-window" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content"></div>
-            </div>
-          </div>
+          <%= link_to "Log in", login_path , remote: true,  'data-toggle': "modal",
+                      'data-target':'#modal-window', class: "nav-link" %>
         </li>
         <li class="nav-item">
-          <%= link_to "Sign up", signup_path, class:'nav-link' %>
+          <%= link_to "Sign up", signup_path,remote: true,  'data-toggle': "modal",
+                      'data-target':'#modal', class: "nav-link" %>
         </li>
       <% end %>
     </ul>
   </div>
 </nav>
+<div id="modal-window" class="modal hide fade" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content"></div>
+  </div>
+</div>
+
+<div id="modal" class="modal hide fade" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content"></div>
+  </div>
+</div>

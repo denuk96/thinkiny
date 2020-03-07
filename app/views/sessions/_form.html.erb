@@ -1,5 +1,6 @@
-<div class="offset-sm-2 mt-5">
+<div class="offset-sm-2 ">
   <%= form_with url: sessions_path, method: :post do |f| %>
+    <h4 class="offset-3 mt-4">LOGIN</h4>
     <div class="field">
       <%= f.label 'Email' %><br />
       <%= f.text_field :email, class:"form-control col-10" %>
@@ -17,14 +18,14 @@
       <%= link_to 'Sing up', new_user_path, class: "btn btn-outline-dark btn-sm" %>
     </div>
     <div class="actions">
-      <%= link_to auth_at_provider_path(:provider => :facebook) do %>
-        <i class="fab fa-facebook-f"></i>
+      <%= link_to auth_at_provider_path(provider: :facebook) do %>
+        <i class="fa fa-camera-retro">f</i>
       <% end %>
       <%= link_to auth_at_provider_path(provider: :google) do %>
-        <i class="fab fa-google"></i>
-    <% end %>
+        <i class="fab fa-google">g</i>
+      <% end %>
     </div>
-    <p><%= link_to 'Forgot your password?', new_reset_password_path, class: 'nav-link' %></p>
+    <%= link_to 'Forgot your password?', new_reset_password_path, class: 'nav-link mb-2' %>
 
 <% end %>
 </div>

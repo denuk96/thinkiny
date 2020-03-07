@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
     if @user
       redirect_to courses_path, notice: 'Logged in!'
     else
-      redirect_to new_session_path, notice: 'Email or password was invalid'
+      redirect_to root_url, notice: 'Email or password was invalid'
     end
   end
 
