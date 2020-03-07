@@ -23,8 +23,14 @@
     <% end %>
   </p>
 <strong>Join to course:</strong>
-<p><% @user.course_users.includes(:course).where(role: 'participant').each do |course| %>
+<p>
+  <% @user.course_users.includes(:course).where(role: 'participant').each do |course| %>
     <%= course.course.name %>
-  <% end %></p>
+  <% end %>
+</p>
+<p>
+  <strong>Rating:</strong>
+  <%= @user.rating %>
+</p>
 <%= link_to 'Edit', edit_user_path(@user), class:"btn btn-outline-dark" %>
 <%= link_to 'Back', root_path, class:"btn btn-outline-dark" %>

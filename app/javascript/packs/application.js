@@ -10,6 +10,7 @@ require("channels")
 require("jquery")
 require("packs/geocomplete")
 require("packs/gmaps")
+import "@fortawesome/fontawesome-free/js/all";
 import '../stylesheets/application'
 import './bootstrap_custom.js'
 

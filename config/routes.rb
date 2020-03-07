@@ -15,6 +15,8 @@ Rails.application.routes.draw do
         get 'user_attendance', on: :collection
       end
     end
+    get 'rating_form', to: 'ratings#edit', as: 'rating_form'
+    patch 'save_rating', to: 'ratings#update', as: 'save_rating'
   end
 
   resources :users do
