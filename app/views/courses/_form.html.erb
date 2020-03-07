@@ -48,10 +48,11 @@
   <div class="field mt-5">
     <% if @course.save and @course.pictures.present? %>
       <% @course.pictures.each_with_index do |picture, index| %>
-        <p>
+        <p id="picture_preview">
           <%= image_tag(picture.url(:medium), id:'shared_pict_in_form') %>
           <%= link_to 'Delete', course_picture_path(@course, index), method: :delete,
-                      data: { confirm: 'Are you sure' }, class:'btn btn-outline-dark btn-sm' %>
+                      data: { confirm: 'Are you sure' }, :remote => true,
+                      class:'btn btn-outline-dark btn-sm', id: 'delete_picture' %>
         </p>
       <% end %>
     <% end %>

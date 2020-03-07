@@ -81,12 +81,12 @@
           <h3 class="text-center mt-5" id="all_lessons_title">all lessons</h3>
           <div  id="all__lessons">
             <% @lessons.each do |lesson| %>
-              <%= link_to course_lesson_path(@course, lesson), class:"lesson" do %>
+              <%= link_to course_path(@course, lesson), class:"lesson" do %>
                 <div class="card-body" id="card_lesson">
                   <% if lesson.time > Time.now %>
                     <div>
                       <h5><%=lesson.theme%></h5>
-                      <p id="lessonday"><%= lesson.time.strftime("%A") %> </p>
+                      <p><%= lesson.time.strftime("%A") %> </p>
                     </div>
                   <% else %>
                     <div>
@@ -100,26 +100,38 @@
           </div>
           <div>
             <% if current_user && verify_instructor(@course, current_user) %>
-              <%= link_to "Add lessons", new_course_lesson_path(@course), class: "btn btn-outline-light btn-block" %>
+              <%= link_to "Add lesson", new_course_lesson_path(@course), {
+                  remote: true,  'data-toggle': "modal", 'data-target':'#modal-window',
+                  class: "btn btn-outline-light btn-block"} %>
+              <div id="modal-window" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                  <div class="modal-content"></div>
+                </div>
+              </div>
             <% end %>
           </div>
         </div>
         <div class="ml-3">
-          <b class="mt-5 blockquote-footer">Instructors (<%= @course&.course_users.instructors.size %>):</b>
-          <p class="offset-1 mt-2">
-            <% @course&.course_users.includes(:user).instructors.each do |instructor| %>
-              <small id="users_mail"><%= instructor.user.email %></small>
-              <% if current_user && verify_instructor(@course, current_user) %>
-                <%= link_to 'to participant', change_role_courses_path(id: @course.id, course_user_id: instructor.id) %>
-              <% end %>
-              <br>
-            <% end %>
-          </p>
+          <b class="mt-5 blockquote-footer">Instructors (<%= @course&.course_users.instructors.size + 1%>):</b>
+          <div class="offset-1 mt-2">
+            <small id="users_mail">
+              <p><%= @course.course_users&.includes(:user).find_by(role: 'organizer')&.user&.email %></p>
+              <p>
+                <% @course&.course_users.includes(:user).instructors.each do |instructor| %>
+                  <%= instructor.user.email %>
+                  <% if current_user && verify_instructor(@course, current_user) %>
+                    <%= link_to 'to participant', change_role_courses_path(id: @course.id, course_user_id: instructor.id) %>
+                  <% end %>
+                <% end %>
+              </p>
+            </small>
+          </div>
         </div>
+
         <div class="ml-3">
           <b class="mt-5 blockquote-footer">Joined users (<%= @course&.course_users.confirmed_participant.size %>):
           </b>
-          <p class="offset-1 mt-2">
+          <div class="offset-1 mt-2">
             <% @course&.course_users.includes(:user).confirmed_participant.each do |participant| %>
             <small id="users_mail"><%= participant.user.email %></small>
               <% if current_user && verify_instructor(@course, current_user) %>
@@ -128,13 +140,13 @@
               <% end %>
               <br>
             <% end %>
-          </p>
+          </div>
         </div>
         <div class="ml-3">
           <b class="mt-5 blockquote-footer">
             Candidates (<%= @course&.course_users.un_confirmed_participant.size %>):
           </b>
-          <p class="offset-1 mt-2">
+          <div class="offset-1 mt-2">
             <% @course&.course_users.includes(:user).un_confirmed_participant.each do |candidate| %>
               <small id="users_mail"><%= candidate.user.email %></small>
               <% if current_user && verify_instructor(@course, current_user) %>
@@ -143,7 +155,7 @@
               <% end %>
               <br>
             <% end %>
-          </p>
+          </div>
         </div>
 
       </section>
