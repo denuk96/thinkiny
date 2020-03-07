@@ -1,7 +1,7 @@
 class RatingsController < ApplicationController
   before_action :set_course_user, only: %i[edit update]
   before_action :course_completed?, only: %i[edit update]
-  # before_action :already_rated?, only: %i[edit update]
+  before_action :already_rated?, only: %i[edit update]
 
   def edit
     render :'ratings/_form'
