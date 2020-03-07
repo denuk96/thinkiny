@@ -112,21 +112,26 @@
           </div>
         </div>
         <div class="ml-3">
-          <b class="mt-5 blockquote-footer">Instructors (<%= @course&.course_users.instructors.size %>):</b>
-          <p class="offset-1 mt-2">
-            <% @course&.course_users.includes(:user).instructors.each do |instructor| %>
-              <small id="users_mail"><%= instructor.user.email %></small>
-              <% if current_user && verify_instructor(@course, current_user) %>
-                <%= link_to 'to participant', change_role_courses_path(id: @course.id, course_user_id: instructor.id) %>
-              <% end %>
-              <br>
-            <% end %>
-          </p>
+          <b class="mt-5 blockquote-footer">Instructors (<%= @course&.course_users.instructors.size + 1%>):</b>
+          <div class="offset-1 mt-2">
+            <small id="users_mail">
+              <p><%= @course.course_users&.includes(:user).find_by(role: 'organizer')&.user&.email %></p>
+              <p>
+                <% @course&.course_users.includes(:user).instructors.each do |instructor| %>
+                  <%= instructor.user.email %>
+                  <% if current_user && verify_instructor(@course, current_user) %>
+                    <%= link_to 'to participant', change_role_courses_path(id: @course.id, course_user_id: instructor.id) %>
+                  <% end %>
+                <% end %>
+              </p>
+            </small>
+          </div>
         </div>
+
         <div class="ml-3">
           <b class="mt-5 blockquote-footer">Joined users (<%= @course&.course_users.confirmed_participant.size %>):
           </b>
-          <p class="offset-1 mt-2">
+          <div class="offset-1 mt-2">
             <% @course&.course_users.includes(:user).confirmed_participant.each do |participant| %>
             <small id="users_mail"><%= participant.user.email %></small>
               <% if current_user && verify_instructor(@course, current_user) %>
@@ -135,13 +140,13 @@
               <% end %>
               <br>
             <% end %>
-          </p>
+          </div>
         </div>
         <div class="ml-3">
           <b class="mt-5 blockquote-footer">
             Candidates (<%= @course&.course_users.un_confirmed_participant.size %>):
           </b>
-          <p class="offset-1 mt-2">
+          <div class="offset-1 mt-2">
             <% @course&.course_users.includes(:user).un_confirmed_participant.each do |candidate| %>
               <small id="users_mail"><%= candidate.user.email %></small>
               <% if current_user && verify_instructor(@course, current_user) %>
@@ -150,7 +155,7 @@
               <% end %>
               <br>
             <% end %>
-          </p>
+          </div>
         </div>
 
       </section>
