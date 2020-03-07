@@ -7,7 +7,13 @@ class CoursesController < ApplicationController
   before_action :verify_moderators, only: %i[edit update change_role set_user_confirmation change_course_status ]
   before_action :check_on_nil_params, only: :update
   def index
-    @courses = Course.all.order(created_at: :desc)
+    @courses =  if params[:sort] == "newest"
+      Course.includes([:categories]).all.newest
+    elsif params[:sort] == "popular"
+      Course.includes([:categories]).all.popular
+    else
+      Course.includes([:categories]).all.order(created_at: :desc)
+    end
   end
 
   def show
