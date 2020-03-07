@@ -26,4 +26,7 @@ class CourseUser < ApplicationRecord
   scope :instructors, -> { where(role: 'instructor') }
   scope :confirmed_participant, -> { where(role: 'participant', confirmed: true) }
   scope :un_confirmed_participant, -> { where(role: 'participant', confirmed: false) }
+
+    scope :popular, -> { order where(course_id: @course.id).("created_at ASC") }
+
 end
