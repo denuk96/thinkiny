@@ -1,0 +1,23 @@
+<div class="container">
+  <h4> CHECK INS</h4>
+  <% @check_ins.includes(:user, lesson: :course).each do |check_in| %>
+    <%= check_in.user.email %>
+    <%= check_in.attendance %>
+    <br>
+    note:
+    <b><%= check_in.note %></b>
+    <br>
+    <% if current_user && verify_instructor(check_in.lesson.course, current_user) %>
+      <%= link_to 'check', user_attendance_course_lesson_check_ins_path(id: check_in),
+                  remote: true,  'data-toggle': "modal", 'data-target':'#modal',
+                  class: "btn btn-outline-dark" %>
+      <div id="modal" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content"></div>
+        </div>
+      </div>
+      <%= link_to 'note', edit_course_lesson_check_in_path(id: check_in) %>
+    <% end %>
+    <br>
+  <% end %>
+</div>

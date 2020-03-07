@@ -1,5 +1,5 @@
-<%= form_with(model: [:course, :lesson, @check_in],local: true) do |form| %>
-
+<%= form_with(model: [:course, :lesson, @check_in] ) do |form| %>
+  <h4>Note</h4>
   <div class="field">
     <%= form.label :note %>
     <%= form.text_field :note, class: "form-control" %>
