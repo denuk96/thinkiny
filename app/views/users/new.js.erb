@@ -1,2 +1,2 @@
-$("#modal").find(".modal-content").html("<%= j (render 'users/form') %>");
+$("#modal").find(".modal-content").html("<%= j (render 'users/form', user: @user) %>");
 $("#modal").modal();
