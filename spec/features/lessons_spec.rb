@@ -54,5 +54,4 @@ RSpec.feature 'Lessons', type: :feature do
       expect(page).to have_text('check_ins')
     end
   end
-
 end

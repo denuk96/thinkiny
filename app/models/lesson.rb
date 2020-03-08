@@ -20,5 +20,4 @@ class Lesson < ApplicationRecord
 
   validates_presence_of :theme, :description, :time
   validates :picture, file_size: { less_than: 5.megabytes }
-
 end

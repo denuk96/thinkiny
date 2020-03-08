@@ -7,7 +7,7 @@
 # :reset_password, :session_timeout, :brute_force_protection, :activity_logging,
 # :magic_login, :external
 
-Rails.application.config.sorcery.submodules = %i[core remember_me brute_force_protection activity_logging external 
+Rails.application.config.sorcery.submodules = %i[core remember_me brute_force_protection activity_logging external
                                                  user_activation reset_password]
 
 # Here you can configure each submodule's features.
@@ -122,8 +122,8 @@ Rails.application.config.sorcery.configure do |config|
   config.facebook.user_info_mapping = { email: 'email', first_name: 'name' }
   config.facebook.scope = 'email'
   config.facebook.display = 'popup'
-  #config.facebook.api_version = "v2.3"
-  #config.facebook.parse = :json
+  # config.facebook.api_version = "v2.3"
+  # config.facebook.parse = :json
   #
   # config.instagram.key = ""
   # config.instagram.secret = ""
@@ -160,7 +160,7 @@ Rails.application.config.sorcery.configure do |config|
     email: 'email',
     first_name: 'given_name',
     last_name: 'family_name'
-    #picture: 'picture'
+    # picture: 'picture'
   }
   # For Microsoft Graph, the key will be your App ID, and the secret will be your app password/public key.
   # The callback URL "can't contain a query string or invalid special characters"

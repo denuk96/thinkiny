@@ -8,17 +8,29 @@ class CoursesController < ApplicationController
   before_action :check_on_nil_params, only: :update
 
   def index
-    @courses = Course.includes([:categories]).all.order(created_at: :desc)
+    @categories = Category.all
     @courses = case params[:sort]
-               when 'newest'
+               when 'oldest'
                  Course.includes([:categories]).all.newest
                when 'popular'
                  Course.includes([:categories]).all.popular
+               when 'unpopular'
+                 Course.includes([:categories]).all.unpopular
+               when 'fresh'
+                 Course.includes([:categories]).all.fresh
+               when 'in_process'
+                 Course.includes([:categories]).all.in_process
+               when 'completed'
+                 Course.includes([:categories]).all.completed
                when 'rated'
                  Course.includes([:categories]).all.rated
-
                else
-                 Course.includes([:categories]).all.order(created_at: :desc)
+                 if params[:category_id]
+                   @category = Category.find(params[:category_id])
+                   @category.courses.includes(:categories).order(created_at: :desc)
+                 else
+                   Course.includes([:categories]).all.order(created_at: :desc)
+                 end
                end
   end
 
@@ -125,6 +137,7 @@ class CoursesController < ApplicationController
     params.require(:course).permit(:name, :description, :attendance_rate, :pre_moderation, :place_quantities,
                                    :address, :latitude, :longitude, :logo, pictures: [], category_ids: [])
   end
+
   def check_on_nil_params
     redirect_to @course if params[:course].nil?
   end

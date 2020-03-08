@@ -105,7 +105,6 @@ RSpec.feature 'Courses', type: :feature do
       expect(page).to have_content('In process')
       expect(page).to have_content('Complete course')
       expect(page).to have_content('Status has changed to In process')
-
     end
 
     scenario 'User can complete his course' do

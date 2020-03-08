@@ -9,11 +9,11 @@ end
 end
 
 3.times do |n|
-  Course.create(name: "title #{n+1}", description: "description", status: 'new', pre_moderation: true, place_quantities: 5)
+  Course.create(name: "title #{n + 1}", description: 'description', status: 'new', pre_moderation: true, place_quantities: 5)
 end
 
 2.times do |n|
-  Course.create(name: "title #{n+1}", description: "description", status: 'new', pre_moderation: false, place_quantities: 5)
+  Course.create(name: "title #{n + 1}", description: 'description', status: 'new', pre_moderation: false, place_quantities: 5)
 end
 
 5.times do |n|

@@ -32,7 +32,6 @@ class Course < ApplicationRecord
   has_many :course_categories
   has_many :categories, through: :course_categories
 
-
   validates :status, inclusion: COURSE_STATUS
   validates_presence_of :name, :description, :place_quantities, :attendance_rate
   validates :pre_moderation, inclusion: { in: [true, false] }
@@ -40,16 +39,16 @@ class Course < ApplicationRecord
   validates :attendance_rate, inclusion: { in: 0..100, message: 'must be of 1 to 100' }
   validates :logo, :pictures, file_size: { less_than: 5.megabytes }
 
-  scope :newest, -> { order("created_at ASC") }
+  scope :newest, -> { order('created_at ASC') }
   scope :popular, -> { left_outer_joins(:users).group('courses.id').order('COUNT(users.id) DESC') }
   scope :unpopular, -> { left_outer_joins(:users).group('courses.id').order('COUNT(users.id) ASC') }
   scope :fresh, -> { where(status: 'new') }
   scope :in_process, -> { where(status: 'in_process') }
   scope :completed, -> { where(status: 'completed') }
   scope :rated, lambda {
-                         joins(:course_users)
-                           .where(course_users: { role: 'organizer' })
-                           .joins(:users)
-                           .order(rating: :desc)
-                       }
+                  joins(:course_users)
+                    .where(course_users: { role: 'organizer' })
+                    .joins(:users)
+                    .order(rating: :desc)
+                }
 end
