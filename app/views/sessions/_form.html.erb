@@ -15,14 +15,13 @@
     </div>
     <div class="actions">
       <%= f.submit 'Log in', class:"btn btn-outline-dark btn-sm" %>
-      <%= link_to 'Sing up', new_user_path, class: "btn btn-outline-dark btn-sm" %>
     </div>
     <div class="actions">
       <%= link_to auth_at_provider_path(provider: :facebook) do %>
-        <i class="fa fa-camera-retro">f</i>
+        <i class="fab fa-facebook-f"></i>
       <% end %>
       <%= link_to auth_at_provider_path(provider: :google) do %>
-        <i class="fab fa-google">g</i>
+        <i class="fab fa-google"></i>
       <% end %>
     </div>
     <%= link_to 'Forgot your password?', new_reset_password_path, class: 'nav-link mb-2' %>
