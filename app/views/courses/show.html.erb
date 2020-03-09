@@ -1,3 +1,13 @@
+<script>
+  function pushNotification() {
+    if (Notification.permission === 'granted') {
+      var title = 'Course Started!!'
+      var body = '<%= @course.name %> is started!!'
+      var options = { body: body }
+      new Notification(title, options)
+    }
+  }
+</script>
 <div id="container__course">
   <section id="logo">
     <% if @course.logo? %>
@@ -47,7 +57,7 @@
               <div class="mt-1">
                 <% if @course.status == 'new'  %>
                   <%= link_to 'Start course', change_course_status_courses_path(id: @course),
-                              class: "btn btn-outline-light" %>
+                              class: "btn btn-outline-light", onclick: 'pushNotification' %>
                 <% elsif @course.status == 'in_process' %>
                   <%= link_to 'Complete course', change_course_status_courses_path(id: @course),
                               class: "btn btn-outline-light" %>
