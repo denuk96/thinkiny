@@ -1,10 +1,13 @@
 <script>
   function pushNotification() {
-    if (Notification.permission === 'granted') {
-      var title = 'Course Started!!'
-      var body = '<%= @course.name %> is started!!'
-      var options = { body: body }
-      new Notification(title, options)
+    var notification = new window.Notification("Course started!!!",
+    {
+        body: "<%= @course.name %> started!!",
+        data:  "<%= url_for("#{root_url}/courses/#{@course.id}") %>"
+    });
+
+    notification.onclick = function(e) {
+        window.location.href = e.target.data;
     }
   }
 </script>
