@@ -57,7 +57,7 @@
               <div class="mt-1">
                 <% if @course.status == 'new'  %>
                   <%= link_to 'Start course', change_course_status_courses_path(id: @course),
-                              class: "btn btn-outline-light", onclick: 'pushNotification' %>
+                              class: "btn btn-outline-light", onclick: 'pushNotification()' %>
                 <% elsif @course.status == 'in_process' %>
                   <%= link_to 'Complete course', change_course_status_courses_path(id: @course),
                               class: "btn btn-outline-light" %>
