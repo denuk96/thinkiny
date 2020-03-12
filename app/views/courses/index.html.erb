@@ -57,8 +57,9 @@
         </div>
         <div class="card-body">
           <p class="card-text">
+            Category:
             <% course.categories.each do |category| %>
-              Category: <b><%= category.title %></b>
+              <b><%= "#{category.title};" %></b>
             <% end %>
             <br>
             Description: <b><%= course.description %></b>
