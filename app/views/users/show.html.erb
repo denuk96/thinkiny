@@ -34,8 +34,8 @@
 </p>
 <p class="text-center">Notifications</p>
 <p class="text-center">
-  <%@notifications&.each do |notification|  %>
-    <%= notification.notification %>
+  <%@notifications.each do |notification|  %>
+    <p class="text-center"><%= notification.notification %> <%= link_to "View", viewed_notification_user_path(notification_id: notification.id) %></p>
   <% end %>
 </p>
 <%= link_to 'Edit', edit_user_path(@user), class:"btn btn-outline-dark" %>

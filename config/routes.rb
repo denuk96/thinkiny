@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
+  get 'notifications/viewed'
   root 'courses#index'
 
   get 'join', to: 'joins#join_to_course', as: 'join'
+  get 'viewed_notification', to: 'notifications#viewed_notification', as: 'viewed_notification'
 
   resources :courses do
     get 'remove_picture_at_index', on: :collection
@@ -22,6 +24,7 @@ Rails.application.routes.draw do
   resources :users do
     member do
       get :activate
+      get :viewed_notification
     end
   end
   resources :sessions, :categories
