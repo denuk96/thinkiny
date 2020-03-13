@@ -104,8 +104,6 @@ class CoursesController < ApplicationController
   end
 
   def change_course_status
-    user_id = CourseUser.where(course_id: @course.id)
-    users = User.where(id: user_id)
     case @course.status
     when 'new'
       @course.update(status: 'in_process')
@@ -125,7 +123,7 @@ class CoursesController < ApplicationController
       flash[:alert] = 'Course is already completed'
     end
     flash[:notice] = "Status has changed to #{@course.status&.humanize}"
-    users.each { |user| UserMailer.course_status_changed(user, @course).deliver }
+    @course.users.each { |user| UserMailer.course_status_changed(user, @course).deliver }
 
 
     redirect_to course_path(@course)
