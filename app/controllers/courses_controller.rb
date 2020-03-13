@@ -123,6 +123,7 @@ class CoursesController < ApplicationController
       flash[:alert] = 'Course is already completed'
     end
     flash[:notice] = "Status has changed to #{@course.status&.humanize}"
+    @course.users.each { |user| Notification.create(user_id: user.id, notification: "Course #{@course.name} has been changed status to #{@course.status}") }
     redirect_to course_path(@course)
   end
 
