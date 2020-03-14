@@ -1,0 +1,29 @@
+header{
+  display: block;
+  height: 500px;
+  width: 100%;
+  background: url("https://www.computersciencedegreehub.com/wp-content/uploads/2014/06/Computer-Science.jpg") no-repeat center / cover ;
+}
+.block_header{
+  text-align: center;
+  text-transform: uppercase;
+  color: #F7F7F7;
+  font-family: 'Playfair Display', serif;
+  font-size: 60px;
+  padding: 1%;
+  background-color: rgba(30, 30, 30, 0.8); /* Цвет фона и значение прозрачности */
+}
+.second{
+  background: linear-gradient(to bottom, #000, #0d0d2d);
+  padding: 3% ;
+}
+.current_users{
+  color: #F7F7F7;
+}
+.third{
+  background-color: #0f0f57;
+}
+footer{
+  background-color: black;
+  color: #F7F7F7;
+}
