@@ -23,7 +23,7 @@ class ResetPasswordsController < ApplicationController
     if @user.change_password(params[:user][:password])
       redirect_to login_path, notice: 'Password was successfully updated.'
     else
-      render "edit"
+      render 'edit'
     end
   end
 end

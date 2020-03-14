@@ -7,7 +7,7 @@
 # :reset_password, :session_timeout, :brute_force_protection, :activity_logging,
 # :magic_login, :external
 
-Rails.application.config.sorcery.submodules = %i[core remember_me brute_force_protection activity_logging external 
+Rails.application.config.sorcery.submodules = %i[core remember_me brute_force_protection activity_logging external
                                                  user_activation reset_password]
 
 # Here you can configure each submodule's features.
@@ -121,8 +121,8 @@ Rails.application.config.sorcery.configure do |config|
   config.facebook.callback_url = 'http://localhost:3000/oauth/callback?provider=facebook'
   config.facebook.user_info_mapping = { email: 'email', first_name: 'name', picture: 'picture' }
   config.facebook.display = 'popup'
-  #config.facebook.api_version = "v2.3"
-  #config.facebook.parse = :json
+  # config.facebook.api_version = "v2.3"
+  # config.facebook.parse = :json
   #
   # config.instagram.key = ""
   # config.instagram.secret = ""

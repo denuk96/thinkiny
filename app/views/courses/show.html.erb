@@ -101,9 +101,9 @@
           <div>
             <% if current_user && verify_instructor(@course, current_user) %>
               <%= link_to "Add lesson", new_course_lesson_path(@course),
-                          remote: true,  'data-toggle': "modal", 'data-target':'#modal-window',
+                          remote: true,  'data-toggle': "modal", 'data-target':'#modal_add_lesson',
                           class: "btn btn-outline-light btn-block" %>
-              <div id="modal-window" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+              <div id="modal_add_lesson" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg" role="document">
                   <div class="modal-content"></div>
                 </div>

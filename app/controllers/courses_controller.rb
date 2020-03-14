@@ -1,25 +1,41 @@
 class CoursesController < ApplicationController
   include CoursesRights
   include CheckInsChecker
-  before_action :set_course, only: %i[show edit update destroy change_role set_user_confirmation change_course_status ]
+  before_action :set_course, only: %i[show edit update destroy change_role set_user_confirmation change_course_status]
   before_action :check_course_status, except: %i[index show new create nearbys]
-  before_action :verify_organizer, only: %i[destroy ]
-  before_action :verify_moderators, only: %i[edit update change_role set_user_confirmation change_course_status ]
+  before_action :verify_organizer, only: %i[destroy]
+  before_action :verify_moderators, only: %i[edit update change_role set_user_confirmation change_course_status]
   before_action :check_on_nil_params, only: :update
-  
+
   def index
-    @courses = Course.includes([:categories]).all.order(created_at: :desc)
-    @courses =  if params[:sort] == "newest"
-                  Course.includes([:categories]).all.newest
-                elsif params[:sort] == "popular"
-                  Course.includes([:categories]).all.popular
-                else
-                  Course.includes([:categories]).all.order(created_at: :desc)
-                end
+    @categories = Category.all
+    @courses = case params[:sort]
+               when 'oldest'
+                 Course.includes([:categories]).all.newest
+               when 'popular'
+                 Course.includes([:categories]).all.popular
+               when 'unpopular'
+                 Course.includes([:categories]).all.unpopular
+               when 'fresh'
+                 Course.includes([:categories]).all.fresh
+               when 'in_process'
+                 Course.includes([:categories]).all.in_process
+               when 'completed'
+                 Course.includes([:categories]).all.completed
+               when 'rated'
+                 Course.includes([:categories]).all.rated
+               else
+                 if params[:category_id]
+                   @category = Category.find(params[:category_id])
+                   @category.courses.includes(:categories).order(created_at: :desc)
+                 else
+                   Course.includes([:categories]).all.order(created_at: :desc)
+                 end
+               end
   end
 
   def show
-    @lesson = @course.lessons.first if @course.lessons.exists?  
+    @lesson = @course.lessons.first if @course.lessons.exists?
     @lessons = @course.lessons.order('time ASC')
   end
 
@@ -40,20 +56,18 @@ class CoursesController < ApplicationController
   def edit; end
 
   def update
-
     if @course.update(course_params)
       redirect_to @course, notice: 'Course has been edited'
     else
       render :edit
     end
-
   end
 
   def destroy
     @course.destroy
     redirect_to courses_path, notice: 'Course has been successfully destroyed'
   end
-  
+
   def change_role
     @lessons = @course.lessons
     if @course_user.role == 'participant'
@@ -73,7 +87,7 @@ class CoursesController < ApplicationController
     @courses_near = Course.near([location_info.latitude, location_info.longitude], 10)
     @a = []
     @courses.each do |course|
-    @a.push([course.name, course.latitude, course.longitude])
+      @a.push([course.name, course.latitude, course.longitude])
     end
   end
 
@@ -123,6 +137,7 @@ class CoursesController < ApplicationController
     params.require(:course).permit(:name, :description, :attendance_rate, :pre_moderation, :place_quantities,
                                    :address, :latitude, :longitude, :logo, pictures: [], category_ids: [])
   end
+
   def check_on_nil_params
     redirect_to @course if params[:course].nil?
   end
