@@ -29,6 +29,7 @@ gem 'font-awesome-rails', '~> 4.7', '>= 4.7.0.5'
 gem 'font_awesome5_rails'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
+gem 'rspec-core', '~> 3.4'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
@@ -56,6 +57,17 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
   # to count DB queries
   gem 'bullet'
+  # To deploy
+  gem 'capistrano', '~> 3.8', '>= 3.8.1'
+  gem 'capistrano-bundler'
+  gem 'capistrano-nginx', '~> 1.0'
+  gem 'capistrano-rails', '~> 1.2', '>= 1.2.3'
+  gem 'capistrano-rbenv'
+  gem 'capistrano-rvm', '~> 0.1.2'
+  # gem 'capistrano-sidekiq'
+  gem 'capistrano-upload-config', '~> 0.7.0'
+  gem 'capistrano3-puma'
+  gem 'sshkit-sudo', '~> 0.1.0'
 end
 
 group :test do

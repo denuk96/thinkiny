@@ -91,3 +91,15 @@ config/master.production.key
 /config/secrets.production.yml
 /config/database_secret.yml
 config/local_env.yml
+/config/database.yml.example
+config/database.yml.example
+/config/database_secret.yml.example
+config/database_secret.yml.example
+/config/database.staging.yml
+config/database.staging.yml
+/config/database_secret.production.yml
+config/database_secret.production.yml
+/config/database_secret.staging.yml
+config/database_secret.staging.yml
+/config/master.staging.key
+config/master.staging.key
