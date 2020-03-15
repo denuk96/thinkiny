@@ -87,11 +87,7 @@ class CoursesController < ApplicationController
     @courses_near = Course.near([location_info.latitude, location_info.longitude], 10)
     @geolocations = []
     @courses.each do |course|
-<<<<<<< HEAD
-      @geolocations.push([course.name, course.latitude, course.longitude])
-=======
       @a.push(["<a href='#{course_url(course)}'>#{course.name}</a>", (course.logo.present? ? "<img src='#{course&.logo.url}' alt='#{course.name}' height='42' width='42'>" : "<img src='#{'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Google_Chrome_icon_%28September_2014%29.svg/1200px-Google_Chrome_icon_%28September_2014%29.svg.png'}' alt='#{course.name}' height='42' width='42'>"), course.latitude, course.longitude])
->>>>>>> 10a11213955fef78d25ecdda4d1752a5342ec3ff
     end
   end
 
@@ -127,13 +123,7 @@ class CoursesController < ApplicationController
       flash[:alert] = 'Course is already completed'
     end
     flash[:notice] = "Status has changed to #{@course.status&.humanize}"
-<<<<<<< HEAD
-    @course.users.each { |user| UserMailer.course_status_changed(user, @course).deliver }
-
-
-=======
     @course.users.each { |user| Notification.create(user_id: user.id, notification: "Course #{@course.name} has been changed status to #{@course.status}") }
->>>>>>> 10a11213955fef78d25ecdda4d1752a5342ec3ff
     redirect_to course_path(@course)
   end
 

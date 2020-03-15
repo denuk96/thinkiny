@@ -62,32 +62,6 @@
               </div>
             </div>
           </div>
-<<<<<<< HEAD
-        </div>
-        <div class="card-body">
-          <p class="card-text">
-            Category:
-            <% course.categories.each do |category| %>
-              <b><%= "#{category.title};" %></b>
-            <% end %>
-            <br>
-            Description: <b><%= course.description %></b>
-            <br>
-            Organizer: <b><%= course.course_users&.find_by(role: 'organizer')&.user&.email %></b>
-            <br>
-            Pre-moderation: <b><%= course.pre_moderation %></b>
-            <br>
-            Places: <b><%= course.place_quantities %></b>
-            Free:
-            <%= count_free_places(course) %>
-            <br>
-            Course status:
-            <%= course.status&.humanize %>
-            <br>
-            Required attendance rate:
-            <%= course.attendance_rate %>%
-          </p>
-=======
           <div class="card-body">
             <p class="card-text">
               <% course.categories.each do |category| %>
@@ -111,7 +85,6 @@
               <%= course.attendance_rate %>
             </p>
           </div>
->>>>>>> 10a11213955fef78d25ecdda4d1752a5342ec3ff
         </div>
       </div>
     <% end %>
