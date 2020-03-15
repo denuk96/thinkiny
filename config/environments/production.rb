@@ -1,10 +1,5 @@
 Rails.application.configure do
-  # config.action_mailer.default_url_options = { host: 'localhost', port: '3000' }
-  if Rails.env.production?
-    config.action_mailer.default_url_options = { host: 'thinkiny.pp.ua' }
-  elsif Rails.env.staging?
-    config.action_mailer.default_url_options = { host: 'thinkiny-stage.pp.ua' }
-  end
+  config.action_mailer.default_url_options = { host: 'thinkiny.pp.ua' }
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
