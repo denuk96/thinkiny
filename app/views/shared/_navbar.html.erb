@@ -16,6 +16,7 @@
             <%= link_to current_user.first_name.present? ? current_user.first_name : current_user.email,
                         user_path(current_user.id), class:'nav-link' %>
           </li>
+          <p class='notification-count' data-toggle="tooltip" data-placement="right" title="Notifications count"><%= Notification.where(user_id: current_user.id, viewed: false).count %></p>
         <% end %>
         <li class="nav-item active">
           <%= link_to "Create Course", new_course_path, class:'nav-link' %>

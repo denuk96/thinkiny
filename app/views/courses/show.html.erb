@@ -1,3 +1,16 @@
+<script>
+  function pushNotification() {
+    var notification = new window.Notification("Course started!!!",
+    {
+        body: "<%= @course.name %> started!!",
+        data:  "<%= url_for("#{root_url}/courses/#{@course.id}") %>"
+    });
+
+    notification.onclick = function(e) {
+        window.location.href = e.target.data;
+    }
+  }
+</script>
 <div id="container__course">
   <section id="logo">
     <% if @course.logo? %>
@@ -47,7 +60,7 @@
               <div class="mt-1">
                 <% if @course.status == 'new'  %>
                   <%= link_to 'Start course', change_course_status_courses_path(id: @course),
-                              class: "btn btn-outline-light" %>
+                              class: "btn btn-outline-light", onclick: 'pushNotification()' %>
                 <% elsif @course.status == 'in_process' %>
                   <%= link_to 'Complete course', change_course_status_courses_path(id: @course),
                               class: "btn btn-outline-light" %>
