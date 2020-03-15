@@ -9,7 +9,7 @@ RSpec.feature 'Joins', type: :feature do
   end
 
   before(:all) do
-    FactoryGirl.create(:user_no_admin)
+    @user = FactoryGirl.create(:user_no_admin)
     @course = FactoryGirl.create(:course)
   end
 
@@ -54,5 +54,19 @@ RSpec.feature 'Joins', type: :feature do
 
     expect(page).to have_current_path(course_path(course))
     expect(page).to have_content 'has no free places'
+  end
+
+  scenario 'User can not join if course completed' do
+    course = Course.create(name: 'completed course', description: 'description completed',
+                           place_quantities: 5, status: 'completed')
+    login
+
+    visit courses_path
+    expect(page).to have_content('completed course')
+    click_link 'completed course'
+
+    expect(page).to have_current_path(course_path(course))
+    expect(page).to have_content 'completed'
+    expect(page).to have_no_link 'Join'
   end
 end

@@ -91,5 +91,31 @@ RSpec.feature 'Courses', type: :feature do
       expect(page).to have_current_path(courses_path)
       expect(page).to have_content('Course has been successfully destroyed')
     end
+
+    scenario 'User can change status from "new" to "in process" ' do
+      login('email777@mail.com', 'password')
+
+      visit new_course_path
+      fill_in 'Name', with: 'test course'
+      fill_in 'Description', with: 'course description'
+      click_button 'Submit'
+      expect(page).to have_current_path(course_path(Course.last))
+
+      click_link 'Start course'
+      expect(page).to have_content('In process')
+      expect(page).to have_content('Complete course')
+      expect(page).to have_content('Status has changed to In process')
+    end
+
+    scenario 'User can complete his course' do
+      login('email777@mail.com', 'password')
+      visit course_path(Course.last)
+      click_link 'Complete course'
+      expect(page).to have_content('Completed')
+      expect(page).to have_content('Status has changed to Completed')
+
+      visit edit_course_path(Course.last)
+      expect(page).to have_content('Course is completed')
+    end
   end
 end

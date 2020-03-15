@@ -2,8 +2,8 @@ class LessonsController < ApplicationController
   include CoursesRights
   before_action :set_course
   before_action :set_lesson, only: %i[show edit update destroy]
+  before_action :check_course_status, except: %i[show]
   before_action :verify_moderators, except: %i[show]
-
 
   def show; end
 
@@ -15,7 +15,8 @@ class LessonsController < ApplicationController
     @lesson = Lesson.new(lesson_params)
     @lesson.course_id = params[:course_id]
     if @lesson.save
-      redirect_to @course
+      create_check_ins
+      redirect_to @course, notice: "Lesson #{@lesson.theme} has been created"
     else
       render :new
     end
@@ -25,7 +26,7 @@ class LessonsController < ApplicationController
 
   def update
     if @lesson.update(lesson_params)
-      redirect_to @course, notice: 'Lesson has been edited'
+      redirect_to @course, notice: "Lesson #{@lesson.theme} has been edited"
     else
       render :edit
     end
@@ -33,7 +34,7 @@ class LessonsController < ApplicationController
 
   def destroy
     @lesson.destroy
-    redirect_to root_path
+    redirect_to @course
   end
 
   private
@@ -44,6 +45,13 @@ class LessonsController < ApplicationController
 
   def set_lesson
     @lesson = Lesson.find(params[:id])
+  end
+
+  def create_check_ins
+    @course_users = @course.course_users.confirmed_participant
+    @course_users.each do |course_user|
+      @lesson.check_ins.create(user_id: course_user.user.id)
+    end
   end
 
   def lesson_params

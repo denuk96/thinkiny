@@ -2,19 +2,18 @@ module CoursesRights
   include ActiveSupport::Concern
 
   def verify_organizer
-    organizer = @course.course_users.includes(:user).find_by(role: 'organizer', user_id: current_user&.id)&.user&.id
-    unless (current_user&.id == organizer || current_user&.admin == true) && current_user.present?
+    if CourseUser.organizers.find_by(user_id: current_user.id, course_id: @course.id).nil?
       redirect_to root_path, alert: 'You have no rights'
     end
   end
 
   def verify_moderators
-    organizer = @course.course_users.includes(:user).find_by(role: 'organizer', user_id: current_user&.id)&.user&.id
-    instructor = @course.course_users.includes(:user).find_by(role: 'instructor', user_id: current_user&.id)&.user&.id
-    unless (current_user&.id == organizer ||
-            current_user&.id == instructor ||
-            current_user&.admin == true) && current_user.present?
-      redirect_to root_path(@course), alert: 'You have no rights'
-    end
+    organizer = CourseUser.organizers.find_by(user_id: current_user.id, course_id: @course.id).present?
+    instructor = CourseUser.instructors.find_by(user_id: current_user.id, course_id: @course.id).present?
+    redirect_to root_path, alert: 'You have no rights' unless organizer || instructor || current_user.admin
+  end
+
+  def check_course_status
+    redirect_to course_path(@course), alert: 'Course is completed' if @course.status == 'completed'
   end
 end

@@ -1,5 +1,4 @@
 Rails.application.configure do
-
   # config.action_mailer.default_url_options = { host: 'localhost', port: '3000' }
 
   config.action_mailer.delivery_method = :smtp
@@ -84,7 +83,7 @@ Rails.application.configure do
   config.i18n.fallbacks = true
 
   # Send deprecation notices to registered listeners.
-  config.active_support.deprecation = :notify
+  config.active_support.deprecation = :log
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new

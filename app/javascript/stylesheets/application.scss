@@ -1,12 +1,16 @@
 @import './bootstrap_custom.scss';
-@import "navbar";
-@import "courses";
-#map {
-    width: 600px;
-    height: 400px;
-    margin-left: auto;
-    margin-right: auto;
+//@import "navbar";
+@import '@fortawesome/fontawesome-free';
+/*@import "courses";*/
+
+
+body{
+    width: 100%;
+    min-width: 375px;
+    margin: 0;
+    padding: 0;
 }
+
 #map2 {
     width: 600px;
     height: 400px;

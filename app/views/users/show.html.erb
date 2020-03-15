@@ -4,7 +4,7 @@
 </p>
 
 <p>
-  <%= image_tag(@user.picture_url, width: 200) if @user.picture? %>
+  <%= image_tag(@user.picture.thumb.url, id:'icon_show_author') if @user.picture? %>
 </p>
 <p>
   <strong>First name:</strong>
@@ -18,13 +18,19 @@
 <p>
   <strong>My Courses:</strong>
   <p>
-    <% @user.course_users.includes(:course).where(role: 'organizer').each do |course| %>
-      <%= course.course.name %>
+    <% @user.course_users.includes(:course).organizers.each do |course| %>
+      <%= course.course&.name %>
     <% end %>
   </p>
 <strong>Join to course:</strong>
-<p><% @user.course_users.includes(:course).where(role: 'participant').each do |course| %>
+<p>
+  <% @user.course_users.includes(:course).where(role: 'participant').each do |course| %>
     <%= course.course.name %>
-  <% end %></p>
+  <% end %>
+</p>
+<p>
+  <strong>Rating:</strong>
+  <%= @user.rating %>
+</p>
 <%= link_to 'Edit', edit_user_path(@user), class:"btn btn-outline-dark" %>
 <%= link_to 'Back', root_path, class:"btn btn-outline-dark" %>

@@ -1,0 +1,113 @@
+/*container__course*/
+#container__course{
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/*logo*/
+#logo{
+  background: linear-gradient(to right,  #fff, #fff, #dbdfc3, #dbdfc3, #fff);
+  display: block ;
+  margin-left: auto;
+  margin-right: auto;
+}
+#form__nologo{
+  padding: 50px;
+  display: block;
+  width: 100%;
+  height: 400px;
+}
+#form__nologo p{
+  font-size: 30px;
+  text-transform: uppercase;
+  color: #696969;
+}
+.img_logo{
+  height:400px ;
+  width: 100%;
+}
+.my-img {
+  max-width: 200px;
+  max-height: 200px;
+  border: 1px solid black;
+  border-radius: 5px;
+  margin: 0 10px 10px 10px;
+}
+/*course__lesson*/
+#course__lesson{
+  display: block;
+  /*border: 1px solid #555555; !* Параметры рамки *!*/
+  background: linear-gradient(to bottom, #0f0f57, #0c0c44, #060623);
+}
+h3{
+  color: #f3f3f3;
+  text-transform: uppercase;
+}
+h4{
+  color: #c0c0c0;
+  text-transform: uppercase;
+}
+#info{
+  color: #8e8e8e;
+}
+.btn__panel{
+  width: 89px;
+}
+#btn__status{
+  margin-top: 15%;
+  text-align: center
+}
+#all_lessons_title{
+  background: #08082f;
+  padding: 5px;
+  margin-bottom: 0;
+}
+#all__lessons{
+  border-left: 1px solid #e1e1e1;
+}
+#card_lesson:hover{
+  width: 100%;
+  background: #08082f;
+}
+.lesson:link { color: #e1e1e1; text-decoration: none;}
+.lesson:visited { color: #c8c8c8; text-decoration: none;}
+.lesson:active {  color: #e1e1e1; text-decoration: none;}
+.lesson:hover { color: #ffffff; text-decoration: none;}
+#users_mail{
+  color: #cdcdcd;
+}
+h5{
+  text-transform: uppercase;
+}
+#lessonday{
+  text-decoration: line-through;
+}
+
+.carousel-inner, #map {
+  border: 1px solid #424196; /* Параметры рамки */
+  box-shadow: 0 0 10px #4847a4; /* Параметры тени */
+}
+#footer_course{
+  background: linear-gradient(to bottom, #060623, #000);
+  padding: 200px 50px;
+}
+#map{
+  margin-left: auto;
+  margin-right: auto;
+  width: 96%;
+  height: 450px;
+  margin-bottom: 50px;
+}
+.carousel__image{
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  height: 450px;
+}
+
+/*FORM*/
+#shared_pict_in_form{
+  width: 350px;
+  height: 250px;
+}
+

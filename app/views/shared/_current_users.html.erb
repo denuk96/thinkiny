@@ -1,11 +1,11 @@
 <div class="row mb-4 ml-0">
   <div class="col">
-  <small>Online users: </small>
+  <small class="current_users">Online users: </small>
     <% current_users.each do |current_user| %>
       <small>
         <span data-toggle="tooltip" data-placement="top" title="( <%= current_user.first_name%>)">
           <% if current_user.picture? %>
-            <%= image_tag(current_user.picture_url, class: "icon__author") %>
+            <%= image_tag(current_user.picture.small_thumb.url, class: "icon__author") %>
           <% else %>
             <%= image_tag("https://us.123rf.com/450wm/denisnata/denisnata1210/denisnata121000848/15814297-white-domestic-goose-isolated-on-white-background.jpg?ver=6",
                           class: "icon__author") %>

@@ -2,13 +2,15 @@
 #
 # Table name: course_users
 #
-#  id         :bigint           not null, primary key
-#  course_id  :bigint
-#  user_id    :bigint
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  role       :string
-#  confirmed  :boolean          default(TRUE)
+#  id            :bigint           not null, primary key
+#  course_id     :bigint
+#  user_id       :bigint
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  role          :string
+#  confirmed     :boolean          default(TRUE)
+#  completed     :boolean          default(FALSE)
+#  course_rating :integer
 #
 
 require 'rails_helper'

@@ -1,34 +1,36 @@
-<%= form_for ([@course, @lesson]) do |form| %>
-  <% if @lesson.errors.any? %>
-    <div class="alert alert-danger">
-      <ul>
-        <% @lesson.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
+<div class="container p-5">
+  <%= form_for [@course, @lesson], remote: true do |form| %>
+    <% if @lesson.errors.any? %>
+      <div class="alert alert-danger">
+        <ul>
+          <% @lesson.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="field mt-5">
+      <%= form.label :theme %>
+      <%= form.text_field :theme, class: "mt-2 form-control"%>
+    </div>
+
+    <div class="field mt-5">
+      <%= form.label :description %>
+      <%= form.text_area :description, class: "mt-2 form-control"%>
+    </div>
+
+    <div class="field mt-5">
+      <%= form.label :time %>
+      <%= form.text_field :time, class: "form-control", type: "datetime-local" %>
+    </div>
+    <div class="field mt-5">
+      <%= form.file_field :picture , class: 'form-control'%>
+    </div>
+
+    <div class="mt-5">
+      <%= form.submit 'Submit', class: "btn btn-outline-dark" %>
+      <%= link_to 'back', _back_url ,class: "btn btn-outline-dark" %>
     </div>
   <% end %>
-
-  <div class="field mt-5">
-    <%= form.label :theme %>
-    <%= form.text_field :theme, class: "mt-2 form-control"%>
-  </div>
-
-  <div class="field mt-5">
-    <%= form.label :description %>
-    <%= form.text_area :description, class: "mt-2 form-control"%>
-  </div>
-
-  <div class="field mt-5">
-    <%= form.label :time %>
-    <%= form.text_field :time, class: "form-control", type: "datetime-local" %>
-  </div>
-  <div class="field mt-5">
-    <%= form.file_field :picture , class: 'form-control'%>
-  </div>
-
-  <div class="mt-5">
-    <%= form.submit 'Submit', class: "btn btn-outline-dark" %>
-    <%= link_to 'back', _back_url ,class: "btn btn-outline-dark" %>
-  </div>
-<% end %>
+</div>
