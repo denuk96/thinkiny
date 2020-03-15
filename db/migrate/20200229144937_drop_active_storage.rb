@@ -1,5 +1,6 @@
 class DropActiveStorage < ActiveRecord::Migration[6.0]
   def change
+    remove_column :lessons, :picture
     add_column :lessons, :picture, :string
     add_column :users, :picture, :string
     add_column :courses, :logo, :string
