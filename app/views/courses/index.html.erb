@@ -1,59 +1,68 @@
-<%= render 'shared/current_users' %>
-
-<div class="dropdown">
-  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    <%= params[:sort].present? ? params[:sort].humanize : 'All' %>
-  </a>
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-    <%= link_to 'Newest', courses_path(sort: 'All'), class:'dropdown-item' %>
-    <%= link_to 'Oldest', courses_path(sort: 'oldest'), class:'dropdown-item' %>
-    <%= link_to 'Popular', courses_path(sort: 'popular'), class:'dropdown-item' %>
-    <%= link_to 'Unpopular', courses_path(sort: 'unpopular'), class:'dropdown-item' %>
-    <%= link_to 'Fresh', courses_path(sort: 'fresh'), class:'dropdown-item' %>
-    <%= link_to 'In process', courses_path(sort: 'in_process'), class:'dropdown-item' %>
-    <%= link_to 'Completed', courses_path(sort: 'completed'), class:'dropdown-item' %>
-    <%= link_to 'Rated', courses_path(sort: 'rated'), class:'dropdown-item' %>
+<header>
+  <div class="block_header">
+    <div>Thinkiny</div>
   </div>
-</div>
-<div class="dropdown">
-  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    <%= params[:category_id].present? ? @category.title.titleize : 'All' %>
-  </a>
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-    <% @categories.each do |category| %>
-      <%= link_to category.title.humanize, courses_path(sort: 'all', category_id: category) ,class:'dropdown-item' %>
-    <% end %>
+</header>
+<section class="second">
+  <div class="row justify-content-around">
+    <div class="dropright">
+      <a class="btn btn-outline-light dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <%= params[:sort].present? ? params[:sort].humanize : 'Категория' %>
+      </a>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+        <%= link_to 'Newest', courses_path(sort: 'All'), class:'dropdown-item' %>
+        <%= link_to 'Oldest', courses_path(sort: 'oldest'), class:'dropdown-item' %>
+        <%= link_to 'Popular', courses_path(sort: 'popular'), class:'dropdown-item' %>
+        <%= link_to 'Unpopular', courses_path(sort: 'unpopular'), class:'dropdown-item' %>
+        <%= link_to 'Fresh', courses_path(sort: 'fresh'), class:'dropdown-item' %>
+        <%= link_to 'In process', courses_path(sort: 'in_process'), class:'dropdown-item' %>
+        <%= link_to 'Completed', courses_path(sort: 'completed'), class:'dropdown-item' %>
+        <%= link_to 'Rated', courses_path(sort: 'rated'), class:'dropdown-item' %>
+      </div>
+    </div>
+<!--    <div class="dropdown">-->
+<!--      <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"-->
+<!--         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+        <%#= params[:category_id].present? ? @category.title.titleize : 'All' %>
+<!--      </a>-->
+<!--      <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">-->
+        <%# @categories.each do |category| %>
+          <%#= link_to category.title.humanize, courses_path(sort: 'all', category_id: category) ,class:'dropdown-item' %>
+        <%# end %>
+<!--      </div>-->
+<!--    </div>-->
+    <div><%= render 'shared/current_users' %></div>
   </div>
-</div>
-
-<h1 class="text-sm-center mt-5">All courses</h1>
-<small><%= link_to "Courses near you", nearbys_courses_path%></small>
-<div class="offset-1 offset-sm-2 offset-md-2 mt-5">
-  <% @courses.each do |course| %>
-    <div class="col-10 mb-4">
-      <div class="card">
-        <div class="card-header">
-          <div class="row">
-            <h3><%= link_to course.name, course_path(course, lesson_id: course&.lessons&.first&.id) %></h3>
-            <div class="ml-auto">
-              <% if current_user %>
-                <% if already_joined?(course, current_user) %>
-                  <button type="button" class="btn btn-outline-dark" disabled>Joinded</button>
-                  <%= link_to 'leave rating', course_rating_form_path(course_id: course.id) if completed_course?(course, current_user) %>
-                <% elsif course.status == 'completed' %>
-                  Completed
-                <% elsif free_places?(course) %>
-                  Available!
+</section>
+<section class="third">
+  <small><%= link_to "Courses near you", nearbys_courses_path%></small>
+  <div class="offset-1 offset-sm-2 offset-md-2 mt-5">
+    <% @courses.each do |course| %>
+      <div class="col-10">
+        <div class="card">
+          <div class="card-header">
+            <div class="row">
+              <h3><%= link_to course.name, course_path(course, lesson_id: course&.lessons&.first&.id) %></h3>
+              <div class="ml-auto">
+                <% if current_user %>
+                  <% if already_joined?(course, current_user) %>
+                    <button type="button" class="btn btn-outline-dark" disabled>Joinded</button>
+                    <%= link_to 'leave rating', course_rating_form_path(course_id: course.id) if completed_course?(course, current_user) %>
+                  <% elsif course.status == 'completed' %>
+                    Completed
+                  <% elsif free_places?(course) %>
+                    Available!
+                  <% else %>
+                    Has no free places
+                  <% end %>
                 <% else %>
-                  Has no free places
+                  Log in first
                 <% end %>
-              <% else %>
-                Log in first
-              <% end %>
+              </div>
             </div>
           </div>
+<<<<<<< HEAD
         </div>
         <div class="card-body">
           <p class="card-text">
@@ -78,8 +87,34 @@
             Required attendance rate:
             <%= course.attendance_rate %>%
           </p>
+=======
+          <div class="card-body">
+            <p class="card-text">
+              <% course.categories.each do |category| %>
+                Category: <b><%= category.title %></b>
+              <% end %>
+              <br>
+              Description: <b><%= course.description %></b>
+              <br>
+              Organizer: <b><%= course.course_users&.find_by(role: 'organizer')&.user&.email %></b>
+              <br>
+              Pre-moderation: <b><%= course.pre_moderation %></b>
+              <br>
+              Places: <b><%= course.place_quantities %></b>
+              Free:
+              <%= count_free_places(course) %>
+              <br>
+              Course status:
+              <%= course.status&.humanize %>
+              <br>
+              Required attendance rate:
+              <%= course.attendance_rate %>
+            </p>
+          </div>
+>>>>>>> 10a11213955fef78d25ecdda4d1752a5342ec3ff
         </div>
       </div>
-    </div>
-  <% end %>
-</div>
+    <% end %>
+  </div>
+</section>
+<footer class="text-center p-2">bla bla bla</footer>
