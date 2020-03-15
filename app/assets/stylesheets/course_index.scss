@@ -13,6 +13,10 @@ header{
   padding: 1%;
   background-color: rgba(30, 30, 30, 0.8); /* Цвет фона и значение прозрачности */
 }
+//
+//
+//
+//
 .second{
   background: linear-gradient(to bottom, #000, #0d0d2d);
   padding: 3% ;
@@ -20,9 +24,27 @@ header{
 .current_users{
   color: #F7F7F7;
 }
+//
+//
+//
+//
 .third{
+  background-color: rgba(10, 10, 36, 0.8); /* Цвет фона и значение прозрачности */
+  padding: 1%;
+}
+//
+//
+//
+//
+.fourth{
   background-color: #0f0f57;
 }
+.link_on_show_course{ color: #4e4e4e}
+.link_on_show_course:hover{ text-decoration: none; color: black}
+//
+//
+//
+//
 footer{
   background-color: black;
   color: #F7F7F7;
