@@ -1,3 +1,4 @@
+set :stage, "production"
 set :branch, 'development'
 set :deploy_to, "/home/#{fetch(:user)}/apps/thinkiny_staging"
 set :rails_env, :staging
