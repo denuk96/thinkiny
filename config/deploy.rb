@@ -22,7 +22,7 @@ set :rvm1_map_bins, fetch(:rvm1_map_bins).to_a.concat(%w(sidekiq sidekiqctl))
 namespace :deploy do
   before 'check:linked_files', 'config:push'
   before 'check:linked_files', 'puma:jungle:setup'
-  before 'check:linked_files', 'puma:nginx_config'
+  # before 'check:linked_files', 'puma:nginx_config'
   after 'puma:smart_restart', 'nginx:restart'
 end
 
