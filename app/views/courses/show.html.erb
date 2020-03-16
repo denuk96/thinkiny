@@ -1,25 +1,33 @@
 <div id="container__course">
   <section id="logo">
-    <% if @course.logo? %>
-      <%= image_tag @course.logo.url , class: 'img_logo'%>
-        <% if current_user %>
-          <% if  verify_organizer(@course, current_user) %>
-            <div id='form__logo' class="container row">
-              <h5 class="mr-5 p-2">Edit logo</h5>
-              <div class="p-1"><%= render 'courses/add_logo' %></div>
-            </div>
+    <div class="row">
+      <section class="col-12 col-md-5 col-lg-3" class="course_description">
+
+      </section>
+      <section class="col-12 col-md-7 col-lg-9" id="">
+        <% if @course.logo? %>
+          <%= image_tag @course.logo.url , class: 'img_logo'%>
+          <% if current_user %>
+            <% if  verify_organizer(@course, current_user) %>
+              <div id='form__logo' class="container row">
+                <h5 class="mr-5 p-2">Edit logo</h5>
+                <div class="p-1"><%= render 'courses/add_logo' %></div>
+              </div>
+            <% end %>
           <% end %>
-        <% end %>
-    <% else %>
-      <% if current_user %>
-        <% if  verify_organizer(@course, current_user) %>
-          <div id='form__nologo' class="offset-md-1 offset-lg-2 offset-xl-4">
-            <p class="mr-5 p-2">Add logo to your course</p>
-            <div class="p-1 "><%= render 'courses/add_logo' %></div>
-          </div>
-        <% end %>
-      <% end %>
-    <% end%>
+        <% else %>
+          <% if current_user %>
+            <% if  verify_organizer(@course, current_user) %>
+              <div id='form__nologo' class="offset-md-1 offset-lg-2 offset-xl-4">
+                <p class="mr-5 p-2">Add logo to your course</p>
+                <div class="p-1 "><%= render 'courses/add_logo' %></div>
+              </div>
+            <% end %>
+          <% end %>
+        <% end%>
+      </section>
+    </div>
+
   </section>
   <div class="contdainer-fluid">
     <div class="row">

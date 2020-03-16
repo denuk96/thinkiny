@@ -3,13 +3,18 @@
   margin-left: auto;
   margin-right: auto;
 }
-
+.course_description{
+  display: block;
+  /*border: 1px solid #555555; !* Параметры рамки *!*/
+  background: linear-gradient(to bottom, #060623, #0c0c44, #0f0f57);
+}
 /*logo*/
-#logo{
-  background: linear-gradient(to right,  #fff, #fff, #dbdfc3, #dbdfc3, #fff);
-  display: block ;
+#logo {
+  display: block;
   margin-left: auto;
   margin-right: auto;
+}
+.not_load_logo{
 }
 #form__nologo{
   padding: 50px;
@@ -82,7 +87,7 @@ h5{
 
 // calendar
 .calendar {
-  width: 600px;
+  width: 400px;
   height: 400px;
   margin-left: auto;
   margin-right: auto;
