@@ -78,16 +78,21 @@
           </tr>
         </table>
         <div class="offset-1 ">
-          <h3 class="text-center mt-5" id="all_lessons_title">all lessons</h3>
-          <div  id="all__lessons">
-            <%= link_to "Посмотреть росписание", course_lesson_path(@course),
-                        remote: true,  'data-toggle': "modal", 'data-target':'#show_calendar',
-                        class: "btn btn-outline-light btn-block" %>
+          <h3 class="text-center mt-5" id="all_lessons_title">all lessons
+            <div class="m-2">
+              <% if @course.lessons.size > 0 %>
+                <%= link_to "Посмотреть росписание", course_lesson_path(@course),
+                            remote: true,  'data-toggle': "modal", 'data-target':'#show_calendar',
+                            class: "btn btn-outline-info" %>
+              <% end %>
+            </div>
             <div id="show_calendar" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
               <div class="modal-dialog modal-xl" role="document">
                 <div class="modal-content"></div>
               </div>
             </div>
+          </h3>
+          <div  id="all__lessons">
             <% @lessons.each do |lesson| %>
               <%= link_to course_path(@course, lesson), class:"lesson" do %>
                 <div class="card-body" id="card_lesson">
