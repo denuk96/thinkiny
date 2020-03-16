@@ -191,6 +191,7 @@
     var marker, i;
 
     for (i = 0; i < locations.length; i++) {
+<<<<<<< HEAD:app/views/shared/_nearbys.html.erb
         marker = new google.maps.Marker({
             position: new google.maps.LatLng(locations[i][1], locations[i][2]),
             map: map
@@ -202,5 +203,18 @@
                 infowindow.open(map, marker);
             }
         })(marker, i));
+=======
+      marker = new google.maps.Marker({
+        position: new google.maps.LatLng(locations[i][2], locations[i][3]),
+        map: map
+      });
+
+      google.maps.event.addListener(marker, 'click', (function(marker, i) {
+        return function() {
+          infowindow.setContent(locations[i][1] + '<br>' + locations[i][0]);
+          infowindow.open(map, marker);
+        }
+      })(marker, i));
+>>>>>>> development:app/views/courses/nearbys.html.erb
     }
 </script>

@@ -22,10 +22,21 @@ test:
   pool: 5
 
 production:
+  <<: *default
   adapter: postgresql
   host: 127.0.0.1
   database: thinkiny
   username: deployer
-  password: <password>
+  password:
+  encoding: unicode
+  pool: 5
+
+staging:
+  <<: *default
+  adapter: postgresql
+  host: 127.0.0.1
+  database: thinkiny_stage
+  username: deployer
+  password:
   encoding: unicode
   pool: 5

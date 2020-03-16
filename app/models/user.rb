@@ -41,6 +41,7 @@ class User < ApplicationRecord
   has_many :courses, through: :course_users
   has_many :check_ins, dependent: :destroy
   has_many :lessons, through: :check_ins
+  has_many :notifications, dependent: :destroy
 
   validates :password, length: { minimum: 3 }, if: -> { new_record? || changes[:crypted_password] }
   validates :password, confirmation: true, if: -> { new_record? || changes[:crypted_password] }
@@ -52,9 +53,9 @@ class User < ApplicationRecord
   class << self
     def current_users
       where("#{sorcery_config.last_activity_at_attribute_name} IS NOT NULL") \
-        .where("#{sorcery_config.last_logout_at_attribute_name} IS NULL
-  OR #{sorcery_config.last_activity_at_attribute_name} > #{sorcery_config.last_logout_at_attribute_name}") \
-        .where("#{sorcery_config.last_activity_at_attribute_name} > ? ", sorcery_config.activity_timeout.seconds.ago.utc.to_s(:db))
+      .where("#{sorcery_config.last_logout_at_attribute_name} IS NULL
+      OR #{sorcery_config.last_activity_at_attribute_name} > #{sorcery_config.last_logout_at_attribute_name}") \
+      .where("#{sorcery_config.last_activity_at_attribute_name} > ? ", sorcery_config.activity_timeout.seconds.ago.utc.to_s(:db))
     end
   end
 
