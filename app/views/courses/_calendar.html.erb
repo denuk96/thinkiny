@@ -1,4 +1,5 @@
-<%= month_calendar events: @lessons do |time, lessons| %>
+<div class="calendar">
+  <%= month_calendar events: @lessons do |time, lessons| %>
     <%= time.to_formatted_s(:short) %>
 
     <% lessons.each do |lesson| %>
@@ -7,3 +8,4 @@
       </div>
     <% end %>
   <% end %>
+</div>
