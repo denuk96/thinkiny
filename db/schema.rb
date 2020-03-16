@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_29_144937) do
+ActiveRecord::Schema.define(version: 2020_03_13_200721) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -92,6 +92,15 @@ ActiveRecord::Schema.define(version: 2020_02_29_144937) do
     t.index ["course_id"], name: "index_lessons_on_course_id"
   end
 
+  create_table "notifications", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "notification"
+    t.bigint "user_id", null: false
+    t.boolean "viewed", default: false
+    t.index ["user_id"], name: "index_notifications_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "first_name"
     t.boolean "admin", default: false
@@ -128,4 +137,5 @@ ActiveRecord::Schema.define(version: 2020_02_29_144937) do
 
   add_foreign_key "check_ins", "lessons"
   add_foreign_key "check_ins", "users"
+  add_foreign_key "notifications", "users"
 end

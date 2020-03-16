@@ -118,7 +118,7 @@ Rails.application.config.sorcery.configure do |config|
   #
   config.facebook.key = ENV['FACEBOOK_KEY']
   config.facebook.secret = ENV['FACEBOOK_SECRET']
-  config.facebook.callback_url = 'http://localhost:3000/oauth/callback?provider=facebook'
+  config.facebook.callback_url = 'https://thinkiny.pp.ua/oauth/callback?provider=facebook'
   config.facebook.user_info_mapping = { email: 'email', first_name: 'name', picture: 'picture' }
   config.facebook.display = 'popup'
   # config.facebook.api_version = "v2.3"

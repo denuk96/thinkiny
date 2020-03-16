@@ -47,7 +47,7 @@ class CoursesController < ApplicationController
     @course = Course.new(course_params)
     if @course.save
       @course.course_users.create(user_id: current_user.id, role: 'organizer')
-      redirect_to course_path(@course), notice: 'Course has been created'
+      redirect_to course_path(@course, lesson_id: @course&.lessons&.first&.id), notice: 'Course has been created'
     else
       render :new
     end
@@ -87,7 +87,7 @@ class CoursesController < ApplicationController
     @courses_near = Course.near([location_info.latitude, location_info.longitude], 10)
     @a = []
     @courses.each do |course|
-      @a.push([course.name, course.latitude, course.longitude])
+      @a.push(["<a href='#{course_url(course)}'>#{course.name}</a>", (course.logo.present? ? "<img src='#{course&.logo.url}' alt='#{course.name}' height='42' width='42'>" : "<img src='#{'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Google_Chrome_icon_%28September_2014%29.svg/1200px-Google_Chrome_icon_%28September_2014%29.svg.png'}' alt='#{course.name}' height='42' width='42'>"), course.latitude, course.longitude])
     end
   end
 
@@ -123,6 +123,7 @@ class CoursesController < ApplicationController
       flash[:alert] = 'Course is already completed'
     end
     flash[:notice] = "Status has changed to #{@course.status&.humanize}"
+    @course.users.each { |user| Notification.create(user_id: user.id, notification: "Course #{@course.name} has been changed status to #{@course.status}") }
     redirect_to course_path(@course)
   end
 

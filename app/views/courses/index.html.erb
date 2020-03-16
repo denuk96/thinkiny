@@ -36,55 +36,71 @@
   </div>
 </section>
 <section class="third">
+  <%= render "shared/nearbys" %>
+</section>
+<section class="fourth">
   <small><%= link_to "Courses near you", nearbys_courses_path%></small>
   <div class="offset-1 offset-sm-2 offset-md-2 mt-5">
     <% @courses.each do |course| %>
       <div class="col-10">
         <div class="card">
-          <div class="card-header">
-            <div class="row">
-              <h3><%= link_to course.name, course_path(course, lesson_id: course&.lessons&.first&.id) %></h3>
-              <div class="ml-auto">
-                <% if current_user %>
-                  <% if already_joined?(course, current_user) %>
-                    <button type="button" class="btn btn-outline-dark" disabled>Joinded</button>
-                    <%= link_to 'leave rating', course_rating_form_path(course_id: course.id) if completed_course?(course, current_user) %>
-                  <% elsif course.status == 'completed' %>
-                    Completed
-                  <% elsif free_places?(course) %>
-                    Available!
+          <%= link_to course_path(course, lesson_id: course&.lessons&.first&.id), class:"link_on_show_course" do %>
+            <div class="card-header">
+              <div class="row">
+                <div>
+                  <h2><%= course.name %></h2>
+                  <p class="blockquote-footer">Organizer: <b><%= course.course_users&.find_by(role: 'organizer')&.user&.email %></b></cite></p>
+                  </p>
+                </div>
+                <div class="ml-auto">
+                  <% if current_user %>
+                    <% if already_joined?(course, current_user) %>
+                      <button type="button" class="btn btn-outline-dark" disabled>Joinded</button>
+                      <%= link_to 'leave rating', course_rating_form_path(course_id: course.id) if completed_course?(course, current_user) %>
+                    <% elsif course.status == 'completed' %>
+                      Completeed
+                    <% elsif free_places?(course) %>
+                      Available!
+                    <% else %>
+                      Has no free places
+                    <% end %>
                   <% else %>
-                    Has no free places
+                    Log in first
                   <% end %>
-                <% else %>
-                  Log in first
-                <% end %>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="card-body">
-            <p class="card-text">
-              <% course.categories.each do |category| %>
-                Category: <b><%= category.title %></b>
-              <% end %>
-              <br>
-              Description: <b><%= course.description %></b>
-              <br>
-              Organizer: <b><%= course.course_users&.find_by(role: 'organizer')&.user&.email %></b>
-              <br>
-              Pre-moderation: <b><%= course.pre_moderation %></b>
-              <br>
-              Places: <b><%= course.place_quantities %></b>
-              Free:
-              <%= count_free_places(course) %>
-              <br>
-              Course status:
-              <%= course.status&.humanize %>
-              <br>
-              Required attendance rate:
-              <%= course.attendance_rate %>
-            </p>
-          </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col">
+                  <% course.categories.each do |category| %>
+                    Category: <b><%= category.title %></b>
+                  <% end %>
+                  Description: <b><%= course.description %></b>
+                  <br>
+                  Pre-moderation: <b><%= course.pre_moderation %></b>
+                  <br>
+                  Places: <b><%= course.place_quantities %></b>
+                  Free:
+                  <%= count_free_places(course) %>
+                  <br>
+                  Course status:
+                  <%= course.status&.humanize %>
+                  <br>
+                  Required attendance rate:
+                  <%= course.attendance_rate %>
+                </div>
+                <div class="col">
+                  <% if course.logo? %>
+                    <%= image_tag course.logo.big_thumb.url %>
+                  <% else %>
+                    <%= image_tag 'https://www.drillingauction.com/web/upload/store/no-image.png',
+                                  size: '400x250' %>
+                <% end %>
+                </div>
+              </div>
+            </div>
+          <% end %>
         </div>
       </div>
     <% end %>

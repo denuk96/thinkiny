@@ -1,25 +1,33 @@
 <div id="container__course">
   <section id="logo">
-    <% if @course.logo? %>
-      <%= image_tag @course.logo.url , class: 'img_logo'%>
-        <% if current_user %>
-          <% if  verify_organizer(@course, current_user) %>
-            <div id='form__logo' class="container row">
-              <h5 class="mr-5 p-2">Edit logo</h5>
-              <div class="p-1"><%= render 'courses/add_logo' %></div>
-            </div>
+    <div class="row">
+      <section class="col-12 col-md-5 col-lg-3" class="course_description">
+
+      </section>
+      <section class="col-12 col-md-7 col-lg-9" id="">
+        <% if @course.logo? %>
+          <%= image_tag @course.logo.url , class: 'img_logo'%>
+          <% if current_user %>
+            <% if  verify_organizer(@course, current_user) %>
+              <div id='form__logo' class="container row">
+                <h5 class="mr-5 p-2">Edit logo</h5>
+                <div class="p-1"><%= render 'courses/add_logo' %></div>
+              </div>
+            <% end %>
           <% end %>
-        <% end %>
-    <% else %>
-      <% if current_user %>
-        <% if  verify_organizer(@course, current_user) %>
-          <div id='form__nologo' class="offset-md-1 offset-lg-2 offset-xl-4">
-            <p class="mr-5 p-2">Add logo to your course</p>
-            <div class="p-1 "><%= render 'courses/add_logo' %></div>
-          </div>
-        <% end %>
-      <% end %>
-    <% end%>
+        <% else %>
+          <% if current_user %>
+            <% if  verify_organizer(@course, current_user) %>
+              <div id='form__nologo' class="offset-md-1 offset-lg-2 offset-xl-4">
+                <p class="mr-5 p-2">Add logo to your course</p>
+                <div class="p-1 "><%= render 'courses/add_logo' %></div>
+              </div>
+            <% end %>
+          <% end %>
+        <% end%>
+      </section>
+    </div>
+
   </section>
   <div class="contdainer-fluid">
     <div class="row">
@@ -47,7 +55,7 @@
               <div class="mt-1">
                 <% if @course.status == 'new'  %>
                   <%= link_to 'Start course', change_course_status_courses_path(id: @course),
-                              class: "btn btn-outline-light" %>
+                              class: "btn btn-outline-light", onclick: 'pushNotification()' %>
                 <% elsif @course.status == 'in_process' %>
                   <%= link_to 'Complete course', change_course_status_courses_path(id: @course),
                               class: "btn btn-outline-light" %>
@@ -78,7 +86,20 @@
           </tr>
         </table>
         <div class="offset-1 ">
-          <h3 class="text-center mt-5" id="all_lessons_title">all lessons</h3>
+          <h3 class="text-center mt-5" id="all_lessons_title">all lessons
+            <div class="m-2">
+              <% if @course.lessons.size > 0 %>
+                <%= link_to "Посмотреть росписание", course_lesson_path(@course),
+                            remote: true,  'data-toggle': "modal", 'data-target':'#show_calendar',
+                            class: "btn btn-outline-info" %>
+              <% end %>
+            </div>
+            <div id="show_calendar" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-xl" role="document">
+                <div class="modal-content"></div>
+              </div>
+            </div>
+          </h3>
           <div  id="all__lessons">
             <% @lessons.each do |lesson| %>
               <%= link_to course_path(@course, lesson), class:"lesson" do %>
@@ -91,7 +112,7 @@
                   <% else %>
                     <div>
                       <h5> <%=lesson.theme%></h5>
-                      <p id="lessonday"><%= lesson.time.strftime("%A")%></p>
+                      <p id="lessonday"><s><%= lesson.time.strftime("%A")%></s></p>
                     </div>
                   <% end %>
                 </div>
@@ -196,8 +217,23 @@
 
   </section>
 </div>
+<script>
+    $("#show_calendar").find(".modal-content").html("<%= j (render 'courses/calendar') %>");
+    $("#show_calendar").modal();
+</script>
+<script>
+    function pushNotification() {
+        var notification = new window.Notification("Course started!!!",
+            {
+                body: "<%= @course.name %> started!!",
+                data:  "<%= url_for("#{root_url}/courses/#{@course.id}") %>"
+            });
 
-
+        notification.onclick = function(e) {
+            window.location.href = e.target.data;
+        }
+    }
+</script>
 <script>
   function initMap(lat, lng) {
     var myCoords = new google.maps.LatLng(lat, lng);
