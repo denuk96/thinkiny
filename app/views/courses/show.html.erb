@@ -1,27 +1,3 @@
-<script>
-  function pushNotification() {
-    var notification = new window.Notification("Course started!!!",
-    {
-        body: "<%= @course.name %> started!!",
-        data:  "<%= url_for("#{root_url}/courses/#{@course.id}") %>"
-    });
-
-    notification.onclick = function(e) {
-        window.location.href = e.target.data;
-    }
-  }
-</script>
-<div class="calendar">
-  <%= month_calendar events: @lessons do |time, lessons| %>
-    <%= time.to_formatted_s(:short) %>
-
-    <% lessons.each do |lesson| %>
-      <div>
-        <%= link_to lesson.theme, course_lesson_path(@course, lesson) %>
-      </div>
-    <% end %>
-  <% end %>
-</div>
 <div id="container__course">
   <section id="logo">
     <% if @course.logo? %>
@@ -104,6 +80,14 @@
         <div class="offset-1 ">
           <h3 class="text-center mt-5" id="all_lessons_title">all lessons</h3>
           <div  id="all__lessons">
+            <%= link_to "Посмотреть росписание", course_lesson_path(@course),
+                        remote: true,  'data-toggle': "modal", 'data-target':'#show_calendar',
+                        class: "btn btn-outline-light btn-block" %>
+            <div id="show_calendar" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-xl" role="document">
+                <div class="modal-content"></div>
+              </div>
+            </div>
             <% @lessons.each do |lesson| %>
               <%= link_to course_path(@course, lesson), class:"lesson" do %>
                 <div class="card-body" id="card_lesson">
@@ -220,8 +204,23 @@
 
   </section>
 </div>
+<script>
+    $("#show_calendar").find(".modal-content").html("<%= j (render 'courses/calendar') %>");
+    $("#show_calendar").modal();
+</script>
+<script>
+    function pushNotification() {
+        var notification = new window.Notification("Course started!!!",
+            {
+                body: "<%= @course.name %> started!!",
+                data:  "<%= url_for("#{root_url}/courses/#{@course.id}") %>"
+            });
 
-
+        notification.onclick = function(e) {
+            window.location.href = e.target.data;
+        }
+    }
+</script>
 <script>
   function initMap(lat, lng) {
     var myCoords = new google.maps.LatLng(lat, lng);
