@@ -79,9 +79,18 @@ h4{
 h5{
   text-transform: uppercase;
 }
-#lessonday{
-  text-decoration: line-through;
+
+// calendar
+.calendar {
+  width: 600px;
+  height: 400px;
+  margin-left: auto;
+  margin-right: auto;
 }
+.has-events {
+  background-color: #38688c;
+}
+.today {background-color: green;}
 
 .carousel-inner, #map {
   border: 1px solid #424196; /* Параметры рамки */

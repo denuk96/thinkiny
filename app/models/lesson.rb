@@ -20,4 +20,7 @@ class Lesson < ApplicationRecord
 
   validates :theme, :description, :time, presence: true
   validates :picture, file_size: { less_than: 5.megabytes }
+  def start_time
+    self.time
+  end
 end
