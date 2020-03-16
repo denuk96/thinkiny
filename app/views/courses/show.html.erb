@@ -1,85 +1,422 @@
-<div class="offset-md-1 mt-5">
-  <div class="col-10">
-    <div class="card">
-      <div class="card-header ">
-        <div class="row">
-          <h3>
-            <%= @course.name %>
-          </h3>
-          <div class="ml-auto">
-            <% if current_user %>
-              <% if already_joined?(@course, current_user) %>
-                <button type="button" class="btn btn-outline-dark" disabled>Joinded</button>
-              <% else %>
-                <%= link_to 'join', join_path(id: @course), class: "btn btn-outline-dark" %>
-              <% end %>
-              <% if verify_organizer(@course, current_user) %>
-                <%= link_to "Edit", edit_course_path(@course), class: "btn btn-outline-dark"  %>
-                <%= link_to "Destroy", course_path(@course), class: "btn btn-outline-dark",
+<div id="container__course">
+  <section id="logo">
+    <div class="row">
+      <section class="col-12 col-md-5 col-lg-3" class="course_description">
+
+      </section>
+      <section class="col-12 col-md-7 col-lg-9" id="">
+        <% if @course.logo? %>
+          <%= image_tag @course.logo.url , class: 'img_logo'%>
+          <% if current_user %>
+            <% if  verify_organizer(@course, current_user) %>
+              <div id='form__logo' class="container row">
+                <h5 class="mr-5 p-2">Edit logo</h5>
+                <div class="p-1"><%= render 'courses/add_logo' %></div>
+              </div>
+            <% end %>
+          <% end %>
+        <% else %>
+          <% if current_user %>
+            <% if  verify_organizer(@course, current_user) %>
+              <div id='form__nologo' class="offset-md-1 offset-lg-2 offset-xl-4">
+                <p class="mr-5 p-2">Add logo to your course</p>
+                <div class="p-1 "><%= render 'courses/add_logo' %></div>
+              </div>
+            <% end %>
+          <% end %>
+        <% end%>
+      </section>
+    </div>
+
+  </section>
+  <div class="contdainer-fluid">
+    <div class="row">
+      <section class="col-12 col-md-5 col-lg-3" id="course__lesson">
+        <div class="text-center mt-5"><% if current_user %>
+          <% if already_joined?(@course, current_user) %>
+              <button type="button" class="btn btn-outline-light btn-block" disabled>You joined to course</button>
+            <% elsif @course.status == 'completed' %>
+              <button type="button" class="btn btn-outline-light btn-block" disabled>Course completed!</button>
+            <% elsif free_places?(@course) %>
+              <%= link_to 'Join to course', join_path(id: @course), class: "btn btn-outline-light btn-block" %>
+            <% end %>
+          <% end %>
+        </div>
+        <h3 class="text-sm-center pt-5"><%= @course.name %></h3>
+
+        <div id="btn__status">
+          <% if current_user %>
+            <% if verify_organizer(@course, current_user) && @course.status != 'completed' %>
+              <div>
+                <%= link_to "Edit", edit_course_path(@course), class: "btn btn-outline-light btn__panel"  %>
+                <%= link_to "Destroy", course_path(@course), class: "btn btn-outline-light btn__panel",
                             method: :delete, data: { confirm: 'Are you sure?' } %>
+              </div>
+              <div class="mt-1">
+                <% if @course.status == 'new'  %>
+                  <%= link_to 'Start course', change_course_status_courses_path(id: @course),
+                              class: "btn btn-outline-light", onclick: 'pushNotification()' %>
+                <% elsif @course.status == 'in_process' %>
+                  <%= link_to 'Complete course', change_course_status_courses_path(id: @course),
+                              class: "btn btn-outline-light" %>
+                <% else %>
+                  <button type="button" class="btn btn-outline-light" disabled>Completed</button>
+                <% end %>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+
+        <table class="offset-1 mt-5 " id="info">
+          <tr>
+            <td>Free place:</td>
+            <td><%= count_free_places(@course) %> / <%= @course.place_quantities %></td>
+          </tr>
+          <tr>
+            <td>Admittance:</td>
+            <td><%= @course.pre_moderation ? 'on the confirmation' : 'free for all' %></td>
+          </tr>
+          <tr>
+            <td>Created by:</td>
+            <td><%= @course.course_users&.includes(:user).find_by(role: 'organizer')&.user&.email %></td>
+          </tr>
+          <tr>
+            <td>Status:</td>
+            <td><%= @course.status&.humanize %></td>
+          </tr>
+        </table>
+        <div class="offset-1 ">
+          <h3 class="text-center mt-5" id="all_lessons_title">all lessons
+            <div class="m-2">
+              <% if @course.lessons.size > 0 %>
+                <%= link_to "Посмотреть росписание", course_lesson_path(@course),
+                            remote: true,  'data-toggle': "modal", 'data-target':'#show_calendar',
+                            class: "btn btn-outline-info" %>
+              <% end %>
+            </div>
+            <div id="show_calendar" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-xl" role="document">
+                <div class="modal-content"></div>
+              </div>
+            </div>
+          </h3>
+          <div  id="all__lessons">
+            <% @lessons.each do |lesson| %>
+              <%= link_to course_path(@course, lesson), class:"lesson" do %>
+                <div class="card-body" id="card_lesson">
+                  <% if lesson.time > Time.now %>
+                    <div>
+                      <h5><%=lesson.theme%></h5>
+                      <p><%= lesson.time.strftime("%A") %> </p>
+                    </div>
+                  <% else %>
+                    <div>
+                      <h5> <%=lesson.theme%></h5>
+                      <p id="lessonday"><s><%= lesson.time.strftime("%A")%></s></p>
+                    </div>
+                  <% end %>
+                </div>
               <% end %>
             <% end %>
           </div>
+          <div>
+            <% if current_user && verify_instructor(@course, current_user) %>
+              <%= link_to "Add lesson", new_course_lesson_path(@course),
+                          remote: true,  'data-toggle': "modal", 'data-target':'#modal_add_lesson',
+                          class: "btn btn-outline-light btn-block" %>
+              <div id="modal_add_lesson" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                  <div class="modal-content"></div>
+                </div>
+              </div>
+            <% end %>
+          </div>
         </div>
-        <h2>
-          Created by:
-          <b><%= @course.course_users&.find_by(role: 'organizer')&.user&.email %></b>
-        </h2>
-      </div>
-      <div class="card-body">
-        <h5 class="card-title"><%= @course.description %></h5>
-        <%= link_to "Show lessons", course_lessons_path(@course), class: "btn btn-outline-dark" %>
-        <% if current_user && verify_instructor(@course, current_user) %>
-          <%= link_to "Add lessons", new_course_lesson_path(@course), class: "btn btn-outline-dark" %>
-        <% end %>
-      </div>
+        <div class="ml-3">
+          <b class="mt-5 blockquote-footer">Instructors (<%= @course&.course_users.instructors.size + 1%>):</b>
+          <div class="offset-1 mt-2">
+            <small id="users_mail">
+              <p><%= @course.course_users&.includes(:user).find_by(role: 'organizer')&.user&.email %></p>
+              <p>
+                <% @course&.course_users.includes(:user).instructors.each do |instructor| %>
+                  <%= instructor.user.email %>
+                  <% if current_user && verify_instructor(@course, current_user) %>
+                    <%= link_to 'to participant', change_role_courses_path(id: @course.id, course_user_id: instructor.id) %>
+                  <% end %>
+                <% end %>
+              </p>
+            </small>
+          </div>
+        </div>
+
+        <div class="ml-3">
+          <b class="mt-5 blockquote-footer">Joined users (<%= @course&.course_users.confirmed_participant.size %>):
+          </b>
+          <div class="offset-1 mt-2">
+            <% @course&.course_users.includes(:user).confirmed_participant.each do |participant| %>
+            <small id="users_mail"><%= participant.user.email %></small>
+              <% if current_user && verify_instructor(@course, current_user) %>
+                <%= link_to 'to instructor', change_role_courses_path(id: @course.id, course_user_id: participant.id) %>
+                <%= link_to 'Unconfirm', set_user_confirmation_courses_path(id: @course.id, course_user_id: participant.id) %>
+              <% end %>
+              <br>
+            <% end %>
+          </div>
+        </div>
+        <div class="ml-3">
+          <b class="mt-5 blockquote-footer">
+            Candidates (<%= @course&.course_users.un_confirmed_participant.size %>):
+          </b>
+          <div class="offset-1 mt-2">
+            <% @course&.course_users.includes(:user).un_confirmed_participant.each do |candidate| %>
+              <small id="users_mail"><%= candidate.user.email %></small>
+              <% if current_user && verify_instructor(@course, current_user) %>
+                <%= link_to 'to instructor', change_role_courses_path(id: @course.id, course_user_id: candidate.id) %>
+                <%= link_to 'Confirm', set_user_confirmation_courses_path(id: @course.id, course_user_id: candidate.id) %>
+              <% end %>
+              <br>
+            <% end %>
+          </div>
+        </div>
+
+      </section>
+      <section class="col-12 col-md-7 col-lg-9" id="lesson__show">
+        <%= @course.lessons.present? ?  (render 'lessons/lesson') : (render 'shared/lesson_instruction') %>
+      </section>
     </div>
   </div>
-  <div class="ml-3">
-    <b class="mt-5 blockquote-footer">Instructors:</b>
-    <p class="offset-1 mt-2">
-      <% @course&.course_users.where(role: 'instructor').each do |instructor| %>
-        <%= instructor.user.email %>
-        <% if current_user && verify_instructor(@course, current_user) %>
-          <%= link_to 'to participant', change_role_courses_path(id: @course.id, course_user_id: instructor.id) %>
-        <% end %>
-        <br>
-      <% end %>
-    </p>
-  </div>
-  <div class="ml-3">
-    <b class="mt-5 blockquote-footer">Joined users:</b>
-    <p class="offset-1 mt-2">
-      <% @course&.course_users.where(role: 'participant').each do |participant| %>
-        <%= participant.user.email %>
-        <% if current_user && verify_instructor(@course, current_user) %>
-          <%= link_to 'to instructor', change_role_courses_path(id: @course.id, course_user_id: participant.id) %>
-        <% end %>
-        <br>
-      <% end %>
-    </p>
-  </div>
-  <%= link_to "Back", courses_path, class: "btn btn-outline-dark" %>
-</div>
-<div class="text-center">
-    <div id="map"></div>
+  <section id="footer_course">
+    <div class="row">
+      <div class="col-lg-5 col-xl-4" id="map"></div>
+      <div class="col-lg-7 col-xl-8">
+        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+            <% if @course.pictures? %>
+              <% @course.pictures.each_with_index do |picture, index| %>
+                <div class="carousel-item <%= 'active' if index == 0 %>" >
+                  <%= image_tag(picture.url, id: index, class: 'd-block carousel__image') %>
+                </div>
+              <% end %>
+            <% else %>
+              <div class="carousel-item active">
+                <%#= image_tag , class: 'carousel__image' %>
+              </div>
+            <% end %>
+          </div>
+          <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">←</span>
+          </a>
+          <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">→</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </section>
 </div>
 <script>
-    function initMap(lat, lng) {
-        var myCoords = new google.maps.LatLng(lat, lng);
-        var mapOptions = {
-            center: myCoords,
-            zoom: 14
-        };
-        var map = new google.maps.Map(document.getElementById('map'), mapOptions);
+    $("#show_calendar").find(".modal-content").html("<%= j (render 'courses/calendar') %>");
+    $("#show_calendar").modal();
+</script>
+<script>
+    function pushNotification() {
+        var notification = new window.Notification("Course started!!!",
+            {
+                body: "<%= @course.name %> started!!",
+                data:  "<%= url_for("#{root_url}/courses/#{@course.id}") %>"
+            });
 
-        var marker = new google.maps.Marker({
-            position: myCoords,
-            map: map
-        });
+        notification.onclick = function(e) {
+            window.location.href = e.target.data;
+        }
     }
 </script>
 <script>
-    $('#map').prepend(initMap(<%= @course.latitude %>, <%= @course.longitude %>));
+  function initMap(lat, lng) {
+    var myCoords = new google.maps.LatLng(lat, lng);
+    var mapOptions = {
+    center: myCoords,
+    zoom: 14,
+    styles: [
+    {
+        "featureType": "all",
+        "elementType": "labels.text.fill",
+        "stylers": [
+            {
+                "saturation": 36
+            },
+            {
+                "color": "#000000"
+            },
+            {
+                "lightness": 40
+            }
+        ]
+    },
+    {
+        "featureType": "all",
+        "elementType": "labels.text.stroke",
+        "stylers": [
+            {
+                "visibility": "on"
+            },
+            {
+                "color": "#000000"
+            },
+            {
+                "lightness": 16
+            }
+        ]
+    },
+    {
+        "featureType": "all",
+        "elementType": "labels.icon",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "administrative",
+        "elementType": "geometry.fill",
+        "stylers": [
+            {
+                "color": "#000000"
+            },
+            {
+                "lightness": 20
+            }
+        ]
+    },
+    {
+        "featureType": "administrative",
+        "elementType": "geometry.stroke",
+        "stylers": [
+            {
+                "color": "#000000"
+            },
+            {
+                "lightness": 17
+            },
+            {
+                "weight": 1.2
+            }
+        ]
+    },
+    {
+        "featureType": "landscape",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "color": "#000000"
+            },
+            {
+                "lightness": 20
+            }
+        ]
+    },
+    {
+        "featureType": "poi",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "color": "#000000"
+            },
+            {
+                "lightness": 21
+            }
+        ]
+    },
+    {
+        "featureType": "road.highway",
+        "elementType": "geometry.fill",
+        "stylers": [
+            {
+                "color": "#000000"
+            },
+            {
+                "lightness": 17
+            }
+        ]
+    },
+    {
+        "featureType": "road.highway",
+        "elementType": "geometry.stroke",
+        "stylers": [
+            {
+                "color": "#000000"
+            },
+            {
+                "lightness": 29
+            },
+            {
+                "weight": 0.2
+            }
+        ]
+    },
+    {
+        "featureType": "road.arterial",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "color": "#000000"
+            },
+            {
+                "lightness": 18
+            }
+        ]
+    },
+    {
+        "featureType": "road.local",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "color": "#000000"
+            },
+            {
+                "lightness": 16
+            }
+        ]
+    },
+    {
+        "featureType": "transit",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "color": "#000000"
+            },
+            {
+                "lightness": 19
+            }
+        ]
+    },
+    {
+        "featureType": "water",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "color": "#000000"
+            },
+            {
+                "lightness": 17
+            }
+        ]
+    }
+]
+    };
+    var map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+    var marker = new google.maps.Marker({
+    position: myCoords,
+    map: map
+});
+}
 </script>
 
+<script>
+    $('#map').prepend(initMap(<%= @course.latitude %>, <%= @course.longitude %>));
+</script>

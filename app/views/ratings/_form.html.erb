@@ -1,0 +1,57 @@
+<div class="container">
+  <%= form_for @course_user, url: course_save_rating_path(course_id: @course) do |form| %>
+    <% if @course_user.errors.any? %>
+      <div class="alert alert-danger">
+        <ul>
+          <% @course_user.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="rating">
+      <%= form.collection_radio_buttons(:course_rating, [[1], [2], [3], [4], [5]], :first, :last) do |star| %>
+        <%= star.label(class: 'star') { fa_icon "star" } %>
+        <%= star.radio_button class: "radio_but" %>
+      <% end %>
+    </div>
+
+    <div class="text-center actions">
+      <%= form.submit 'submit', class: "btn btn-light" %>
+    </div>
+
+  <% end %>
+</div>
+
+<style>
+  .star {
+    font-size: 40px;
+  }
+
+  .rating {
+    font-size: 23px;
+    margin-right: 3px;
+  }
+
+  .radio_but {
+    display: none;
+  }
+</style>
+
+<script type="text/javascript" charset="utf-8">
+    $(document).ready(function() {
+        $('.star').click(function(){
+            $('.star').css('color', 'grey').css("font-size","50px");
+            $(this).css('color', 'red').css('font-size', '60px');
+        });
+    });
+    $(document).ready(function(){
+        $(".star").hover(  //
+            function(){
+                $(this).animate( { fontSize:"3.5em" } , 300 );},
+            function(){
+                $(".star").animate( { fontSize:"3em" } , 200 );}
+        );
+    });
+</script>

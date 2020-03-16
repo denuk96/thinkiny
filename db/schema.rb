@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_04_233243) do
+ActiveRecord::Schema.define(version: 2020_03_13_200721) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,12 @@ ActiveRecord::Schema.define(version: 2020_02_04_233243) do
     t.index ["provider", "uid"], name: "index_authentications_on_provider_and_uid"
   end
 
+  create_table "categories", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "title"
+  end
+
   create_table "check_ins", force: :cascade do |t|
     t.bigint "lesson_id"
     t.bigint "user_id"
@@ -35,12 +41,24 @@ ActiveRecord::Schema.define(version: 2020_02_04_233243) do
     t.index ["user_id"], name: "index_check_ins_on_user_id"
   end
 
+  create_table "course_categories", force: :cascade do |t|
+    t.bigint "course_id"
+    t.bigint "category_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["category_id"], name: "index_course_categories_on_category_id"
+    t.index ["course_id"], name: "index_course_categories_on_course_id"
+  end
+
   create_table "course_users", force: :cascade do |t|
     t.bigint "course_id"
     t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "role"
+    t.boolean "confirmed", default: true
+    t.boolean "completed", default: false
+    t.integer "course_rating"
     t.index ["course_id"], name: "index_course_users_on_course_id"
     t.index ["user_id"], name: "index_course_users_on_user_id"
   end
@@ -48,12 +66,19 @@ ActiveRecord::Schema.define(version: 2020_02_04_233243) do
   create_table "courses", force: :cascade do |t|
     t.string "name"
     t.text "description"
-    t.string "status"
+    t.string "status", default: "new"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "address"
     t.float "latitude"
     t.float "longitude"
+    t.boolean "pre_moderation", default: false
+    t.integer "place_quantities", default: 9999
+    t.integer "attendance_rate", default: 50
+    t.bigint "category_id"
+    t.string "logo"
+    t.string "pictures", default: [], array: true
+    t.index ["category_id"], name: "index_courses_on_category_id"
   end
 
   create_table "lessons", force: :cascade do |t|
@@ -63,13 +88,22 @@ ActiveRecord::Schema.define(version: 2020_02_04_233243) do
     t.bigint "course_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "picture"
     t.index ["course_id"], name: "index_lessons_on_course_id"
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "notification"
+    t.bigint "user_id", null: false
+    t.boolean "viewed", default: false
+    t.index ["user_id"], name: "index_notifications_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
     t.string "first_name"
     t.boolean "admin", default: false
-    t.string "email", null: false
     t.string "crypted_password"
     t.string "salt"
     t.datetime "created_at", precision: 6, null: false
@@ -84,12 +118,24 @@ ActiveRecord::Schema.define(version: 2020_02_04_233243) do
     t.datetime "last_logout_at"
     t.datetime "last_activity_at"
     t.string "last_login_from_ip_address"
-    t.index ["email"], name: "index_users_on_email", unique: true
+    t.string "email"
+    t.string "activation_state"
+    t.string "activation_token"
+    t.datetime "activation_token_expires_at"
+    t.string "reset_password_token"
+    t.datetime "reset_password_token_expires_at"
+    t.datetime "reset_password_email_sent_at"
+    t.integer "access_count_to_reset_password_page", default: 0
+    t.integer "rating", default: 0
+    t.string "picture"
+    t.index ["activation_token"], name: "index_users_on_activation_token"
     t.index ["last_logout_at", "last_activity_at"], name: "index_users_on_last_logout_at_and_last_activity_at"
     t.index ["remember_me_token"], name: "index_users_on_remember_me_token"
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token"
     t.index ["unlock_token"], name: "index_users_on_unlock_token"
   end
 
   add_foreign_key "check_ins", "lessons"
   add_foreign_key "check_ins", "users"
+  add_foreign_key "notifications", "users"
 end

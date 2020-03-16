@@ -1,31 +1,304 @@
 <%= form_with(model: @course, local: true) do |form| %>
-    <% if @course.errors.any? %>
-      <div class="alert alert-danger">
-        <ul>
-          <% @course.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
-
-    <div class="field mt-5">
-      <%= form.label :name %>
-      <%= form.text_field :name, class: "form-control"%>
+  <% if @course.errors.any? %>
+    <div class="alert alert-danger">
+      <ul>
+        <% @course.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
     </div>
+  <% end %>
 
-    <div class="field mt-5">
-      <%= form.label :description %>
-      <%= form.text_area :description, class: "form-control"%>
-    </div>
+  <div class="field mt-5">
+    <%= form.label :name %>
+    <%= form.text_field :name, class: "form-control"%>
+  </div>
 
-    <div class="field mt-5">
-      <%= form.label :address %>
-      <%= form.text_field :address, class: "form-control"%>
-    </div>
+  <div class="field mt-5">
+    <%= form.label :description %>
+    <%= form.text_area :description, class: "form-control"%>
+  </div>
 
+  <div class="field mt-5">
+    <%= form.label :category %>
+    <%= form.collection_check_boxes :category_ids, Category.all, :id, :title, class:'form-control' %>
+  </div>
+
+  <div class="field mt-5">
+    <%= form.label :place_quantities %>
+    <%= form.text_field :place_quantities, class: "form-control"%>
+  </div>
+
+  <div class="field mt-5">
+    Pre-moderation
     <br>
-    <div class="ml-auto mt-2">
-      <%= form.submit 'Submit', class: "btn btn-outline-dark" %>
+
+    <%= form.radio_button(:pre_moderation, "true") %>
+    <%= form.label(:pre_moderation, "On") %>
+
+    <%= form.radio_button(:pre_moderation, "false") %>
+    <%= form.label(:pre_moderation, "off") %>
+  </div>
+
+  <div class="field mt-5">
+    <%= form.label :attendance_rate %>
+    <%= form.text_field :attendance_rate, class: "form-control"%>
+  </div>
+
+  <div class="field mt-5">
+    <% if @course.save and @course.pictures.present? %>
+      <% @course.pictures.each_with_index do |picture, index| %>
+        <p id="picture_preview">
+          <%= image_tag(picture.url(:medium), id:'shared_pict_in_form') %>
+          <%= link_to 'Delete', course_picture_path(@course, index), method: :delete,
+                      data: { confirm: 'Are you sure' }, :remote => true,
+                      class:'btn btn-outline-dark btn-sm', id: 'delete_picture' %>
+        </p>
+      <% end %>
+    <% end %>
+    <br>
+    <div class="upload-preview field">
+      <img />
     </div>
+  </div>
+
+  <% @course.pictures.each do |picture| %>
+    <%= hidden_field :course, :pictures, multiple: true, value: picture.identifier %>
+  <% end %>
+
+  <div class="field">
+    <%= form.file_field :pictures, multiple: true, class: "file" %>
+  </div>
+
+  <br>
+
+  <div class="field mt-5">
+  <%= form.label :address %>
+  <%= form.text_field :address, class: "form-control address", id: "address"%>
+  </div>
+
+  <br>
+
+  <%= form.hidden_field :latitude, class: "form-control"%>
+  <%= form.hidden_field :longitude, class: "form-control"%>
+
+  <div id="map2"></div>
+  <br>
+  <div class="ml-auto mt-2">
+    <%= form.submit 'Submit', class: "btn btn-outline-dark" %>
+  </div>
 <% end %>
+
+<!--map goes here-->
+
+<% provide :head_tags do %>
+  <meta name='turbolinks-visit-control' content='reload'>
+<% end %>
+
+<script>
+  var lat = document.getElementById('course_latitude').value;
+  var lng = document.getElementById('course_longitude').value;
+  if (!lat || !lng){
+    lat=<%= request.location.latitude.nil? ? 51.5 : request.location.latitude %>;
+    lng=<%= request.location.longitude.nil? ? -0.125 : request.location.longitude %>;
+    document.getElementById('course_latitude').value = lat;
+    document.getElementById('course_longitude').value = lng;
+}
+  $("#address").geocomplete({
+    map: "#map2",
+    mapOptions: {
+      zoom: 10,
+      styles: [
+    {
+        "featureType": "all",
+        "elementType": "labels.text.fill",
+        "stylers": [
+            {
+                "saturation": 36
+            },
+            {
+                "color": "#000000"
+            },
+            {
+                "lightness": 40
+            }
+        ]
+    },
+    {
+        "featureType": "all",
+        "elementType": "labels.text.stroke",
+        "stylers": [
+            {
+                "visibility": "on"
+            },
+            {
+                "color": "#000000"
+            },
+            {
+                "lightness": 16
+            }
+        ]
+    },
+    {
+        "featureType": "all",
+        "elementType": "labels.icon",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "administrative",
+        "elementType": "geometry.fill",
+        "stylers": [
+            {
+                "color": "#000000"
+            },
+            {
+                "lightness": 20
+            }
+        ]
+    },
+    {
+        "featureType": "administrative",
+        "elementType": "geometry.stroke",
+        "stylers": [
+            {
+                "color": "#000000"
+            },
+            {
+                "lightness": 17
+            },
+            {
+                "weight": 1.2
+            }
+        ]
+    },
+    {
+        "featureType": "landscape",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "color": "#000000"
+            },
+            {
+                "lightness": 20
+            }
+        ]
+    },
+    {
+        "featureType": "poi",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "color": "#000000"
+            },
+            {
+                "lightness": 21
+            }
+        ]
+    },
+    {
+        "featureType": "road.highway",
+        "elementType": "geometry.fill",
+        "stylers": [
+            {
+                "color": "#000000"
+            },
+            {
+                "lightness": 17
+            }
+        ]
+    },
+    {
+        "featureType": "road.highway",
+        "elementType": "geometry.stroke",
+        "stylers": [
+            {
+                "color": "#000000"
+            },
+            {
+                "lightness": 29
+            },
+            {
+                "weight": 0.2
+            }
+        ]
+    },
+    {
+        "featureType": "road.arterial",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "color": "#000000"
+            },
+            {
+                "lightness": 18
+            }
+        ]
+    },
+    {
+        "featureType": "road.local",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "color": "#000000"
+            },
+            {
+                "lightness": 16
+            }
+        ]
+    },
+    {
+        "featureType": "transit",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "color": "#000000"
+            },
+            {
+                "lightness": 19
+            }
+        ]
+    },
+    {
+        "featureType": "water",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "color": "#000000"
+            },
+            {
+                "lightness": 17
+            }
+        ]
+    }
+]
+    },
+    markerOptions: {
+      draggable: false
+    },
+    location: [lat, lng]
+  });
+</script>
+<script>
+    $("#address").geocomplete({
+        map: "#map2"
+    });
+</script>
+<script>
+    document.querySelector('.file').addEventListener('change', event => {
+        [...event.target.files].forEach(file => {
+            const url = URL.createObjectURL(file)
+            addImageToBody(url)
+        })
+    })
+    // add image to html
+    function addImageToBody (src) {
+        const img = document.createElement('img')
+        img.src = src
+        img.className = 'my-img'
+        $('.upload-preview').append(img)
+    }
+</script>
