@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  before_action :set_time_zone, if: current_user
+  # before_action :set_time_zone, if: current_user
 
   private
 
