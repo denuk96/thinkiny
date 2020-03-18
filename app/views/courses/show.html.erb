@@ -420,3 +420,6 @@
 <script>
     $('#map').prepend(initMap(<%= @course.latitude %>, <%= @course.longitude %>));
 </script>
+<script>
+  $(".calendar").html("<%= escape_javascript render(partial: "calendar", locals: {lessons: @lessons}) %>");
+</script>
