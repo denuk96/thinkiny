@@ -154,7 +154,7 @@ Rails.application.config.sorcery.configure do |config|
   #
   config.google.key = ENV['GOOGLE_KEY']
   config.google.secret = ENV['GOOGLE_SECRET']
-  config.google.callback_url = 'http://thinkiny.ddns.net/oauth/callback?provider=google'
+  config.google.callback_url = 'http://thinkiny.pp.ua/oauth/callback?provider=google'
   config.google.user_info_mapping = {
     email: 'email',
     first_name: 'given_name',

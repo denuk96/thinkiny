@@ -3,7 +3,10 @@
 @import '@fortawesome/fontawesome-free';
 /*@import "courses";*/
 
-
+*{
+    font-family: inherit;
+    font-style: inherit;
+}
 body{
     width: 100%;
     min-width: 375px;

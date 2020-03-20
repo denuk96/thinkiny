@@ -1,0 +1,47 @@
+header{
+  display: block;
+  height: 420px;
+  width: 100%;
+  background: url("https://i.ibb.co/pWN9Y8k/Computer-Science-1.jpg") no-repeat top / cover ;
+}
+header .fix{
+  padding-top: 100px;
+}
+.block_header{
+  color: #F7F7F7;
+  font-size: 40px;
+  padding: 2%;
+  background-color: rgba(30, 30, 30, 0.8); /* Цвет фона и значение прозрачности */
+}
+.second{
+  background: linear-gradient(to bottom, #000, #0d0d2d);
+  padding: 8% 3% 6%;
+}
+.second h2{
+  color: #F7F7F7;
+  font-size: 20px;
+  line-height: 40px;
+  padding-top: 120px;
+  padding-bottom: 50px;
+}
+//
+//
+//
+//
+.third{
+  padding: 150px 0;
+}
+.third p{
+  text-align: justify;
+  font-size: 20 px;
+}
+//
+//
+//
+
+footer{
+  padding: 2% 0 1%;
+  background-color: #575757;
+  font-size: 14px;
+  color: #F7F7F7;
+}
