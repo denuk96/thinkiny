@@ -15,7 +15,7 @@ header .fix{
 }
 .second{
   background: linear-gradient(to bottom, #000, #0d0d2d);
-  padding: 8% 3% 5%;
+  padding: 8% 3% 6%;
 }
 .second h2{
   color: #F7F7F7;
@@ -24,15 +24,24 @@ header .fix{
   padding-top: 120px;
   padding-bottom: 50px;
 }
-
-.current_users{
-  color: #F7F7F7;
+//
+//
+//
+//
+.third{
+  padding: 150px 0;
+}
+.third p{
+  text-align: justify;
+  font-size: 20 px;
 }
 //
 //
 //
-//
-.third p{
-  text-align: justify;
-  font-size: 20 px;
+
+footer{
+  padding: 2% 0 1%;
+  background-color: #575757;
+  font-size: 14px;
+  color: #F7F7F7;
 }
