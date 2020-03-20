@@ -1,7 +1,9 @@
+<div><%= render 'shared/current_users' %></div>
+
 <div class="text-center">
   <% if request.location.latitude.nil? %>
     <b>Na localke ne rabotaet</b>
-  <% else %>
+<% else %>
     <% @courses_near.each do |course_near| %>
       <li><%= link_to course_near.name, course_path(course_near) %> (<%= course_near.distance.round(2) %> miles)</li>
     <% end %>
