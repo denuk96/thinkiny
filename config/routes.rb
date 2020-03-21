@@ -1,4 +1,9 @@
+require 'sidekiq/web'
+Sidekiq::Web.set :sessions, false
+
 Rails.application.routes.draw do
+  mount Sidekiq::Web => '/sidekiq', as: 'background'
+
   root 'pages#welcome'
 
   get 'notifications/viewed'
