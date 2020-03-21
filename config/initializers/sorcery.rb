@@ -159,7 +159,7 @@ Rails.application.config.sorcery.configure do |config|
     email: 'email',
     first_name: 'given_name',
     last_name: 'family_name',
-    picture: 'picture'
+    remote_picture_url: 'picture'
   }
   # For Microsoft Graph, the key will be your App ID, and the secret will be your app password/public key.
   # The callback URL "can't contain a query string or invalid special characters"
