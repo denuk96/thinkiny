@@ -2,7 +2,7 @@
   <% if request.location.latitude.nil? %>
     <b>Курси у твоему місті</b>
 <% else %>
-    <% @courses_near.each do |course_near| %>
+    <% @courses_near&.each do |course_near| %>
       <li><%= link_to course_near.name, course_path(course_near) %> (<%= course_near.distance.round(2) %> miles)</li>
     <% end %>
   <% end %>
