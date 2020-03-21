@@ -40,13 +40,15 @@
                 </div>
               <% end %>
             </div>
-            <% if already_joined?(@course, current_user) %>
-              <!--              <button type="button" class="btn btn-outline-warning" disabled>You joined to course</button>-->
-            <% elsif @course.status == 'completed' %>
-              <button type="button" class="btn btn-outline-warning" disabled>Course completed!</button>
-            <% elsif free_places?(@course) %>
-              <%= link_to 'Join to course', join_path(id: @course), class: "btn btn-outline-warning" %>
-            <% end %>
+            <div class="offset-2">
+              <% if already_joined?(@course, current_user) %>
+                <!--<button type="button" class="btn btn-outline-warning" disabled>You joined to course</button>-->
+              <% elsif @course.status == 'completed' %>
+                <button type="button" class="btn btn-outline-warning" disabled>Course completed!</button>
+              <% elsif free_places?(@course) %>
+                <%= link_to 'Join to course', join_path(id: @course), class: "btn btn-outline-warning" %>
+              <% end %>
+            </div>
           <% end %>
           <div class="offset-2" id="info">
             <div class="row">
