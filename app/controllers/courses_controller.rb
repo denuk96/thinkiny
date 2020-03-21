@@ -85,9 +85,9 @@ class CoursesController < ApplicationController
     @courses = Course.all
     location_info = request.location
     @courses_near = Course.near([location_info.latitude, location_info.longitude], 10)
-    @a = []
+    @locations = []
     @courses.each do |course|
-      @a.push(["<a href='#{course_url(course)}'>#{course.name}</a>", (course.logo.present? ? "<img src='#{course&.logo.url}' alt='#{course.name}' height='42' width='42'>" : "<img src='#{'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Google_Chrome_icon_%28September_2014%29.svg/1200px-Google_Chrome_icon_%28September_2014%29.svg.png'}' alt='#{course.name}' height='42' width='42'>"), course.latitude, course.longitude])
+      @locations.push(["<a href='#{course_url(course)}'>#{course.name}</a>", (course.logo.present? ? "<img src='#{course&.logo.url}' alt='#{course.name}' height='42' width='42'>" : "<img src='#{'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Google_Chrome_icon_%28September_2014%29.svg/1200px-Google_Chrome_icon_%28September_2014%29.svg.png'}' alt='#{course.name}' height='42' width='42'>"), course.latitude, course.longitude])
     end
   end
 

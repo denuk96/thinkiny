@@ -105,10 +105,6 @@ h5{
 }
 
 // calendar
-#calendar {
-  margin-left: auto;
-  margin-right: auto;
-}
 .has-events {
   background-color: #38688c;
 }
@@ -118,7 +114,9 @@ h5{
   border: 1px solid #424196; /* Параметры рамки */
   box-shadow: 0 0 10px #4847a4; /* Параметры тени */
 }
-
+.calendar {
+  background-color: white;
+}
 //
 //
 //
@@ -150,7 +148,4 @@ h5{
 #shared_pict_in_form{
   width: 350px;
   height: 250px;
-}
-.calendar {
-  background-color: white;
 }
