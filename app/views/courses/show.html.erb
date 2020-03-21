@@ -1,97 +1,106 @@
-<script>
-  function pushNotification() {
-    var notification = new window.Notification("Course started!!!",
-    {
-        body: "<%= @course.name %> started!!",
-        data:  "<%= url_for("#{root_url}/courses/#{@course.id}") %>"
-    });
-
-    notification.onclick = function(e) {
-        window.location.href = e.target.data;
-    }
-  }
-</script>
 <div id="container__course">
   <section id="logo">
-    <% if @course.logo? %>
-      <%= image_tag @course.logo.url , class: 'img_logo'%>
-        <% if current_user %>
-          <% if  verify_organizer(@course, current_user) %>
-            <div id='form__logo' class="container row">
-              <h5 class="mr-5 p-2">Edit logo</h5>
-              <div class="p-1"><%= render 'courses/add_logo' %></div>
+    <div class="course_description">
+      <div class="offset-1 col-10 row">
+        <div class="col-2 mr-5">
+          <% if @course.logo? %>
+            <%= image_tag @course.logo.url , class: 'img_logo'%>
+        <% else %>
+            <% if current_user %>
+              <% if  verify_organizer(@course, current_user) %>
+                <div id='form__nologo' class="offset-md-1 offset-lg-2 offset-xl-4">
+                  <p class="mr-5 p-2">Add logo to your course</p>
+                  <div class="p-1 "><%= render 'courses/add_logo' %></div>
+                </div>
+              <% end %>
+            <% end %>
+          <% end%>
+        </div>
+        <div class="col-4 offset-1">
+          <h1 class="course_name" class="mb-2"><%= @course.name %></h1>
+          <p class="description"><%= @course.description %></p>
+        </div>
+        <div class="col offset-lg-1">
+          <% if current_user %>
+            <div id="btn__status">
+              <% if verify_organizer(@course, current_user) && @course.status != 'completed' %>
+                <div>
+                  <%= link_to "Edit", edit_course_path(@course), class: "btn btn-outline-warning btn__panel"  %>
+                  <%= link_to "Destroy", course_path(@course), class: "btn btn-outline-warning btn__panel",
+                              method: :delete, data: { confirm: 'Are you sure?' } %>
+                  <% if @course.status == 'new'  %>
+                    <%= link_to 'Start course', change_course_status_courses_path(id: @course),
+                                class: "btn btn-outline-warning", onclick: 'pushNotification()' %>
+                  <% elsif @course.status == 'in_process' %>
+                    <%= link_to 'Complete course', change_course_status_courses_path(id: @course),
+                                class: "btn btn-outline-warning" %>
+                  <% else %>
+                    <button type="button" class="btn btn-outline-warning" disabled>Completed</button>
+                  <% end %>
+                </div>
+              <% end %>
+            </div>
+            <div class="offset-2">
+              <% if already_joined?(@course, current_user) %>
+                <!--<button type="button" class="btn btn-outline-warning" disabled>You joined to course</button>-->
+              <% elsif @course.status == 'completed' %>
+                <button type="button" class="btn btn-outline-warning" disabled>Course completed!</button>
+              <% elsif free_places?(@course) %>
+                <%= link_to 'Join to course', join_path(id: @course), class: "btn btn-outline-warning" %>
+              <% end %>
             </div>
           <% end %>
-        <% end %>
-    <% else %>
-      <% if current_user %>
-        <% if  verify_organizer(@course, current_user) %>
-          <div id='form__nologo' class="offset-md-1 offset-lg-2 offset-xl-4">
-            <p class="mr-5 p-2">Add logo to your course</p>
-            <div class="p-1 "><%= render 'courses/add_logo' %></div>
+          <div class="offset-2" id="info">
+            <div class="row">
+              <p class="col">Вільних місць:</p>
+              <p class="col"><%= count_free_places(@course) %> / <%= @course.place_quantities %></p>
+            </div>
+            <div class="row">
+              <p class="col">Доступ:</p>
+              <p class="col"><%= @course.pre_moderation ? 'on the confirmation' : 'free for all' %></p>
+            </div>
+            <div class="row">
+              <p class="col">Власник курсу:</p>
+              <p class="col"><%= @course.course_users&.includes(:user).find_by(role: 'organizer')&.user&.email %></p>
+            </div>
           </div>
-        <% end %>
-      <% end %>
-    <% end%>
+        </div>
+      </div>
+    </div>
   </section>
+
+
   <div class="contdainer-fluid">
     <div class="row">
       <section class="col-12 col-md-5 col-lg-3" id="course__lesson">
-        <div class="text-center mt-5"><% if current_user %>
-          <% if already_joined?(@course, current_user) %>
-              <button type="button" class="btn btn-outline-light btn-block" disabled>You joined to course</button>
-            <% elsif @course.status == 'completed' %>
-              <button type="button" class="btn btn-outline-light btn-block" disabled>Course completed!</button>
-            <% elsif free_places?(@course) %>
-              <%= link_to 'Join to course', join_path(id: @course), class: "btn btn-outline-light btn-block" %>
-            <% end %>
-          <% end %>
-        </div>
-        <h3 class="text-sm-center pt-5"><%= @course.name %></h3>
-
-        <div id="btn__status">
+        <div class="text-center mt-5">
           <% if current_user %>
-            <% if verify_organizer(@course, current_user) && @course.status != 'completed' %>
-              <div>
-                <%= link_to "Edit", edit_course_path(@course), class: "btn btn-outline-light btn__panel"  %>
-                <%= link_to "Destroy", course_path(@course), class: "btn btn-outline-light btn__panel",
-                            method: :delete, data: { confirm: 'Are you sure?' } %>
-              </div>
-              <div class="mt-1">
-                <% if @course.status == 'new'  %>
-                  <%= link_to 'Start course', change_course_status_courses_path(id: @course),
-                              class: "btn btn-outline-light", onclick: 'pushNotification()' %>
-                <% elsif @course.status == 'in_process' %>
-                  <%= link_to 'Complete course', change_course_status_courses_path(id: @course),
-                              class: "btn btn-outline-light" %>
-                <% else %>
-                  <button type="button" class="btn btn-outline-light" disabled>Completed</button>
-                <% end %>
+            <% if  verify_organizer(@course, current_user) %>
+              <div class="edit_logo">
+                <p class="logo_text">Edit logo</p>
+                <div class=""><%= render 'courses/add_logo' %></div>
               </div>
             <% end %>
           <% end %>
         </div>
 
-        <table class="offset-1 mt-5 " id="info">
-          <tr>
-            <td>Free place:</td>
-            <td><%= count_free_places(@course) %> / <%= @course.place_quantities %></td>
-          </tr>
-          <tr>
-            <td>Admittance:</td>
-            <td><%= @course.pre_moderation ? 'on the confirmation' : 'free for all' %></td>
-          </tr>
-          <tr>
-            <td>Created by:</td>
-            <td><%= @course.course_users&.includes(:user).find_by(role: 'organizer')&.user&.email %></td>
-          </tr>
-          <tr>
-            <td>Status:</td>
-            <td><%= @course.status&.humanize %></td>
-          </tr>
-        </table>
+
+
         <div class="offset-1 ">
-          <h3 class="text-center mt-5" id="all_lessons_title">all lessons</h3>
+          <h3 class="text-center mt-5" id="all_lessons_title">all lessons
+            <div class="m-2">
+              <% if @course.lessons.size > 0 %>
+                <%= link_to "Посмотреть росписание", course_lesson_path(@course),
+                            remote: true,  'data-toggle': "modal", 'data-target':'#show_calendar',
+                            class: "btn btn-outline-info" %>
+              <% end %>
+            </div>
+            <div id="show_calendar" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-xl" role="document">
+                <div class="modal-content"></div>
+              </div>
+            </div>
+          </h3>
           <div  id="all__lessons">
             <% @lessons.each do |lesson| %>
               <%= link_to course_path(@course, lesson), class:"lesson" do %>
@@ -104,7 +113,7 @@
                   <% else %>
                     <div>
                       <h5> <%=lesson.theme%></h5>
-                      <p id="lessonday"><%= lesson.time.strftime("%A")%></p>
+                      <p id="lessonday"><s><%= lesson.time.strftime("%A")%></s></p>
                     </div>
                   <% end %>
                 </div>
@@ -209,8 +218,23 @@
 
   </section>
 </div>
+<script>
+    $("#show_calendar").find(".modal-content").html("<%= j (render 'courses/calendar') %>");
+    $("#show_calendar").modal();
+</script>
+<script>
+    function pushNotification() {
+        var notification = new window.Notification("Course started!!!",
+            {
+                body: "<%= @course.name %> started!!",
+                data:  "<%= url_for("#{root_url}/courses/#{@course.id}") %>"
+            });
 
-
+        notification.onclick = function(e) {
+            window.location.href = e.target.data;
+        }
+    }
+</script>
 <script>
   function initMap(lat, lng) {
     var myCoords = new google.maps.LatLng(lat, lng);
@@ -396,4 +420,7 @@
 
 <script>
     $('#map').prepend(initMap(<%= @course.latitude %>, <%= @course.longitude %>));
+</script>
+<script>
+  $(".calendar").html("<%= escape_javascript render(partial: "calendar", locals: {lessons: @lessons}) %>");
 </script>

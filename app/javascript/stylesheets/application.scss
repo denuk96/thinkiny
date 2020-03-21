@@ -3,7 +3,12 @@
 @import '@fortawesome/fontawesome-free';
 /*@import "courses";*/
 
+//@import 'simple_calendar';
 
+*{
+    font-family: inherit;
+    font-style: inherit;
+}
 body{
     width: 100%;
     min-width: 375px;

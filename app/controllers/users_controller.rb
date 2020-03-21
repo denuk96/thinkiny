@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   include CheckAuthorization
   before_action :current_user_already_exist?, except: %i[index show edit update activate viewed_notification]
   before_action :set_user, except: %i[new create]
-
+  before_action :current_user_not_exist?, only: :show
   def index; end
 
   def show

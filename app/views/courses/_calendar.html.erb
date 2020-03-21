@@ -1,0 +1,11 @@
+<div class="calendar">
+  <%= month_calendar events: @lessons do |time, lessons| %>
+    <%= time.to_formatted_s(:short) %>
+
+    <% lessons.each do |lesson| %>
+      <div>
+        <%= link_to lesson.theme, course_lesson_path(@course, lesson) %>
+      </div>
+    <% end %>
+  <% end %>
+</div>

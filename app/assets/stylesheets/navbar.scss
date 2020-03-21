@@ -5,8 +5,22 @@
   border: 1px solid #555555; /* Параметры рамки */
   box-shadow: 0 0 5px #ccc; /* Параметры тени */
 }
+#nav_container{
+  background: black;
+  padding: 1%;
+}
+
 .navbar{
-  background: linear-gradient(to bottom, #030313, #0d0d2d);
-  font-family: 'Playfair Display', serif;
   font-size: 20px;
+}
+#link_root:hover{text-decoration: none}
+#link_root{
+  font-family: "Playfair Display", serif;
+  font-size: 35px;
+  text-transform: uppercase;
+}
+
+
+.current_users{
+  color: #F7F7F7;
 }

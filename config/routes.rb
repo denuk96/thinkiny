@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
-  get 'notifications/viewed'
-  root 'courses#index'
+  root 'pages#welcome'
 
+  get 'notifications/viewed'
   get 'join', to: 'joins#join_to_course', as: 'join'
   get 'viewed_notification', to: 'notifications#viewed_notification', as: 'viewed_notification'
 
