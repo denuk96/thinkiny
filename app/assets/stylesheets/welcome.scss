@@ -1,16 +1,17 @@
 header{
   display: block;
-  height: 420px;
+  height: 300px;
   width: 100%;
-  background: url("https://i.ibb.co/pWN9Y8k/Computer-Science-1.jpg") no-repeat top / cover ;
+  background: #8a0e9b;
+  //background: url("https://ak6.picdn.net/shutterstock/videos/1893916/thumb/1.jpg") no-repeat center / cover ;
 }
 header .fix{
-  padding-top: 100px;
+  padding-top: 50px;
 }
 .block_header{
   color: #F7F7F7;
   font-size: 40px;
-  padding: 2%;
+  padding: 1%;
   background-color: rgba(30, 30, 30, 0.8); /* Цвет фона и значение прозрачности */
 }
 .second{
