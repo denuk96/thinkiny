@@ -31,8 +31,6 @@
     <p>add task</p>
     <%= render ('tasks/form') %>
   <% end %>
-  <% @lesson.tasks.each do |task| %>
-    <%= task.title %> <br>
-    <%= task.body %>
-<% end %>
+  <%= render ('tasks/task') %>
+
 </div>

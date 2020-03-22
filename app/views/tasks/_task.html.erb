@@ -1,0 +1,8 @@
+<div class="container-fluid">
+  <% @lesson.tasks.each do |task| %>
+    <h5 ><%= task.title %> </h5>
+    <p><%= task.body %></p>
+    <%= link_to 'Destroy', [@course, task.lesson, task],
+                method: :delete, data: { confirm: 'Are you sure?' } , class: 'btn btn-outline-dark btn-sm'%>
+  <% end %>
+</div>
