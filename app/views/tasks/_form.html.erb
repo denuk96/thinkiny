@@ -1,0 +1,13 @@
+<div class="container-fluid">
+  <%= form_with(model: [@course, @lesson, @lesson.tasks.build] ) do |form| %>
+    <div class="row field mt-3">
+      <div class="col-2"><%= form.label :title %></div>
+      <div class="col-8"><%= form.text_field :title, class: "form-control" %></div>
+    </div>
+    <div class="row field mt-3">
+      <div class="col-2"><%= form.label :body %></div>
+      <div class="col-8"><%= form.text_field :body, class: "form-control" %></div>
+    </div>
+    <div class="col-2"><%= form.submit "Save", class: "btn btn-outline-dark btn-sm" %></div>
+<% end %>
+</div>

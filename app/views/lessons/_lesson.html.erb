@@ -27,5 +27,12 @@
     </div>
     <%= link_to "Destroy", course_lesson_path(@course, @lesson),
                 method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-outline-dark" %>
+
+    <p>add task</p>
+    <%= render ('tasks/form') %>
   <% end %>
+  <% @lesson.tasks.each do |task| %>
+    <%= task.title %> <br>
+    <%= task.body %>
+<% end %>
 </div>
