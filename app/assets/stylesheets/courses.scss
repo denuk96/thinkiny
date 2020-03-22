@@ -97,6 +97,7 @@ h4{
 .lesson:visited { color: #c8c8c8; text-decoration: none;}
 .lesson:active {  color: #e1e1e1; text-decoration: none;}
 .lesson:hover { color: #ffffff; text-decoration: none;}
+
 #users_mail{
   color: #cdcdcd;
 }
@@ -106,20 +107,27 @@ h5{
 
 // calendar
 .has-events {
-  background-color: #38688c;
+  background-color: #e2e2e2;
 }
-.today {background-color: green;}
+.today {
+  background-color: #a9a9a9;
+}
 
+.calendar {
+  background-color: #595959;
+  font-size: 25px;
+  text-align: center;
+  border: 2px solid #030303;
+  padding: 2%;
+}
+
+//
+//
+//
 .carousel-inner, #map {
   border: 1px solid #424196; /* Параметры рамки */
   box-shadow: 0 0 10px #4847a4; /* Параметры тени */
 }
-.calendar {
-  background-color: white;
-}
-//
-//
-//
 #footer_course{
   background: linear-gradient(to bottom, #060623, #000);
   padding: 200px 50px;
