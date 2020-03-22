@@ -1,8 +1,9 @@
 <div class="text-center p-4">
   <% if request.location.latitude.nil? %>
-    <b>Курси у твоему місті</b>
+    <b>На локалке не работает</b>
 <% else %>
-    <% @courses_near&.each do |course_near| %>
+    <b>Courses in your city:</b>
+    <% @courses_near.each do |course_near| %>
       <li><%= link_to course_near.name, course_path(course_near) %> (<%= course_near.distance.round(2) %> miles)</li>
     <% end %>
   <% end %>
@@ -11,10 +12,10 @@
   <div id="map"></div>
 </div>
 <script type="text/javascript">
-    var locations = <%= raw @a %>;
+    var locations = <%= raw @locations %>;
 
     var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 4,
+        zoom: 14,
         center: new google.maps.LatLng(49.4447888, 32.0587805),
         mapTypeId: google.maps.MapTypeId.ROADMAP,
         styles: [
@@ -191,19 +192,6 @@
     var marker, i;
 
     for (i = 0; i < locations.length; i++) {
-<<<<<<< HEAD:app/views/shared/_nearbys.html.erb
-        marker = new google.maps.Marker({
-            position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-            map: map
-        });
-
-        google.maps.event.addListener(marker, 'click', (function(marker, i) {
-            return function() {
-                infowindow.setContent(locations[i][0]);
-                infowindow.open(map, marker);
-            }
-        })(marker, i));
-=======
       marker = new google.maps.Marker({
         position: new google.maps.LatLng(locations[i][2], locations[i][3]),
         map: map
@@ -215,6 +203,5 @@
           infowindow.open(map, marker);
         }
       })(marker, i));
->>>>>>> development:app/views/courses/nearbys.html.erb
     }
 </script>
