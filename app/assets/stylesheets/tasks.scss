@@ -1,3 +1,13 @@
-// Place all the styles related to the Tasks controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: https://sass-lang.com/
+.task_container{
+  background: #c2cad5;
+  border: 1px solid #0a0a24;
+  padding: 1%;
+  border-radius: 10px;
+}
+.task_body{
+  font-size: 18px;
+  color: #0a0a24;
+}
+.text_field_body{
+  height: 100px;
+}
