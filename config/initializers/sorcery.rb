@@ -118,8 +118,8 @@ Rails.application.config.sorcery.configure do |config|
   #
   config.facebook.key = ENV['FACEBOOK_KEY']
   config.facebook.secret = ENV['FACEBOOK_SECRET']
-  config.facebook.callback_url = 'http://localhost:3000/oauth/callback?provider=facebook'
-  config.facebook.user_info_mapping = { email: 'email', first_name: 'name', picture: 'picture' }
+  config.facebook.callback_url = 'https://thinkiny.pp.ua/oauth/callback?provider=facebook'
+  config.facebook.user_info_mapping = { email: 'email', first_name: 'name', picture: 'image' }
   config.facebook.display = 'popup'
   # config.facebook.api_version = "v2.3"
   # config.facebook.parse = :json
@@ -159,7 +159,7 @@ Rails.application.config.sorcery.configure do |config|
     email: 'email',
     first_name: 'given_name',
     last_name: 'family_name',
-    picture: 'picture'
+    picture: 'image'
   }
   # For Microsoft Graph, the key will be your App ID, and the secret will be your app password/public key.
   # The callback URL "can't contain a query string or invalid special characters"

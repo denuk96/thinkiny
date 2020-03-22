@@ -103,3 +103,4 @@ config/database_secret.production.yml
 config/database_secret.staging.yml
 /config/master.staging.key
 config/master.staging.key
+config/credentials.yml.enc
