@@ -5,16 +5,9 @@
         <div class="col-2 mr-5">
           <% if @course.logo? %>
             <%= image_tag @course.logo.url , class: 'img_logo'%>
-        <% else %>
-            <% if current_user %>
-              <% if  verify_organizer(@course, current_user) %>
-                <div id='form__nologo' class="offset-md-1 offset-lg-2 offset-xl-4">
-                  <p class="mr-5 p-2">Add logo to your course</p>
-                  <div class="p-1 "><%= render 'courses/add_logo' %></div>
-                </div>
-              <% end %>
-            <% end %>
-          <% end%>
+          <% else %>
+            <%= image_tag 'https://www.drillingauction.com/web/upload/store/no-image.png', class: 'img_logo' %>
+          <% end %>
         </div>
         <div class="col-4 offset-1">
           <h1 class="course_name" class="mb-2"><%= @course.name %></h1>
@@ -77,7 +70,11 @@
           <% if current_user %>
             <% if  verify_organizer(@course, current_user) %>
               <div class="edit_logo">
-                <p class="logo_text">Edit logo</p>
+                <% if @course.logo? %>
+                  <p class="logo_text">Змінити логотип</p>
+                <% else %>
+                  <p class="logo_text">Добавте логотип Вашого курсу</p>
+                <% end %>
                 <div class=""><%= render 'courses/add_logo' %></div>
               </div>
             <% end %>
