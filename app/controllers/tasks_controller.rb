@@ -1,13 +1,20 @@
 class TasksController < ApplicationController
   before_action :set_course, :set_lesson
+  before_action :set_task, except: :create
+
   def create
     @task = @lesson.tasks.create(tasks_params)
     redirect_to course_path(@course)
   end
 
   def destroy
-    @task = @lesson.tasks.find(params[:id])
     @task.destroy
+    redirect_to course_path(@course)
+  end
+
+  def change_status
+    @task.status = !@task.status
+    @task.save
     redirect_to course_path(@course)
   end
 
@@ -15,6 +22,10 @@ class TasksController < ApplicationController
 
   def tasks_params
     params.require(:task).permit(:title, :body)
+  end
+
+  def set_task
+    @task = @lesson.tasks.find_by(id: params[:id])
   end
 
   def set_course
