@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   before_action :set_course, :set_lesson
-  before_action :set_task, except: :create
+  before_action :set_task, except: [:create, :change_status]
 
   def create
     @task = @lesson.tasks.create(tasks_params)
@@ -13,6 +13,7 @@ class TasksController < ApplicationController
   end
 
   def change_status
+    @task = Task.find(params[:task_id])
     @task.status = !@task.status
     @task.save
     redirect_to course_path(@course)
