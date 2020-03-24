@@ -14,7 +14,7 @@ Rails.application.routes.draw do
     resources :pictures, only: %i[create destroy]
     resources :lessons do
       resources :tasks, only: %i[new create change_status destroy] do
-        get 'change_status'
+        get 'change_status', on: :collection
       end
       resources :check_ins do
         get 'user_attendance', on: :collection

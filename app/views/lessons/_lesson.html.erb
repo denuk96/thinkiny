@@ -28,9 +28,7 @@
                 class: "btn btn-outline-dark  " %>
   <% end %>
 
-  <%= link_to course_lesson_task_change_status_path(@course, @lesson, task_id: @lesson.tasks.ids) do %>
     <div class="task_list mt-5">
       <%= render ('tasks/task') %>
     </div>
-  <% end %>
 </div>

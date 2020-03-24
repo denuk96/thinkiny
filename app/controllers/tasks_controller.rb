@@ -33,6 +33,6 @@ class TasksController < ApplicationController
   end
 
   def set_lesson
-    @lesson = Lesson.find(params[:lesson_id])
+    @lesson = Lesson.find_by(id: params[:lesson_id])
   end
 end
