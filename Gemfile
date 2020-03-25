@@ -6,6 +6,7 @@ ruby '2.6.3'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem "simple_calendar", "~> 2.0"
 gem 'geocoder'
+gem 'ransack'
 gem 'rails', '~> 6.0.2'
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18', '< 2.0'
