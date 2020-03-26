@@ -25,12 +25,14 @@ class CoursesController < ApplicationController
                when 'rated'
                  Course.includes([:categories]).all.rated
                else
-                 if params[:category_id]
-                   @category = Category.find(params[:category_id])
-                   @category.courses.includes(:categories).order(created_at: :desc)
+                 if params.dig(:q, :category_id)
+                   @category = Category.find(params.dig(:q, :category_id))
+                   courses = Course.all
+                   @search = @category.courses.search(params[:q])
+                   @courses = @search.result
                  else
                    @search = Course.search(params[:q])
-                   @products = @search.result
+                   @courses = @search.result
                  end
                end
   end

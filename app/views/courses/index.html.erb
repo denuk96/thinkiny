@@ -5,6 +5,7 @@
 </header>
 <%= search_form_for @search do |f| %>
   <div class="field">
+    <%= f.collection_select(:category_id, Category.all, :id, :title, prompt: '--choose category--', class:'form-control' ) %>
     <%= f.label :name_cont, "Name contains" %>
     <%= f.text_field :name_cont %>
   </div>
