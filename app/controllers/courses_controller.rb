@@ -25,7 +25,7 @@ class CoursesController < ApplicationController
                when 'rated'
                  Course.includes([:categories]).all.rated
                else
-                 if params.dig(:q, :category_id)
+                 if params.dig(:q, :category_id).size > 0
                    @category = Category.find(params.dig(:q, :category_id))
                    courses = Course.all
                    @search = @category.courses.search(params[:q])
