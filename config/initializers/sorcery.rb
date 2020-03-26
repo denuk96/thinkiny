@@ -339,12 +339,12 @@ Rails.application.config.sorcery.configure do |config|
     # Activation needed email method on your mailer class.
     # Default: `:activation_needed_email`
     #
-    # user.activation_needed_email_method_name =
+    user.activation_needed_email_method_name = :activation_needed_email_background
 
     # Activation success email method on your mailer class.
     # Default: `:activation_success_email`
     #
-    # user.activation_success_email_method_name =
+    user.activation_success_email_method_name = :activation_success_email_background
 
     # Do you want to prevent users who did not activate by email from logging in?
     # Default: `true`
@@ -365,7 +365,7 @@ Rails.application.config.sorcery.configure do |config|
     # When was password reset email sent. Used for hammering protection.
     # Default: `:reset_password_email_sent_at`
     #
-    # user.reset_password_email_sent_at_attribute_name =
+    user.reset_password_email_sent_at_attribute_name = :reset_password_email_background
 
     # REQUIRED:
     # Password reset mailer class.
