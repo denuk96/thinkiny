@@ -95,9 +95,11 @@ class CoursesController < ApplicationController
     if @course_user.confirmed == false
       @course_user.confirmed = true
       check_ins_create(@course.lessons, @course_user)
+      MailerWorkerWorker.perform_async(@course_user.id, 'user confirmed')
     else
       @course_user.confirmed = false
       check_ins_destroy(@course.lessons, @course_user)
+      MailerWorkerWorker.perform_async(@course_user.id, 'user unconfirmed')
     end
     @course_user.save
     redirect_to course_path(@course)
@@ -108,6 +110,7 @@ class CoursesController < ApplicationController
 
     when 'new'
       @course.update(status: 'in_process')
+      MailerWorkerWorker.perform_async(@course.id, 'course started')
     when 'in_process'
       @course.update(status: 'completed', pre_moderation: true)
       CountUsersAttendanceWorker.perform_async(@course.id)
@@ -115,8 +118,8 @@ class CoursesController < ApplicationController
       flash[:alert] = 'Course is already completed'
     end
     @course.users.each { |user| Notification.create(user_id: user.id, notification: "Course #{@course.name} has been changed status to #{@course.status}") }
-
     flash[:notice] = "Status has changed to #{@course.status&.humanize}"
+
     redirect_to course_path(@course)
   end
 

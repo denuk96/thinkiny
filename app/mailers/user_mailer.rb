@@ -29,4 +29,29 @@ class UserMailer < ApplicationMailer
     @url  = edit_reset_password_url(@user.reset_password_token)
     mail(to: user.email, subject: 'Your password has been reset')
   end
+
+  def course_started(user, course)
+    @course = course
+    @user = user
+    mail(to: user.email, subject: "Course #{course.name.capitalize} has been started")
+  end
+
+  def course_completed(user, course, user_attendance_rate)
+    @course = course
+    @user_attendance_rate = user_attendance_rate
+    @user = user
+    mail(to: user.email, subject: "Course #{course.name.capitalize} has been completed")
+  end
+
+  def user_confirmed_course(user, course)
+    @course = course
+    @user = user
+    mail(to: user.email, subject: "You has been confirmed for #{course.name.capitalize}")
+  end
+
+  def user_unconfirmed_course(user, course)
+    @course = course
+    @user = user
+    mail(to: user.email, subject: "You has been unconfirmed for #{course.name.capitalize}")
+  end
 end
