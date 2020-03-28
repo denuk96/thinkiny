@@ -17,6 +17,7 @@ class Lesson < ApplicationRecord
   belongs_to :course
   has_many :check_ins, dependent: :destroy
   has_many :users, through: :check_ins
+  has_many :tasks, dependent: :destroy
 
   validates :theme, :description, :time, presence: true
   validates :picture, file_size: { less_than: 5.megabytes }

@@ -62,4 +62,13 @@ class User < ApplicationRecord
   authenticates_with_sorcery! do |config|
     config.authentications_class = Authentication
   end
+
+  # def course_status_changed
+    # UserMailer.course_status_changed(self).deliver!
+  # end
+
+  # def priv
+#
+  # end
+
 end
