@@ -110,25 +110,13 @@ class CoursesController < ApplicationController
       @course.update(status: 'in_process')
     when 'in_process'
       @course.update(status: 'completed', pre_moderation: true)
-
       CountUsersAttendanceWorker.perform_async(@course.id)
-
-      # ### check attendance for completing course ###
-      # @course.course_users.confirmed_participant.each do |course_user|
-      #   lessons_count = @course.lessons.size
-      #   @user_attendance = 0
-      #   @course.lessons.each do |lesson|
-      #     @user_attendance += 1 if lesson.check_ins.find_by(user_id: course_user.user_id, attendance: true).present?
-      #   end
-      #   user_attendance_rate = @user_attendance.to_f / lessons_count * 100
-      #   course_user.update(completed: true) if @course.attendance_rate <= user_attendance_rate
-      # end
     else
       flash[:alert] = 'Course is already completed'
     end
+    @course.users.each { |user| Notification.create(user_id: user.id, notification: "Course #{@course.name} has been changed status to #{@course.status}") }
 
     flash[:notice] = "Status has changed to #{@course.status&.humanize}"
-    @course.users.each { |user| Notification.create(user_id: user.id, notification: "Course #{@course.name} has been changed status to #{@course.status}") }
     redirect_to course_path(@course)
   end
 
