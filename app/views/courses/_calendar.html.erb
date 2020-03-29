@@ -3,9 +3,7 @@
     <%= time.to_formatted_s(:short) %>
 
     <% lessons.each do |lesson| %>
-      <div>
-        <%= link_to lesson.theme, course_lesson_path(@course, lesson) %>
-      </div>
+      <div><%= link_to lesson.theme, course_lesson_path(@course, lesson), class:'calendar_lesson'%></div>
     <% end %>
   <% end %>
 </div>

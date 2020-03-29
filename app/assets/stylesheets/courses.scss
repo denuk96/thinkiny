@@ -107,14 +107,18 @@ h5{
 
 // calendar
 .has-events {
-  background-color: #e2e2e2;
+  font-size: 20px;
 }
 .today {
-  background-color: #a9a9a9;
+  color: #F7F7F7;
+  font-size: larger;
+  -webkit-text-stroke: 0.02em black;
 }
+.calendar_lesson{ color: white;}
+.calendar_lesson:hover{ color: white; text-decoration: none;}
 
 .calendar {
-  background-color: #595959;
+  background-color: #a2a2a2;
   font-size: 25px;
   text-align: center;
   border: 2px solid #030303;
