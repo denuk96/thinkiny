@@ -30,4 +30,8 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  navbar:
+    home: "Home"
+    create_category: "Create category"
+    notification_count: "Unviewed notifications"
+    create_course: "Create course"

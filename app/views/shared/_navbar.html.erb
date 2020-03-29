@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-md navbar-dark">
-  <%= link_to 'Home', root_path, class: 'navbar-brand' %>
+  <%= link_to (t 'navbar.home'), root_path, class: 'navbar-brand' %>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -9,7 +9,7 @@
       <% if current_user %>
         <% if current_user&.admin? %>
           <li class="nav-item active">
-            <%= link_to "Create Category", new_category_path, class:'nav-link' %>
+            <%= link_to t('navbar.create_category'), new_category_path, class:'nav-link' %>
           </li>
         <% else %>
           <li class="nav-item active">
@@ -19,18 +19,18 @@
           <p class='notification-count' data-toggle="tooltip" data-placement="right" title="Notifications count"><%= Notification.where(user_id: current_user.id, viewed: false).count %></p>
         <% end %>
         <li class="nav-item active">
-          <%= link_to "Create Course", new_course_path, class:'nav-link' %>
+          <%= link_to t('navbar.create_course'), new_course_path, class:'nav-link' %>
         </li>
         <li class="nav-item">
-          <%= link_to "Log out", logout_path, class:'nav-link' %>
+          <%= link_to t('main.log_out'), logout_path, class:'nav-link' %>
         </li>
       <% else %>
         <li class="nav-item active">
-          <%= link_to "Log in", login_path , remote: true,  'data-toggle': "modal",
+          <%= link_to t('main.log_in'), login_path , remote: true,  'data-toggle': "modal",
                       'data-target':'#login', class: "nav-link" %>
         </li>
         <li class="nav-item">
-          <%= link_to "Sign up", signup_path,remote: true,  'data-toggle': "modal",
+          <%= link_to t('main.sign_up'), signup_path,remote: true,  'data-toggle': "modal",
                       'data-target':'#new_user', class: "nav-link" %>
         </li>
       <% end %>

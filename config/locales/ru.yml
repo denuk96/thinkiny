@@ -1,0 +1,45 @@
+ru:
+  main:
+    log_out: 'Выйти'
+    log_in: 'Ввойти'
+    sign_up: 'Зарегистрироваться'
+  navbar:
+    home: 'На главную'
+    create_category: 'Создать категорию'
+    create_category: 'Непрочитанных уведомлений'
+    create_course: 'Создать курс'
+  course:
+    description: 'Описание'
+    pre_moderation: "Предмодерация"
+    places: 'Места'
+    status: 'Статус'
+    index:
+      search_courses: 'Поиск по курсам'
+      search: 'Поиск'
+      nearbys: 'Курсы поблизости'
+      sort:
+        sort_by: 'Сортировка'
+        newest: 'Новые'
+        oldest: 'Старые'
+        popular: 'Популярные'
+        unpopular: 'Не популярные'
+        fresh: 'Свежие(?)'
+        in_process: 'Начатые'
+        completed: 'Завершенные'
+        rated: 'По рейтингу'
+    actions:
+      joinded: 'Присоединился'
+      leave_rating: "Оценить"
+      status:
+        completed: 'Завершен'
+        available: 'Доступен'
+        no_places: 'Закончились места :('
+        log_in_first: 'Сначала залогиньтесь'
+  user:
+    role:
+      orginizer: 'Создатель'
+  category:
+    category: 'Категория'
+  other:
+    free: "Свободно"
+    require_attendance_rate: "Требуемая посещаемость"

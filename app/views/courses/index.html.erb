@@ -5,27 +5,27 @@
 </header>
 <%= search_form_for @search do |f| %>
   <div class="field">
-    <%= f.label :name_cont, "Name contains" %>
+    <%= f.label :name_cont, t('course.index.search_courses') %>
     <%= f.text_field :name_cont %>
   </div>
-  <div class="actions"><%= f.submit "Search" %></div>
+  <div class="actions"><%= f.submit t('course.index.search') %></div>
 <% end %>
 <section class="second">
   <div class="row justify-content-around">
     <div class="dropright">
       <a class="btn btn-outline-light dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <%= params[:sort].present? ? params[:sort].humanize : 'Категория' %>
+        <%= params[:sort].present? ? params[:sort].humanize : t('course.index.sort.sort_by') %>
       </a>
       <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-        <%= link_to 'Newest', courses_path(sort: 'All'), class:'dropdown-item' %>
-        <%= link_to 'Oldest', courses_path(sort: 'oldest'), class:'dropdown-item' %>
-        <%= link_to 'Popular', courses_path(sort: 'popular'), class:'dropdown-item' %>
-        <%= link_to 'Unpopular', courses_path(sort: 'unpopular'), class:'dropdown-item' %>
-        <%= link_to 'Fresh', courses_path(sort: 'fresh'), class:'dropdown-item' %>
-        <%= link_to 'In process', courses_path(sort: 'in_process'), class:'dropdown-item' %>
-        <%= link_to 'Completed', courses_path(sort: 'completed'), class:'dropdown-item' %>
-        <%= link_to 'Rated', courses_path(sort: 'rated'), class:'dropdown-item' %>
+        <%= link_to t('course.index.sort.newest'), courses_path(sort: 'All'), class:'dropdown-item' %>
+        <%= link_to t('course.index.sort.oldest'), courses_path(sort: 'oldest'), class:'dropdown-item' %>
+        <%= link_to t('course.index.sort.popular'), courses_path(sort: 'popular'), class:'dropdown-item' %>
+        <%= link_to t('course.index.sort.unpopular'), courses_path(sort: 'unpopular'), class:'dropdown-item' %>
+        <%= link_to t('course.index.sort.fresh'), courses_path(sort: 'fresh'), class:'dropdown-item' %>
+        <%= link_to t('course.index.sort.in_process'), courses_path(sort: 'in_process'), class:'dropdown-item' %>
+        <%= link_to t('course.index.sort.completed'), courses_path(sort: 'completed'), class:'dropdown-item' %>
+        <%= link_to t('course.index.sort.rated'), courses_path(sort: 'rated'), class:'dropdown-item' %>
       </div>
     </div>
 <!--    <div class="dropdown">-->
@@ -46,7 +46,7 @@
   <%= render "shared/nearbys" %>
 </section>
 <section class="fourth">
-  <small><%= link_to "Courses near you", nearbys_courses_path%></small>
+  <small><%= link_to t("course.index.nearbys"), nearbys_courses_path%></small>
   <div class="offset-1 offset-sm-2 offset-md-2 mt-5">
     <% @courses.each do |course| %>
       <div class="col-10">
@@ -56,23 +56,23 @@
               <div class="row">
                 <div>
                   <h2><%= course.name %></h2>
-                  <p class="blockquote-footer">Organizer: <b><%= course.course_users&.find_by(role: 'organizer')&.user&.email %></b></cite></p>
+                  <p class="blockquote-footer"><%= t('user.role.orginizer') %>: <b><%= course.course_users&.find_by(role: 'organizer')&.user&.email %></b></cite></p>
                   </p>
                 </div>
                 <div class="ml-auto">
                   <% if current_user %>
                     <% if already_joined?(course, current_user) %>
-                      <button type="button" class="btn btn-outline-dark" disabled>Joinded</button>
-                      <%= link_to 'leave rating', course_rating_form_path(course_id: course.id) if completed_course?(course, current_user) %>
+                      <button type="button" class="btn btn-outline-dark" disabled><%= t('course.actions.joinded') %></button>
+                      <%= link_to t("course.actions.leave_rating"), course_rating_form_path(course_id: course.id) if completed_course?(course, current_user) %>
                     <% elsif course.status == 'completed' %>
-                      Completeed
+                      <%= t("course.status.completed") %>
                     <% elsif free_places?(course) %>
-                      Available!
+                      <%= t("course.status.available") %>
                     <% else %>
-                      Has no free places
+                      <%= t("course.status.no_places") %>
                     <% end %>
                   <% else %>
-                    Log in first
+                    <%= t("course.status.log_in_first") %>
                   <% end %>
                 </div>
               </div>
@@ -81,20 +81,20 @@
               <div class="row">
                 <div class="col">
                   <% course.categories.each do |category| %>
-                    Category: <b><%= category.title %></b>
+                    <%= t("category.category") %>: <b><%= category.title %></b>
                   <% end %>
-                  Description: <b><%= course.description %></b>
+                  <%= t("course.description") %>: <b><%= course.description %></b>
                   <br>
-                  Pre-moderation: <b><%= course.pre_moderation %></b>
+                  <%= t("course.pre_moderation") %>: <b><%= course.pre_moderation %></b>
                   <br>
-                  Places: <b><%= course.place_quantities %></b>
-                  Free:
+                  <%= t("course.places") %>: <b><%= course.place_quantities %></b>
+                  <%= t("other.free") %>:
                   <%= count_free_places(course) %>
                   <br>
-                  Course status:
+                  <%= t("course.status") %>:
                   <%= course.status&.humanize %>
                   <br>
-                  Required attendance rate:
+                  <%= t("other.require_attendance_rate") %>:
                   <%= course.attendance_rate %>
                 </div>
                 <div class="col">
