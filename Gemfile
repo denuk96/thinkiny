@@ -69,7 +69,7 @@ group :development do
   gem 'capistrano-rails', '~> 1.2', '>= 1.2.3'
   gem 'capistrano-rbenv'
   gem 'capistrano-rvm', '~> 0.1.2'
-  # gem 'capistrano-sidekiq'
+  gem 'capistrano-sidekiq'
   gem 'capistrano-upload-config', '~> 0.7.0'
   gem 'capistrano3-puma'
   gem 'sshkit-sudo', '~> 0.1.0'

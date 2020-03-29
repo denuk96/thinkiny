@@ -4,7 +4,7 @@ set :application, 'thinkiny'
 set :repo_url, 'git@github.com:denuk96/thinkiny.git'
 
 set :user, 'deployer'
-server '46.101.173.102', user: "#{fetch(:user)}", roles: %w[app db web], primary: true
+server '134.122.75.231', user: "#{fetch(:user)}", roles: %w[app db web], primary: true
 
 set :pty, false
 
@@ -26,9 +26,9 @@ namespace :deploy do
   after 'puma:smart_restart', 'nginx:restart'
 end
 
-# task :add_default_hooks do
-#   after 'deploy:starting', 'sidekiq:quiet'
-#   after 'deploy:updated', 'sidekiq:stop'
-#   after 'deploy:reverted', 'sidekiq:stop'
-#   after 'deploy:published', 'sidekiq:start'
-# end
+task :add_default_hooks do
+  after 'deploy:starting', 'sidekiq:quiet'
+  after 'deploy:updated', 'sidekiq:stop'
+  after 'deploy:reverted', 'sidekiq:stop'
+  after 'deploy:published', 'sidekiq:start'
+end
