@@ -10,7 +10,7 @@
           <% if current_user %>
             <% if  verify_organizer(@course, current_user) %>
               <div id='form__logo' class="container row">
-                <h5 class="mr-5 p-2">Edit logo</h5>
+                <h5 class="mr-5 p-2"><%= t("course.edit_logo") %></h5>
                 <div class="p-1"><%= render 'courses/add_logo' %></div>
               </div>
             <% end %>
@@ -19,7 +19,7 @@
           <% if current_user %>
             <% if  verify_organizer(@course, current_user) %>
               <div id='form__nologo' class="offset-md-1 offset-lg-2 offset-xl-4">
-                <p class="mr-5 p-2">Add logo to your course</p>
+                <p class="mr-5 p-2"><%= t("course.add_logo") %></p>
                 <div class="p-1 "><%= render 'courses/add_logo' %></div>
               </div>
             <% end %>
@@ -34,9 +34,9 @@
       <section class="col-12 col-md-5 col-lg-3" id="course__lesson">
         <div class="text-center mt-5"><% if current_user %>
           <% if already_joined?(@course, current_user) %>
-              <button type="button" class="btn btn-outline-light btn-block" disabled>You joined to course</button>
+              <button type="button" class="btn btn-outline-light btn-block" disabled><%= t("course.other.already_joined") %></button>
             <% elsif @course.status == 'completed' %>
-              <button type="button" class="btn btn-outline-light btn-block" disabled>Course completed!</button>
+              <button type="button" class="btn btn-outline-light btn-block" disabled><%= t("course.course_completed") %></button>
             <% elsif free_places?(@course) %>
               <%= link_to 'Join to course', join_path(id: @course), class: "btn btn-outline-light btn-block" %>
             <% end %>
@@ -50,7 +50,7 @@
               <div>
                 <%= link_to "Edit", edit_course_path(@course), class: "btn btn-outline-light btn__panel"  %>
                 <%= link_to "Destroy", course_path(@course), class: "btn btn-outline-light btn__panel",
-                            method: :delete, data: { confirm: 'Are you sure?' } %>
+                            method: :delete, data: { confirm: t("main.are_you_sure") } %>
               </div>
               <div class="mt-1">
                 <% if @course.status == 'new'  %>
@@ -60,7 +60,7 @@
                   <%= link_to 'Complete course', change_course_status_courses_path(id: @course),
                               class: "btn btn-outline-light" %>
                 <% else %>
-                  <button type="button" class="btn btn-outline-light" disabled>Completed</button>
+                  <button type="button" class="btn btn-outline-light" disabled><%= t("course.status.completed") %></button>
                 <% end %>
               </div>
             <% end %>
@@ -69,27 +69,27 @@
 
         <table class="offset-1 mt-5 " id="info">
           <tr>
-            <td>Free place:</td>
+            <td><%= t('course.other.free_places') %>:</td>
             <td><%= count_free_places(@course) %> / <%= @course.place_quantities %></td>
           </tr>
           <tr>
-            <td>Admittance:</td>
-            <td><%= @course.pre_moderation ? 'on the confirmation' : 'free for all' %></td>
+            <td><%= t('course.other.admittance') %>:</td>
+            <td><%= @course.pre_moderation ? t('course.other.by_confirmation') : t('other.free') %></td>
           </tr>
           <tr>
-            <td>Created by:</td>
+            <td><%= t("course.other.created_by") %></td>
             <td><%= @course.course_users&.includes(:user).find_by(role: 'organizer')&.user&.email %></td>
           </tr>
           <tr>
-            <td>Status:</td>
+            <td><%= t('course.status') %>:</td>
             <td><%= @course.status&.humanize %></td>
           </tr>
         </table>
         <div class="offset-1 ">
-          <h3 class="text-center mt-5" id="all_lessons_title">all lessons
+          <h3 class="text-center mt-5" id="all_lessons_title"><%= t('course.other.all_lessons') %>
             <div class="m-2">
               <% if @course.lessons.size > 0 %>
-                <%= link_to "Посмотреть росписание", course_lesson_path(@course),
+                <%= link_to t('course.other.show_schedule'), course_lesson_path(@course),
                             remote: true,  'data-toggle': "modal", 'data-target':'#show_calendar',
                             class: "btn btn-outline-info" %>
               <% end %>
@@ -121,7 +121,7 @@
           </div>
           <div>
             <% if current_user && verify_instructor(@course, current_user) %>
-              <%= link_to "Add lesson", new_course_lesson_path(@course),
+              <%= link_to t("course.other.add_lesson"), new_course_lesson_path(@course),
                           remote: true,  'data-toggle': "modal", 'data-target':'#modal_add_lesson',
                           class: "btn btn-outline-light btn-block" %>
               <div id="modal_add_lesson" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -133,7 +133,7 @@
           </div>
         </div>
         <div class="ml-3">
-          <b class="mt-5 blockquote-footer">Instructors (<%= @course&.course_users.instructors.size + 1%>):</b>
+          <b class="mt-5 blockquote-footer"><%= t("other.instructors") %> (<%= @course&.course_users.instructors.size + 1%>):</b>
           <div class="offset-1 mt-2">
             <small id="users_mail">
               <p><%= @course.course_users&.includes(:user).find_by(role: 'organizer')&.user&.email %></p>
@@ -150,7 +150,7 @@
         </div>
 
         <div class="ml-3">
-          <b class="mt-5 blockquote-footer">Joined users (<%= @course&.course_users.confirmed_participant.size %>):
+          <b class="mt-5 blockquote-footer"><%= t("course.other.joined_users") %> (<%= @course&.course_users.confirmed_participant.size %>):
           </b>
           <div class="offset-1 mt-2">
             <% @course&.course_users.includes(:user).confirmed_participant.each do |participant| %>
@@ -165,7 +165,7 @@
         </div>
         <div class="ml-3">
           <b class="mt-5 blockquote-footer">
-            Candidates (<%= @course&.course_users.un_confirmed_participant.size %>):
+            <%= t("course.other.candidates") %> (<%= @course&.course_users.un_confirmed_participant.size %>):
           </b>
           <div class="offset-1 mt-2">
             <% @course&.course_users.includes(:user).un_confirmed_participant.each do |candidate| %>

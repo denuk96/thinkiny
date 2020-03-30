@@ -3,6 +3,8 @@ ru:
     log_out: 'Выйти'
     log_in: 'Ввойти'
     sign_up: 'Зарегистрироваться'
+    edit: 'Редактировать'
+    are_you_sure: 'Вы уверенны?'
   navbar:
     home: 'На главную'
     create_category: 'Создать категорию'
@@ -13,6 +15,9 @@ ru:
     pre_moderation: "Предмодерация"
     places: 'Места'
     status: 'Статус'
+    new: 'Новый курс'
+    edit_logo: 'Редактировать логотип'
+    add_logo: 'Добавить логотип'
     index:
       search_courses: 'Поиск по курсам'
       search: 'Поиск'
@@ -35,6 +40,18 @@ ru:
         available: 'Доступен'
         no_places: 'Закончились места :('
         log_in_first: 'Сначала залогиньтесь'
+    other:
+      already_joined: 'Вы уже присоединились к курсу!'
+      course_completed: 'Курс завершен!'
+      free_places: 'Свободные места'
+      admittance: 'Допуск'
+      by_confirmation: 'По подтверждению'
+      created_by: 'Создатель'
+      all_lessons: 'Все уроки'
+      show_schedule: 'Посмотреть рассписание'
+      add_lesson: 'Добавить урок'
+      joined_users: 'Присоединены пользователи'
+      candidates: 'Кандидаты'
   user:
     role:
       orginizer: 'Создатель'
@@ -43,3 +60,4 @@ ru:
   other:
     free: "Свободно"
     require_attendance_rate: "Требуемая посещаемость"
+    instructors: 'Преподователи'
