@@ -101,7 +101,7 @@
           </h3>
           <div  id="all__lessons">
             <% @lessons.each do |lesson| %>
-              <%= link_to course_path(@course, lesson), class:"lesson" do %>
+              <%= link_to course_lesson_path(@course, lesson), remote: true, class:"lesson" do %>
                 <div class="card-body" id="card_lesson">
                   <% if lesson.time > Time.now %>
                     <div>
