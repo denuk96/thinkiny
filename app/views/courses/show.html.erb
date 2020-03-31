@@ -88,7 +88,7 @@
           <h3 class="text-center mt-5" id="all_lessons_title">all lessons
             <div class="m-2">
               <% if @course.lessons.size > 0 %>
-                <%= link_to "Посмотреть росписание", course_lesson_path(@course),
+                <%= link_to "Посмотреть росписание", root_path,
                             remote: true,  'data-toggle': "modal", 'data-target':'#show_calendar',
                             class: "btn btn-outline-info" %>
               <% end %>
@@ -422,3 +422,7 @@
 <script>
   $(".calendar").html("<%= escape_javascript render(partial: "calendar", locals: {lessons: @lessons}) %>");
 </script>
+
+<% provide :head_tags do %>
+    <meta name='turbolinks-visit-control' content='reload'>
+<% end %>
