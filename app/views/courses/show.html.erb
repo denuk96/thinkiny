@@ -1,5 +1,5 @@
 <% set_page_title("Course '#{@course.name}' | Thinkiny") %>
-<div id="container__course">
+<div id="container__course"  data-turbolinks="false">
   <section id="logo">
     <div class="course_description">
       <div class="offset-1 col-10 row">
@@ -82,8 +82,6 @@
           <% end %>
         </div>
 
-
-
         <div class="offset-1 ">
           <h3 class="text-center mt-5" id="all_lessons_title">all lessons
             <div class="m-2">
@@ -93,7 +91,7 @@
                             class: "btn btn-outline-info", id: 'show_it' %>
               <% end %>
             </div>
-            <div id="show_calendar" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div id="show_calendar" data-backdrop="true" data-show="true" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
               <div class="modal-dialog modal-xl" role="document">
                 <div class="modal-content"></div>
               </div>
@@ -216,10 +214,35 @@
 
   </section>
 </div>
+
+
+
 <script>
-    $("#show_calendar").find(".modal-content").html("<%= j (render 'courses/calendar') %>");
-    $("#show_calendar").modal();
+    $( document ).ready(function() {
+    console.log('call modal');
+    $("#show_calendar").find(".modal-content").html("<%= escape_javascript (render 'courses/calendar') %>");
+
+<!--    $(".calendar").html("<%= escape_javascript render(partial: "calendar", locals: {lessons: @lessons}) %>");-->
+    });
 </script>
+
+
+<script>
+
+      //   $("#show_calendar").modal({
+      //   backdrop: true,
+      //   show: true
+      // });
+
+</script>
+
+<%# provide :head_tags do %>
+
+<%# end %>
+
+
+
+
 <script>
     function pushNotification() {
         var notification = new window.Notification("Course started!!!",
@@ -415,14 +438,8 @@
 });
 }
 </script>
-
-<script>
-    $('#map').prepend(initMap(<%= @course.latitude %>, <%= @course.longitude %>));
-</script>
-<script>
-  $(".calendar").html("<%= escape_javascript render(partial: "calendar", locals: {lessons: @lessons}) %>");
-</script>
-
-<% provide :head_tags do %>
-    <meta name='turbolinks-visit-control' content='reload'>
+<% if @course.latitude && @course.longitude %>
+  <script>
+      $('#map').prepend(initMap(<%= @course.latitude %>, <%= @course.longitude %>));
+  </script>
 <% end %>

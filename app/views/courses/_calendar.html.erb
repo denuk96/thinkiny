@@ -2,6 +2,7 @@
   <div id='calendar'></div>
 </div>
   <script>
+      console.log('start calendar code');
           var calendarEl = document.getElementById('calendar');
 
           var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -14,7 +15,7 @@
               defaultView: 'dayGridMonth', // dayGridMonth, dayGridWeek, dayGridDay, dayGrid, timeGridWeek, timeGridDay, timeGrid
 
               navLinks: true, // can click day/week names to navigate views
-              editable: true,
+              editable: false,
               eventLimit: true, // allow "more" link when too many events
               eventClick: function(info) {
                   info.jsEvent.preventDefault(); // don't let the browser navigate
@@ -60,8 +61,9 @@
                   }
               }
           });
-          setTimeout(() => {  calendar.render(); }, 900);
 
+      console.log('end calendar');
+      setTimeout(() => {  calendar.render();console.log('delayed'); }, 1000);
   </script>
 
 <!--{-->
