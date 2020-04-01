@@ -90,7 +90,7 @@
               <% if @course.lessons.size > 0 %>
                 <%= link_to "Посмотреть росписание", root_path,
                             remote: true,  'data-toggle': "modal", 'data-target':'#show_calendar',
-                            class: "btn btn-outline-info" %>
+                            class: "btn btn-outline-info", id: 'show_it' %>
               <% end %>
             </div>
             <div id="show_calendar" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

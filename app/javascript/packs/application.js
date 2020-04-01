@@ -17,22 +17,42 @@ import './bootstrap_custom.js'
 
 // calendar goes here
 
-import * as Calendar from "./fullcalendar/core/main";
-import  dayGridPlugin from "./fullcalendar/daygrid/main";
-import interactionPlugin from "./fullcalendar/interaction/main";
-import timeGridPlugin from "./fullcalendar/timegrid/main.min";
-import listPlugin from './fullcalendar/list/main';
+// import * as Calendar from "./fullcalendar/core/main";
+// import  dayGridPlugin from "./fullcalendar/daygrid/main";
+// import interactionPlugin from "./fullcalendar/interaction/main";
+// import timeGridPlugin from "./fullcalendar/timegrid/main";
+// import listPlugin from './fullcalendar/list/main';
 
-import "./fullcalendar/core/main.css";
-import "./fullcalendar/daygrid/main.css";
-import "./fullcalendar/timegrid/main.css";
-import './fullcalendar/list/main.css';
+import * as Calendar from "@fullcalendar/core";
+import  dayGridPlugin from "@fullcalendar/daygrid";
+import interactionPlugin from "@fullcalendar/interaction";
+import timeGridPlugin from "@fullcalendar/timegrid";
+import listPlugin from '@fullcalendar/list';
+import bootstrapPlugin from '@fullcalendar/bootstrap';
+import timelinePlugin from '@fullcalendar/timeline';
+
+
+
+
+import '@fullcalendar/core/main.css';
+import "@fullcalendar/core/main.css";
+import "@fullcalendar/daygrid/main.css";
+import "@fullcalendar/timegrid/main.css";
+import '@fullcalendar/list/main.css';
+import '@fullcalendar/timeline/main.css';
+
+// import "./fullcalendar/core/main.css";
+// import "./fullcalendar/daygrid/main.css";
+// import "./fullcalendar/timegrid/main.css";
+// import './fullcalendar/list/main.css';
 
 window.FullCalendar = Calendar;
 window.dayGridPlugin = dayGridPlugin;
 window.interactionPlugin = interactionPlugin;
 window.timeGridPlugin = timeGridPlugin;
 window.listPlugin = listPlugin;
+window.bootstrapPlugin = bootstrapPlugin;
+window.timelinePlugin = timelinePlugin;
 
 // calendar ends here
 

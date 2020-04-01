@@ -25,4 +25,8 @@ module CoursesHelper
   def count_free_places(course)
     course.place_quantities - course.course_users.confirmed_participant.size
   end
+
+  def lesson_expired?(lesson)
+    true if lesson.time < Time.now
+  end
 end
