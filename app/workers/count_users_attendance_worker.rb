@@ -14,6 +14,6 @@ class CountUsersAttendanceWorker
       course_user.update(completed: true) if course.attendance_rate <= user_attendance_rate
       UserMailer.course_completed(course_user.user, course, user_attendance_rate).deliver_now
     end
-    puts "Count users attendance completed"
+    puts 'Count users attendance completed'
   end
 end

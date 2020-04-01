@@ -3,9 +3,7 @@ module CheckInsChecker
 
   def check_ins_create(lessons, course_user)
     lessons.each do |lesson|
-      if lesson.check_ins.find_by(user_id: course_user.user.id).nil?
-        lesson.check_ins.create(user_id: course_user.user.id)
-      end
+      lesson.check_ins.create(user_id: course_user.user.id) if lesson.check_ins.find_by(user_id: course_user.user.id).nil?
     end
   end
 
