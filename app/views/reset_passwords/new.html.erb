@@ -1,5 +1,5 @@
 <div class="container">
-  <h1>Reset Password</h1>
+  <h1><%= t("password.reset_password") %></h1>
 
   <%= form_tag reset_passwords_path, method: :post do %>
     <div class="form-group">
@@ -7,6 +7,6 @@
       <%= text_field_tag :email, nil, class: 'form-control', required: true %>
     </div>
 
-    <%= submit_tag "Send reset instructions", class: 'btn btn-primary btn-lg' %>
+    <%= submit_tag t("password.send_instructions"), class: 'btn btn-primary btn-lg' %>
   <% end %>
 </div>

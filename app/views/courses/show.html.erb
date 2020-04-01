@@ -48,13 +48,13 @@
           <% if current_user %>
             <% if verify_organizer(@course, current_user) && @course.status != 'completed' %>
               <div>
-                <%= link_to "Edit", edit_course_path(@course), class: "btn btn-outline-light btn__panel"  %>
-                <%= link_to "Destroy", course_path(@course), class: "btn btn-outline-light btn__panel",
+                <%= link_to t("main.edit"), edit_course_path(@course), class: "btn btn-outline-light btn__panel"  %>
+                <%= link_to t("main.destroy"), course_path(@course), class: "btn btn-outline-light btn__panel",
                             method: :delete, data: { confirm: t("main.are_you_sure") } %>
               </div>
               <div class="mt-1">
                 <% if @course.status == 'new'  %>
-                  <%= link_to 'Start course', change_course_status_courses_path(id: @course),
+                  <%= link_to t("course.start_course"), change_course_status_courses_path(id: @course),
                               class: "btn btn-outline-light", onclick: 'pushNotification()' %>
                 <% elsif @course.status == 'in_process' %>
                   <%= link_to 'Complete course', change_course_status_courses_path(id: @course),
