@@ -218,29 +218,16 @@
 
 
 <script>
-    $( document ).ready(function() {
-    console.log('call modal');
     $("#show_calendar").find(".modal-content").html("<%= escape_javascript (render 'courses/calendar') %>");
 
-<!--    $(".calendar").html("<%= escape_javascript render(partial: "calendar", locals: {lessons: @lessons}) %>");-->
+    document.addEventListener('DOMContentLoaded', function() {
+        $("#show_it").click( function()
+            {
+                setTimeout(() => { jQuery(function(){ jQuery('.fc-dayGridMonth-button').click(); });  }, 150);
+            }
+        );
     });
 </script>
-
-
-<script>
-
-      //   $("#show_calendar").modal({
-      //   backdrop: true,
-      //   show: true
-      // });
-
-</script>
-
-<%# provide :head_tags do %>
-
-<%# end %>
-
-
 
 
 <script>
