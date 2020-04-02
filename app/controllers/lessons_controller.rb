@@ -5,6 +5,12 @@ class LessonsController < ApplicationController
   before_action :check_course_status, except: %i[show]
   before_action :verify_moderators, except: %i[show]
 
+  def index
+    @lessons = @course.lessons
+
+    render json: @lessons.as_json(only: %i[id], methods: %i[title start allDay extendedProps])
+  end
+
   def show; end
 
   def new

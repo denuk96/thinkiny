@@ -30,4 +30,35 @@ class Lesson < ApplicationRecord
   def relevant_time
     errors.add(:time, ': invalid date') if (Time.now > time) || (time > '2050-01-01')
   end
+
+
+
+
+  def as_json(options={})
+    h = if options.key?(:only) or options.key?(:methods) or options.key?(:include) or options.key?(:except)
+          super(options)
+        else
+          super(only: %i[id theme],
+                    methods: [:title])
+        end
+  end
+
+  def title
+    theme
+  end
+
+  def start
+    time.strftime("%Y-%m-%d %R")
+  end
+
+  def allDay
+    false
+  end
+
+  def extendedProps
+    status = time > Time.now ? true : false
+    id = self.id
+    extendedProps = Hash.new
+    extendedProps = { "status" => status, "id" => id }
+  end
 end
