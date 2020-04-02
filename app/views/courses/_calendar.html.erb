@@ -1,5 +1,8 @@
-<div class="calendar">
+<div class="calendar" data-turbolinks="false">
   <div id='calendar'></div>
+  <% provide :head_tags do %>
+    <meta name='turbolinks-visit-control' content='reload'>
+  <% end %>
 </div>
 <script>
       document.addEventListener('DOMContentLoaded', function() {

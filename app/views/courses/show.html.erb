@@ -223,20 +223,21 @@
 </div>
 
 <!--scripts goes below-->
+<div data-turbolinks="false">
+  <script>
+      $("#show_calendar").find(".modal-content").html("<%= escape_javascript (render 'courses/calendar') %>");
 
-<script>
-    $("#show_calendar").find(".modal-content").html("<%= escape_javascript (render 'courses/calendar') %>");
-
-    document.addEventListener('DOMContentLoaded', function() {
-        $("#show_it").click( function()
-            {
-                setTimeout(() =>
-                  { jQuery(function(){ jQuery('.fc-dayGridMonth-button').click(); });  },
-                250);
-            }
-        );
-    });
-</script>
+      document.addEventListener('DOMContentLoaded', function() {
+          $("#show_it").click( function()
+              {
+                  setTimeout(() =>
+                      { jQuery(function(){ jQuery('.fc-dayGridMonth-button').click(); });  },
+                      250);
+              }
+          );
+      });
+  </script>
+</div>
 
 <script>
     function pushNotification() {
