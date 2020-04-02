@@ -1,7 +1,7 @@
-<div style="color: black">
+<div class="calendar">
   <div id='calendar'></div>
 </div>
-  <script>
+<script>
       document.addEventListener('DOMContentLoaded', function() {
             var calendarEl = document.getElementById('calendar');
 
@@ -70,14 +70,8 @@
                           $("#"+lesson_id).click();
                           $('html, body').animate({
                               scrollTop: $("#lesson__header").offset().top
-                          }, 800)
-                        }, 800);
-                    // $('#lesson__header').focus();
-                    // $("#info.event.extendedProps.status.id").click();
-                    // alert('View: ' + info.view.type);
-                    // $('#link_root').modal('toggle');
-                    // jQuery('.fc-dayGridMonth-button').click();
-
+                          }, 500 )
+                        }, 500);
 
                     // alert('Event: ' + info.event.title);
                     // alert('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
@@ -85,6 +79,13 @@
                     //
                     // // change the border color just for fun
                     // info.el.style.borderColor = 'red';
+                },
+                dateClick: function(info) {
+                    alert('Clicked on: ' + info.dateStr);
+                    alert('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
+                    alert('Current view: ' + info.view.type);
+                    // change the day's background color just for fun
+                    info.dayEl.style.backgroundColor = 'red';
                 }
             });
           // calendar.render();
