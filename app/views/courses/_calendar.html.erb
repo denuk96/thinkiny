@@ -35,7 +35,8 @@
                         start: "<%= lesson.time.strftime("%Y-%m-%d %R") %>",
                         allDay: false,
                         extendedProps: {
-                            status: "<%= lesson_expired?(lesson) ? 'Complete' : 'Soon' %>"
+                            status: "<%= lesson_expired?(lesson) ? 'Complete' : 'Soon' %>",
+                            id: "<%= lesson.id %>"
                         }
                         // backgroundColor: 'blue',
                         // borderColor: 'green',
@@ -59,6 +60,31 @@
                             dotEl.style.backgroundColor = 'white';
                         }
                     }
+                },
+                eventClick: function(info) {
+                    $("#close_modal").click();
+
+                    var lesson_id = info.event.extendedProps.id;
+
+                    setTimeout(() => {
+                          $("#"+lesson_id).click();
+                          $('html, body').animate({
+                              scrollTop: $("#lesson__header").offset().top
+                          }, 800)
+                        }, 800);
+                    // $('#lesson__header').focus();
+                    // $("#info.event.extendedProps.status.id").click();
+                    // alert('View: ' + info.view.type);
+                    // $('#link_root').modal('toggle');
+                    // jQuery('.fc-dayGridMonth-button').click();
+
+
+                    // alert('Event: ' + info.event.title);
+                    // alert('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
+                    // alert('View: ' + info.view.type);
+                    //
+                    // // change the border color just for fun
+                    // info.el.style.borderColor = 'red';
                 }
             });
           // calendar.render();
