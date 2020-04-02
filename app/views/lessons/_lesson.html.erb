@@ -1,5 +1,5 @@
 <div id="lesson__header">
-  <div id="theme">Theme lesson <b>' <%= @lesson.theme %> '</b></div>
+  <div id="theme" tabindex="-1">Theme lesson <b>' <%= @lesson.theme %> '</b></div>
   <p id="lesson__pictures"><%= image_tag(@lesson.picture.url, width: 400) if @lesson.picture? %></p>
 
   <div  class="col-10 col-md-8" id="description"><%= @lesson.description %></div>

@@ -1,4 +1,12 @@
+require 'sidekiq/web'
+Sidekiq::Web.set :sessions, false
+
 Rails.application.routes.draw do
+  Sidekiq::Web.use Rack::Auth::Basic do |username, password|
+    username == 'user' && password == 'password'
+  end
+  mount Sidekiq::Web => '/sidekiq', as: 'background'
+
   root 'pages#welcome'
 
   get 'notifications/viewed'

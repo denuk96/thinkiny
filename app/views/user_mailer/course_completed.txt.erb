@@ -1,0 +1,9 @@
+Dear <%= @user.first_name %>!
+Course <%= link_to @course.name.capitalize, course_url(@course) %> has been completed!</p>
+Your attendance rate: <%= @user_attendance_rate %>% while course attendance requirements is <%= @course.attendance_rate %>%
+  It means you
+  <% if @course.course_users.find_by(user_id: @user.id,  completed: true) %>
+    successfully completed this course.
+  <% else %>
+    successfully failed this course.
+  <% end %>

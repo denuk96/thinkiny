@@ -4,10 +4,10 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.6.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem "simple_calendar", "~> 2.0"
-gem 'ransack'
 gem 'geocoder'
 gem 'rails', '~> 6.0.2'
+gem 'ransack'
+gem 'simple_calendar', '~> 2.0'
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18', '< 2.0'
 # Use Puma as the app server
@@ -35,6 +35,9 @@ gem 'rspec-core', '~> 3.4'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
+
+# == background ==
+gem 'sidekiq', '< 6'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -66,7 +69,7 @@ group :development do
   gem 'capistrano-rails', '~> 1.2', '>= 1.2.3'
   gem 'capistrano-rbenv'
   gem 'capistrano-rvm', '~> 0.1.2'
-  # gem 'capistrano-sidekiq'
+  gem 'capistrano-sidekiq'
   gem 'capistrano-upload-config', '~> 0.7.0'
   gem 'capistrano3-puma'
   gem 'sshkit-sudo', '~> 0.1.0'
@@ -81,6 +84,6 @@ group :test do
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
+gem 'carrierwave', '~> 2.0'
 gem 'sorcery'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
-gem 'carrierwave', '~> 2.0'

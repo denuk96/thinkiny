@@ -105,29 +105,6 @@ h5{
   text-transform: uppercase;
 }
 
-// calendar
-.has-events {
-  font-size: 20px;
-}
-.today {
-  color: #F7F7F7;
-  font-size: larger;
-  -webkit-text-stroke: 0.02em black;
-}
-.calendar_lesson{ color: white;}
-.calendar_lesson:hover{ color: white; text-decoration: none;}
-
-.calendar {
-  background-color: #a2a2a2;
-  font-size: 25px;
-  text-align: center;
-  border: 2px solid #030303;
-  padding: 2%;
-}
-
-//
-//
-//
 .carousel-inner, #map {
   border: 1px solid #424196; /* Параметры рамки */
   box-shadow: 0 0 10px #4847a4; /* Параметры тени */
@@ -143,7 +120,13 @@ h5{
   height: 450px;
 }
 
-
+.calendar {
+  color: black; padding: 2%; background-color: #fffeee;
+  font-size: 25px;
+  text-align: center;
+  border: 2px solid #c2c3f8;
+  padding: 2%;
+}
 
 
 
