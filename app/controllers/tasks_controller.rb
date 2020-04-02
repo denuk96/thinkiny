@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   before_action :set_course, :set_lesson
-  before_action :set_task, except: [:create, :change_status]
+  before_action :set_task, except: %i[create change_status]
 
   def create
     @task = @lesson.tasks.create(tasks_params)

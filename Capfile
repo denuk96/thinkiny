@@ -14,7 +14,5 @@ install_plugin Capistrano::Puma::Jungle
 require 'capistrano/nginx'
 require 'sshkit/sudo'
 
-
 # Load custom tasks from `lib/capistrano/tasks` if you have any defined
-Dir.glob("lib/capistrano/tasks/*.rake").each { |r| import r }
-
+Dir.glob('lib/capistrano/tasks/*.rake').each { |r| import r }
