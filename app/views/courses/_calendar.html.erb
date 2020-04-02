@@ -81,11 +81,22 @@
                     // info.el.style.borderColor = 'red';
                 },
                 dateClick: function(info) {
-                    alert('Clicked on: ' + info.dateStr);
-                    alert('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
-                    alert('Current view: ' + info.view.type);
-                    // change the day's background color just for fun
-                    info.dayEl.style.backgroundColor = 'red';
+                    $("#close_modal").click();
+                    setTimeout(() => {
+                        $("#add_lesson_modal").click();
+                        // $("#lesson_time").val('Hello');
+                    }, 500);
+                    setTimeout(() => {
+                        document.getElementById('lesson_time').value = info.dateStr + 'T00:00';
+
+                        // document.getElementById('date').value = (new Date("01/01/01"));
+                    }, 1000);
+
+                    // alert('Clicked on: ' + info.dateStr);
+                    // alert('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
+                    // alert('Current view: ' + info.view.type);
+                    // // change the day's background color just for fun
+                    // info.dayEl.style.backgroundColor = 'red';
                 }
             });
           // calendar.render();
