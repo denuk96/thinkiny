@@ -31,15 +31,13 @@ class Lesson < ApplicationRecord
     errors.add(:time, ': invalid date') if (Time.now > time) || (time > '2050-01-01')
   end
 
+  # ==Json for calendar==
 
-
-
-  def as_json(options={})
-    h = if options.key?(:only) or options.key?(:methods) or options.key?(:include) or options.key?(:except)
+  def as_json(options = {})
+    h = if options.key?(:only) || options.key?(:methods) || options.key?(:include) || options.key?(:except)
           super(options)
         else
-          super(only: %i[id theme],
-                    methods: [:title])
+          super(only: %i[id theme], methods: [:title])
         end
   end
 
@@ -48,7 +46,7 @@ class Lesson < ApplicationRecord
   end
 
   def start
-    time.strftime("%Y-%m-%d %R")
+    time.strftime('%Y-%m-%d %R')
   end
 
   def allDay
@@ -56,9 +54,9 @@ class Lesson < ApplicationRecord
   end
 
   def extendedProps
-    status = time > Time.now ? true : false
+    status = time > Time.now
     id = self.id
-    extendedProps = Hash.new
-    extendedProps = { "status" => status, "id" => id }
+    extendedProps = {}
+    extendedProps = { 'status' => status, 'id' => id }
   end
 end
