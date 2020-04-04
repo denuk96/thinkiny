@@ -1,37 +1,84 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t 'hello'
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t('hello') %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# The following keys must be escaped otherwise they will not be retrieved by
-# the default I18n backend:
-#
-# true, false, on, off, yes, no
-#
-# Instead, surround them with single quotes.
-#
-# en:
-#   'true': 'foo'
-#
-# To learn more, please read the Rails Internationalization guide
-# available at https://guides.rubyonrails.org/i18n.html.
-
 en:
+  main:
+    log_out: 'Log Out'
+    log_in: 'Log In'
+    sign_up: 'Sign Up'
+    edit: 'Edit'
+    destroy: 'Destroy'
+    are_you_sure: 'Are you sure?'
+    login: 'login'
   navbar:
-    home: "Home"
-    create_category: "Create category"
-    notification_count: "Unviewed notifications"
-    create_course: "Create course"
+    home: 'Home'
+    create_category: 'Create category'
+    unviewed_notifications: 'Unviewed notifications'
+    create_course: 'Create course'
+  course:
+    description: 'Description'
+    pre_moderation: "Premoderation"
+    places: 'Places'
+    status: 'Status'
+    new: 'New course'
+    edit_logo: 'Edit logo'
+    add_logo: 'Add logo'
+    start_course: 'Start course'
+    index:
+      search_courses: 'Search courses'
+      search: 'Search'
+      nearbys: 'Courses near'
+      sort:
+        sort_by: 'Sort by'
+        newest: 'Newest'
+        oldest: 'Oldest'
+        popular: 'Popular'
+        unpopular: 'Unpopular'
+        fresh: 'Fresh(?)'
+        in_process: 'In proccess'
+        completed: 'Completed'
+        rated: 'Rated'
+    actions:
+      joinded: 'Joinded'
+      leave_rating: "Leave rating"
+      status:
+        completed: 'Completed'
+        available: 'Available'
+        no_places: 'No places :('
+        log_in_first: 'Firstly log in'
+    other:
+      already_joined: 'Already joined'
+      course_completed: 'Course completed!'
+      free_places: 'Free places'
+      admittance: 'Admittance'
+      by_confirmation: 'By confrimation'
+      created_by: 'Created by'
+      all_lessons: 'All lessons'
+      show_schedule: 'Show schedule'
+      add_lesson: 'Add lesson'
+      joined_users: 'Joined users'
+      candidates: 'Candidates'
+  user:
+    role:
+      orginizer: 'Orginizer'
+  category:
+    category: 'Category'
+    categories: 'Categories'
+    new_category: 'New Category'
+  lessons:
+    theme: 'Theme of lesson'
+    edit: 'Edit lesson'
+  check_ins:
+    check_ins: 'Check ins'
+    check: 'Check'
+    add_note: 'Add note'
+  password:
+    password: 'Password'
+    choose_password: 'Choose new password'
+    set_password: 'Set password'
+    reset_password: 'Reset password'
+    send_instructions: 'Send inctuctions'
+  sessions:
+    remember_me: 'Remember me'
+    forgot_password: 'Forgot password?'
+  other:
+    free: "Free"
+    require_attendance_rate: "Require attendance rate"
+    instructors: 'Instructors'

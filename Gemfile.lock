@@ -132,6 +132,8 @@ GEM
     file_validators (2.3.0)
       activemodel (>= 3.2)
       mime-types (>= 1.0)
+    flag-icons-rails (3.4.6.1)
+      sass-rails
     font-awesome-rails (4.7.0.5)
       railties (>= 3.2, < 6.1)
     font_awesome5_rails (1.0.0)
@@ -273,6 +275,8 @@ GEM
       ffi (~> 1.9)
     ruby_dep (1.5.0)
     rubyzip (2.2.0)
+    russian (0.6.0)
+      i18n (>= 0.5.0)
     sass-rails (6.0.0)
       sassc-rails (~> 2.1, >= 2.1.1)
     sassc (2.2.1)
@@ -359,6 +363,7 @@ DEPENDENCIES
   database_cleaner-active_record
   factory_girl_rails
   file_validators
+  flag-icons-rails
   font-awesome-rails (~> 4.7, >= 4.7.0.5)
   font_awesome5_rails
   geocoder
@@ -374,6 +379,7 @@ DEPENDENCIES
   rspec-core (~> 3.4)
   rspec-rails (= 4.0.0.beta3)
   rubocop (~> 0.77.0)
+  russian (~> 0.6.0)
   sass-rails (>= 6)
   selenium-webdriver
   simple_calendar (~> 2.0)

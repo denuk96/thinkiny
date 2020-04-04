@@ -5,6 +5,8 @@ ruby '2.6.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem "simple_calendar", "~> 2.0"
+gem 'russian', '~> 0.6.0'
+gem 'flag-icons-rails'
 gem 'geocoder'
 gem 'ransack'
 gem 'rails', '~> 6.0.2'

@@ -1,0 +1,16 @@
+ru:
+  activerecord:
+    models:
+      course: 'Курс'
+      category: 'Категория'
+    attributes:
+      course:
+        name: 'Название'
+        description: 'Описание'
+        category: "Категория"
+        place_quantities: 'Количество мест'
+        pre_moderation: 'Премодерация'
+        attendance_rate: 'Рейтинг посещаемости'
+        address: 'Адрес'
+      category:
+        title: 'Название'

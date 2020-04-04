@@ -10,7 +10,7 @@ ru:
   navbar:
     home: 'На главную'
     create_category: 'Создать категорию'
-    create_category: 'Непрочитанных уведомлений'
+    unviewed_notifications: 'Непрочитанных уведомлений'
     create_course: 'Создать курс'
   course:
     description: 'Описание'
