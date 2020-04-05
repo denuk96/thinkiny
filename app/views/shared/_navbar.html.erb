@@ -25,11 +25,10 @@
             </li>
             <p class='notification-count mr-3' data-toggle="tooltip" data-placement="right" title="Notifications count"><%= Notification.where(user_id: current_user.id, viewed: false).count %></p>
           <% end %>
-          <li class="nav-item active">
-            <%= link_to "Create Course", new_course_path, remote: true, 'data-toggle': "modal",
-                'data-target':'#new_course', class: "nav-link mr-3" %>
+          <li class="nav-item ">
+            <%= link_to "Create Course", new_course_path, class: "nav-link mr-3" %>
           </li>
-          <li class="nav-item active">
+          <li class="nav-item ">
             <%= link_to "Show courses", courses_path(@course), class: "nav-link mr-3" %>
           </li>
           <li class="nav-item">
@@ -58,12 +57,6 @@
 </div>
 <div class="modal fade" id="new_user" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
-    <div class="modal-content">
-    </div>
-  </div>
-</div>
-<div class="modal fade" id="new_course" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog  modal-lg" role="document">
     <div class="modal-content">
     </div>
   </div>
