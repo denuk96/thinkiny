@@ -7,14 +7,17 @@ class SessionsController < ApplicationController
   def create
     @user = login(params[:email], params[:password], params[:remember_me])
     if @user
-      redirect_to courses_path, notice: 'Logged in!'
+      redirect_back(fallback_location: root_path)
+      flash[:notice] = 'Logged in!'
     else
-      redirect_to root_url, notice: 'Email or password was invalid'
+      redirect_back(fallback_location: root_path)
+      flash[:alert] = 'Email or password was invalid'
     end
   end
 
   def destroy
     logout
-    redirect_to root_url, notice: 'Logged out!'
+    redirect_back(fallback_location: root_path)
+    flash[:notice] = 'Logged out!'
   end
 end

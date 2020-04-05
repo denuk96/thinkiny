@@ -105,25 +105,6 @@ h5{
   text-transform: uppercase;
 }
 
-// calendar
-.has-events {
-  background-color: #e2e2e2;
-}
-.today {
-  background-color: #a9a9a9;
-}
-
-.calendar {
-  background-color: #595959;
-  font-size: 25px;
-  text-align: center;
-  border: 2px solid #030303;
-  padding: 2%;
-}
-
-//
-//
-//
 .carousel-inner, #map {
   border: 1px solid #424196; /* Параметры рамки */
   box-shadow: 0 0 10px #4847a4; /* Параметры тени */
@@ -139,7 +120,13 @@ h5{
   height: 450px;
 }
 
-
+.calendar {
+  color: black; padding: 2%; background-color: #fffeee;
+  font-size: 25px;
+  text-align: center;
+  border: 2px solid #c2c3f8;
+  padding: 2%;
+}
 
 
 

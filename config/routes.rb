@@ -1,4 +1,12 @@
+require 'sidekiq/web'
+Sidekiq::Web.set :sessions, false
+
 Rails.application.routes.draw do
+  Sidekiq::Web.use Rack::Auth::Basic do |username, password|
+    username == 'user' && password == 'password'
+  end
+  mount Sidekiq::Web => '/sidekiq', as: 'background'
+
   root 'pages#welcome'
 
   get 'notifications/viewed'
@@ -13,7 +21,9 @@ Rails.application.routes.draw do
     get 'nearbys', on: :collection
     resources :pictures, only: %i[create destroy]
     resources :lessons do
-      resources :tasks
+      resources :tasks, only: %i[new create change_status destroy] do
+        get 'change_status'
+      end
       resources :check_ins do
         get 'user_attendance', on: :collection
       end
