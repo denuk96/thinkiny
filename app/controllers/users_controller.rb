@@ -7,6 +7,7 @@ class UsersController < ApplicationController
 
   def show
     @notifications = Notification.where(user_id: @user.id, viewed: false)
+    @my_courses = CourseUser.where(user_id: @user.id, role: 'organizer')
   end
 
   def new

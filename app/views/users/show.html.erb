@@ -1,42 +1,44 @@
-<p>
-  <strong>Email:</strong>
-  <%= @user.email %>
-</p>
-
-<p>
-  <%= image_tag(@user.picture.thumb.url, id:'icon_show_author') if @user.picture? %>
-</p>
-<p>
-  <strong>First name:</strong>
-  <%= @user.first_name %>
-</p>
-
-<p>
-  <strong>Last name:</strong>
-  <%= @user.last_name %>
-</p>
-<p>
-  <strong>My Courses:</strong>
+<div class="cabinet text-center">
   <p>
-    <% @user.course_users.includes(:course).organizers.each do |course| %>
-      <%= course.course&.name %>
+    <strong>Email:</strong>
+    <%= @user.email %>
+  </p>
+
+  <p>
+    <%= image_tag(@user.picture.thumb.url, id:'icon_show_author') if @user.picture? %>
+  </p>
+  <p>
+    <strong>First name:</strong>
+    <%= @user.first_name %>
+  </p>
+
+  <p>
+    <strong>Last name:</strong>
+    <%= @user.last_name %>
+  </p>
+  <p>
+    <strong>My Courses:</strong>
+    <p>
+        <% @user.course_users.includes(:course).organizers.each do |course| %>
+          <p><%= link_to course.course.name, course_path(course.course.id) %></p>
+        <% end %>
+    </p>
+  <strong>Join to course:</strong>
+  <p>
+    <% @user.course_users.includes(:course).where(role: 'participant').each do |course| %>
+      <%= course.course.name %>
     <% end %>
   </p>
-<strong>Join to course:</strong>
-<p>
-  <% @user.course_users.includes(:course).where(role: 'participant').each do |course| %>
-    <%= course.course.name %>
-  <% end %>
-</p>
-<p>
-  <strong>Rating:</strong>
-  <%= @user.rating %>
-</p>
-<p class="text-center">Notifications</p>
-<p class="text-center">
-  <%@notifications.each do |notification|  %>
-    <p class="text-center"><%= notification.notification %> <%= link_to "View", viewed_notification_user_path(notification_id: notification.id) %></p>
-  <% end %>
-</p>
-<%= link_to 'Edit', edit_user_path(@user), class:"btn btn-outline-dark" %>
-<%= link_to 'Back', root_path, class:"btn btn-outline-dark" %>
+  <p>
+    <strong>Rating:</strong>
+    <%= @user.rating %>
+  </p>
+  <p class="text-center">Notifications</p>
+  <p class="text-center">
+    <%@notifications.each do |notification|  %>
+      <p class="text-center"><%= notification.notification %> <%= link_to "View", viewed_notification_user_path(notification_id: notification.id) %></p>
+    <% end %>
+  </p>
+  <%= link_to 'Edit', edit_user_path(@user), class:"btn btn-outline-dark" %>
+  <%= link_to 'Back', root_path, class:"btn btn-outline-dark" %>
+</div>
