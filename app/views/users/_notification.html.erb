@@ -1,0 +1,7 @@
+<% @notifications.each do |notification|  %>
+  <%= link_to viewed_notification_user_path(notification_id: notification.id), remote: true,
+              class:'ml-auto', onclick:"$('.notification-#{notification.id}').hide(500)" do %>
+    <i class="far fa-times-circle"></i>
+  <% end %>
+  <p class="text-center notification-<%=notification.id%>"><%= notification.notification %></p>
+<% end %>

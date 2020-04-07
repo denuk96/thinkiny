@@ -20,12 +20,16 @@
           <% else %>
             <li class="nav-item active">
               <%= link_to current_user.first_name.present? ? current_user.first_name : current_user.email,
-                          user_path(current_user.id), class:'nav-link' %>
+                          user_path(current_user.id), remote: true, 'data-toggle': "modal",
+                          'data-target':'#notification', class:'nav-link' %>
             </li>
-            <p class='notification-count' data-toggle="tooltip" data-placement="right" title="Notifications count"><%= Notification.where(user_id: current_user.id, viewed: false).count %></p>
+            <p class='notification-count mr-3' data-toggle="tooltip" data-placement="right" title="Notifications count"><%= Notification.where(user_id: current_user.id, viewed: false).count %></p>
           <% end %>
-          <li class="nav-item active">
-            <%= link_to "Create Course", new_course_path, class:'nav-link' %>
+          <li class="nav-item ">
+            <%= link_to "Create Course", new_course_path, class: "nav-link mr-3" %>
+          </li>
+          <li class="nav-item ">
+            <%= link_to "Show courses", courses_path(@course), class: "nav-link mr-3" %>
           </li>
           <li class="nav-item">
             <%= link_to "Log out", logout_path, class:'nav-link' %>
@@ -33,7 +37,7 @@
         <% else %>
           <li class="nav-item active">
             <%= link_to "Log in", login_path , remote: true,  'data-toggle': "modal",
-                        'data-target':'#login', class: "nav-link" %>
+                        'data-target':'#login', class: "nav-link mr-3" %>
           </li>
           <li class="nav-item">
             <%= link_to "Sign up", signup_path,remote: true,  'data-toggle': "modal",
@@ -53,6 +57,12 @@
 </div>
 <div class="modal fade" id="new_user" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
+    <div class="modal-content">
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="notification" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog  modal-lg" role="document">
     <div class="modal-content">
     </div>
   </div>

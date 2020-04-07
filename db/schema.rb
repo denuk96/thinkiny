@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_22_095351) do
+ActiveRecord::Schema.define(version: 2020_04_05_080613) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -94,11 +94,11 @@ ActiveRecord::Schema.define(version: 2020_03_22_095351) do
     t.float "latitude"
     t.float "longitude"
     t.boolean "pre_moderation", default: false
-    t.integer "place_quantities", default: 9999
-    t.integer "attendance_rate", default: 50
     t.bigint "category_id"
     t.string "logo"
     t.string "pictures", default: [], array: true
+    t.integer "place_quantities"
+    t.integer "attendance_rate"
     t.index ["category_id"], name: "index_courses_on_category_id"
   end
 
@@ -128,6 +128,7 @@ ActiveRecord::Schema.define(version: 2020_03_22_095351) do
     t.bigint "lesson_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "status", default: true
     t.index ["lesson_id"], name: "index_tasks_on_lesson_id"
   end
 

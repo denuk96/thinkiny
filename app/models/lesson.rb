@@ -21,7 +21,13 @@ class Lesson < ApplicationRecord
 
   validates :theme, :description, :time, presence: true
   validates :picture, file_size: { less_than: 5.megabytes }
+  validate :relevant_time
+
   def start_time
-    self.time
+    time
+  end
+
+  def relevant_time
+    errors.add(:time, ': invalid date') if (Time.now > time) || (time > '2050-01-01')
   end
 end

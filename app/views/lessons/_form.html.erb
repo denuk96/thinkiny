@@ -12,17 +12,17 @@
 
     <div class="field mt-5">
       <%= form.label :theme %>
-      <%= form.text_field :theme, class: "mt-2 form-control"%>
+      <%= form.text_field :theme, class: "mt-2 form-control" %>
     </div>
 
     <div class="field mt-5">
       <%= form.label :description %>
-      <%= form.text_area :description, class: "mt-2 form-control"%>
+      <%= form.text_area :description, class: "mt-2 form-control" %>
     </div>
 
     <div class="field mt-5">
       <%= form.label :time %>
-      <%= form.text_field :time, class: "form-control", type: "datetime-local" %>
+      <%= form.text_field :time, class: "form-control", type: "datetime-local", id: 'lesson_time' %>
     </div>
     <div class="field mt-5">
       <%= form.file_field :picture , class: 'form-control'%>

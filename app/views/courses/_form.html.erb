@@ -1,94 +1,107 @@
-<%= form_with(model: @course, local: true) do |form| %>
-  <% if @course.errors.any? %>
-    <div class="alert alert-danger">
-      <ul>
-        <% @course.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
+<div class="cont_course">
+  <div class='edit_course'>
+    <div class="col-10 offset-1 text-center ">
+      <%= form_with(model: @course, local: true) do |form| %>
+        <% if @course.errors.any? %>
+          <div class="alert alert-danger">
+            <ul>
+              <% @course.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
         <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field mt-5">
-    <%= form.label :name %>
-    <%= form.text_field :name, class: "form-control"%>
-  </div>
-
-  <div class="field mt-5">
-    <%= form.label :description %>
-    <%= form.text_area :description, class: "form-control"%>
-  </div>
-
-  <div class="field mt-5">
-    <%= form.label :category %>
-    <%= form.collection_check_boxes :category_ids, Category.all, :id, :title, class:'form-control' %>
-  </div>
-
-  <div class="field mt-5">
-    <%= form.label :place_quantities %>
-    <%= form.text_field :place_quantities, class: "form-control"%>
-  </div>
-
-  <div class="field mt-5">
-    Pre-moderation
-    <br>
-
-    <%= form.radio_button(:pre_moderation, "true") %>
-    <%= form.label(:pre_moderation, "On") %>
-
-    <%= form.radio_button(:pre_moderation, "false") %>
-    <%= form.label(:pre_moderation, "off") %>
-  </div>
-
-  <div class="field mt-5">
-    <%= form.label :attendance_rate %>
-    <%= form.text_field :attendance_rate, class: "form-control"%>
-  </div>
-
-  <div class="field mt-5">
-    <% if @course.save and @course.pictures.present? %>
-      <% @course.pictures.each_with_index do |picture, index| %>
-        <p id="picture_preview">
-          <%= image_tag(picture.url(:medium), id:'shared_pict_in_form') %>
-          <%= link_to 'Delete', course_picture_path(@course, index), method: :delete,
-                      data: { confirm: 'Are you sure' }, :remote => true,
-                      class:'btn btn-outline-dark btn-sm', id: 'delete_picture' %>
-        </p>
+        <div class="field pt-5">
+          <%= form.label :name %>
+          <%= form.text_field :name, class: "form-control text-center"%>
+        </div>
+        <div class="field mt-5">
+          <%= form.label :description %>
+          <%= form.text_area :description, class: "form-control text-center"%>
+        </div>
+        <div class="field mt-5">
+          <%= form.label :place_quantities %>
+          <%= form.number_field :place_quantities, class: "form-control text-center",
+                                placeholder:'Ведіть мксимальну кількість учнів курсу'%>
+        </div>
+        <div class="field mt-5">
+          <div>
+            <%= form.label :attendance_rate %>
+            <%= link_to '#', remote: true,  'data-toggle': "modal",
+                'data-target':'#attendance_rate', id:'attendance' do %>
+            <i class="fas fa-info-circle"></i>
       <% end %>
-    <% end %>
-    <br>
-    <div class="upload-preview field">
-      <img />
+      <div class="modal fade" style="margin-top: 200px;" id="attendance_rate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal_course_form text-justify p-3 ">
+            <p class="text-black-20">Введіть значення відвідуваності у %,
+              наприклад 50 - учні в які пропустили більше
+              половини заннять не отримають очівку "завершення курсу"</p>
+          </div>
+        </div>
+      </div>
+      </div>
+      <%= form.number_field :attendance_rate, class: "form-control text-center",
+                            placeholder:'Відвідуваність'%>
+      </div>
+      <div class="field mt-5">
+        <%= form.label :category %>
+        <%= form.collection_check_boxes :category_ids, Category.all, :id, :title, class:'form-control text-center' %>
+      </div>
+      <div class="field mt-5">
+        <%= form.label :address %>
+        <%= form.text_field :address, class: "form-control address text-center", id: "address"%>
+        <%= form.hidden_field :latitude, class: "form-control"%>
+        <%= form.hidden_field :longitude, class: "form-control"%>
+      </div>
+      <div class="field mt-5">
+        Pre-moderation
+        <%= form.radio_button(:pre_moderation, "true") %>
+        <%= form.label(:pre_moderation, "On") %>
+        <%= form.radio_button(:pre_moderation, "false") %>
+        <%= form.label(:pre_moderation, "off") %>
+      </div>
+      <div class="field mt-3 text-center">
+        <% if @course.save and @course.pictures.present? %>
+            <% @course.pictures.each_with_index do |picture, index| %>
+              <p id="picture_preview">
+                <%= image_tag(picture.url(:medium), id:'shared_pict_in_form') %>
+                <%= link_to 'Delete', course_picture_path(@course, index), method: :delete,
+                            data: { confirm: 'Are you sure' }, :remote => true,
+                            class:'btn btn-outline-dark btn-sm', id: 'delete_picture' %>
+              </p>
+            <% end %>
+          <% end %>
+        <br>
+        <div class="upload-preview field">
+          <img />
+        </div>
+      </div>
+
+      <% @course.pictures.each do |picture| %>
+        <%= hidden_field :course, :pictures, multiple: true, value: picture.identifier %>
+      <% end %>
+
+      <div class="field">
+        <%= form.file_field :pictures, multiple: true, class: "file" %>
+      </div>
+
+
+
+      <div id="map2 mt-3 "></div>
+      <div class="text-center mt-5 pb-5">
+        <%= form.submit 'Save', class: "btn btn-outline-light" %>
+      </div>
+      <% end %>
     </div>
+
+    <!--map goes here-->
+
+    <% provide :head_tags do %>
+      <meta name='turbolinks-visit-control' content='reload'>
+    <% end %>
   </div>
-
-  <% @course.pictures.each do |picture| %>
-    <%= hidden_field :course, :pictures, multiple: true, value: picture.identifier %>
-  <% end %>
-
-  <div class="field">
-    <%= form.file_field :pictures, multiple: true, class: "file" %>
-  </div>
-
-  <br>
-
-  <div class="field mt-5">
-  <%= form.label :address %>
-  <%= form.text_field :address, class: "form-control address", id: "address"%>
-  </div>
-
-  <br>
-
-  <%= form.hidden_field :latitude, class: "form-control"%>
-  <%= form.hidden_field :longitude, class: "form-control"%>
-
-  <div id="map2"></div>
-  <br>
-  <div class="ml-auto mt-2">
-    <%= form.submit 'Submit', class: "btn btn-outline-dark" %>
-  </div>
-<% end %>
-
+</div>
 <!--map goes here-->
 
 <% provide :head_tags do %>
