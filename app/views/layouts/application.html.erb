@@ -17,21 +17,6 @@
   <body>
     <%= render 'shared/navbar' %>
     <%= render 'shared/messages' %>
-    <div class="dropdown">
-  <button class="btn btn-outline-info btn-sm pull-right dropdown-toggle set-language" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    <%= set_language_dropdown %>
-  </button>
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    <%= link_to url_for(locale: 'en'), class: 'dropdown-item' do %>
-      <%= flag_icon(:eu) %>
-      English
-    <% end %>
-    <%= link_to url_for(locale: 'ru'), class: 'dropdown-item' do %>
-      <%= flag_icon(:ru) %>
-      Русский
-    <% end %>
-  </div>
-</div>
     <%= yield %>
   </body>
 </html>

@@ -10,9 +10,32 @@
   color: #fcba03;
 }
 
+.cab {
+  width: 100%;
+  height: 100%;
+  background-color: #070720;
+  color: white;
+}
+
 .cabinet {
   width: 100%;
   height: 100%;
   background-color: #070720;
-  color: white
+  color: white;
+  padding-top: 20px;
+  font-size: 20px;
+}
+
+#cab-course-link {
+  border: 2px solid white;
+  width: 10em;
+  height: 2.5em;
+  font-size: 1.5em;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 8px;
+}
+.cab-crs-img {
+  float:left; /* Выравнивание по левому краю */
+  margin: 7px 7px 7px 0; /* Отступы вокруг картинки */
 }

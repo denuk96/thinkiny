@@ -1,44 +1,73 @@
-<div class="cabinet text-center">
-  <p>
-    <strong>Email:</strong>
-    <%= @user.email %>
-  </p>
-
-  <p>
-    <%= image_tag(@user.picture.thumb.url, id:'icon_show_author') if @user.picture? %>
-  </p>
-  <p>
-    <strong>First name:</strong>
-    <%= @user.first_name %>
-  </p>
-
-  <p>
-    <strong>Last name:</strong>
-    <%= @user.last_name %>
-  </p>
-  <p>
-    <strong>My Courses:</strong>
+<div class="cab">
+  <div class="cabinet text-center">
     <p>
-        <% @user.course_users.includes(:course).organizers.each do |course| %>
-          <p><%= link_to course.course.name, course_path(course.course.id) %></p>
-        <% end %>
+      <strong>Email:</strong>
+      <%= @user.email %>
     </p>
-  <strong>Join to course:</strong>
-  <p>
-    <% @user.course_users.includes(:course).where(role: 'participant').each do |course| %>
+
+    <p>
+      <%= image_tag(@user.picture.thumb.url, id:'icon_show_author') if @user.picture? %>
+    </p>
+    <p>
+      <strong>First name:</strong>
+      <%= @user.first_name %>
+    </p>
+
+    <p>
+      <strong>Last name:</strong>
+      <%= @user.last_name %>
+    </p>
+    <p>
+      <strong>My Courses:</strong>
+      <p>
+          <% @user.course_users.includes(:course).organizers.each do |course| %>
+          <%= link_to course_path(course.course.id) do %>
+            <div id="cab-course-link">
+              <p>
+            <% if course.course.logo? %>
+              <%= image_tag course.logo.small_thumb.url %>
+            <% else %>
+              <%= image_tag 'https://www.drillingauction.com/web/upload/store/no-image.png',
+                            size: '60x60', class: "cab-crs-img"%>
+          <% end %>
+          <%= course.course.name %>
+          </p>
+          <% end %>
+
+          </div>
+          <% end %>
+      </p>
+    <strong>Join to course:</strong>
+    <p>
+      <% @user.course_users.includes(:course).where(role: 'participant').each do |course| %>
+      <%= link_to course_path(course.course.id) do %>
+        <div id="cab-course-link">
+          <p>
+        <% if course.course.logo? %>
+          <%= image_tag course.logo.small_thumb.url %>
+        <% else %>
+          <%= image_tag 'https://www.drillingauction.com/web/upload/store/no-image.png',
+                        size: '60x60', class: "cab-crs-img"%>
+      <% end %>
       <%= course.course.name %>
-    <% end %>
-  </p>
-  <p>
-    <strong>Rating:</strong>
-    <%= @user.rating %>
-  </p>
-  <p class="text-center">Notifications</p>
-  <p class="text-center">
-    <%@notifications.each do |notification|  %>
-      <p class="text-center"><%= notification.notification %> <%= link_to "View", viewed_notification_user_path(notification_id: notification.id) %></p>
-    <% end %>
-  </p>
-  <%= link_to 'Edit', edit_user_path(@user), class:"btn btn-outline-dark" %>
-  <%= link_to 'Back', root_path, class:"btn btn-outline-dark" %>
+      </p>
+      <% end %>
+
+      </div>
+      <% end %>
+    </p>
+    <p>
+      <strong>Rating:</strong>
+      <%= @user.rating %>
+    </p>
+    <p class="text-center">Notifications</p>
+    <p class="text-center">
+      <%@notifications.each do |notification|  %>
+        <p class="text-center"><%= notification.notification %> <%= link_to "View", viewed_notification_user_path(notification_id: notification.id) %></p>
+      <% end %>
+    </p>
+    <%= link_to 'Edit', edit_user_path(@user), class:"btn btn-outline-light" %>
+    <%= link_to 'Back', root_path, class:"btn btn-outline-light" %>
+  </div>
+
 </div>

@@ -15,3 +15,6 @@
  *= require simple_calendar
  *= require flag-icon
  */
+ html, body {
+   height: 100%;
+ }
