@@ -144,9 +144,7 @@ h5{
   width: 350px;
   height: 250px;
 }
-.course_form{
-  background-color: #f8f8f8;
-}
+
 .new_course{
   background-color: #2E2F30;
   color: #F7F7F7;
@@ -155,13 +153,14 @@ h5{
   background: linear-gradient(to bottom, #000, #201f24);
   color: #F7F7F7;
 }
-.edit_course{
-  max-width: 800px;
+.new_edit_course{
+  max-width: 700px;
   margin: auto;
 }
 .modal_course_form{
   background-color: #2E2F30;
   color: #F7F7F7;
+  margin-top: 200px;
 }
 #attendance{
   color: #F7F7F7;
