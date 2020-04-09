@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   mount Sidekiq::Web => '/sidekiq', as: 'background'
 
   root 'pages#welcome'
-
+  get '/pages/:page' => 'pages#show'
   get 'notifications/viewed'
   get 'join', to: 'joins#join_to_course', as: 'join'
   get 'viewed_notification', to: 'notifications#viewed_notification', as: 'viewed_notification'
