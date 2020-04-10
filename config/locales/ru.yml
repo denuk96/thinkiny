@@ -1,0 +1,84 @@
+ru:
+  main:
+    log_out: 'Выйти'
+    log_in: 'Ввойти'
+    sign_up: 'Зарегистрироваться'
+    edit: 'Редактировать'
+    destroy: 'Удалить'
+    are_you_sure: 'Вы уверенны?'
+    login: 'Логин'
+  navbar:
+    home: 'На главную'
+    create_category: 'Создать категорию'
+    unviewed_notifications: 'Непрочитанных уведомлений'
+    create_course: 'Создать курс'
+  course:
+    description: 'Описание'
+    pre_moderation: "Предмодерация"
+    places: 'Места'
+    status: 'Статус'
+    new: 'Новый курс'
+    edit_logo: 'Редактировать логотип'
+    add_logo: 'Добавить логотип'
+    start_course: 'Начать курс'
+    index:
+      search_courses: 'Поиск по курсам'
+      search: 'Поиск'
+      nearbys: 'Курсы поблизости'
+      sort:
+        sort_by: 'Сортировка'
+        newest: 'Новые'
+        oldest: 'Старые'
+        popular: 'Популярные'
+        unpopular: 'Не популярные'
+        fresh: 'Свежие(?)'
+        in_process: 'Начатые'
+        completed: 'Завершенные'
+        rated: 'По рейтингу'
+    actions:
+      joinded: 'Присоединился'
+      leave_rating: "Оценить"
+      status:
+        completed: 'Завершен'
+        available: 'Доступен'
+        no_places: 'Закончились места :('
+        log_in_first: 'Сначала залогиньтесь'
+    other:
+      already_joined: 'Вы уже присоединились к курсу!'
+      course_completed: 'Курс завершен!'
+      free_places: 'Свободные места'
+      admittance: 'Допуск'
+      by_confirmation: 'По подтверждению'
+      created_by: 'Создатель'
+      all_lessons: 'Все уроки'
+      show_schedule: 'Посмотреть рассписание'
+      add_lesson: 'Добавить урок'
+      joined_users: 'Присоединены пользователи'
+      candidates: 'Кандидаты'
+  user:
+    role:
+      orginizer: 'Создатель'
+  category:
+    category: 'Категория'
+    categories: 'Категории'
+    new_category: 'Новая категория'
+  lessons:
+    theme: 'Тема урока'
+    edit: 'Редактирование урока'
+  check_ins:
+    check_ins: 'Посещаемость'
+    check: 'Отметить'
+    add_note: 'Добавить заметку'
+  password:
+    password: 'Пароль'
+    choose_password: 'Выберите новый пароль'
+    set_password: 'Изменить пароль'
+    reset_password: 'Сбросить пароль'
+    send_instructions: 'Отправить инструкции по восставновлению'
+  sessions:
+    remember_me: 'Запомнить меня'
+    forgot_password: 'Забыли пароль?'
+  other:
+    free: "Свободно"
+    require_attendance_rate: "Требуемая посещаемость"
+    instructors: 'Преподователи'

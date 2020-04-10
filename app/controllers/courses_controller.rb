@@ -29,7 +29,8 @@ class CoursesController < ApplicationController
                    @category = Category.find(params[:category_id])
                    @category.courses.includes(:categories).order(created_at: :desc)
                  else
-                   Course.includes([:categories]).all.order(created_at: :desc)
+                   @search = Course.search(params[:q])
+                   @products = @search.result
                  end
                end
   end

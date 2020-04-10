@@ -1,5 +1,5 @@
 <div class="form_checkin_index">
-  <h4 class="text-center"> CHECK INS</h4>
+  <h4 class="text-center"> <%= t("check_ins.check_ins") %></h4>
   <% @check_ins.includes(:user, lesson: :course).each do |check_in| %>
     <div class="row">
       <div class="col-5">
@@ -14,11 +14,11 @@
       </div>
       <% if current_user && verify_instructor(check_in.lesson.course, current_user) %>
         <div class="col-2">
-          <%= link_to 'check', user_attendance_course_lesson_check_ins_path(id: check_in),
+          <%= link_to t("check_ins.check"), user_attendance_course_lesson_check_ins_path(id: check_in),
                       remote: true, class: "btn btn-outline-dark btn-sm" %>
         </div>
         <div class="col-3" id="notes">
-          <%= link_to "add notes", edit_course_lesson_check_in_path(id: check_in),
+          <%= link_to t("check_ins.add_note"), edit_course_lesson_check_in_path(id: check_in),
                       remote: true, class: "btn btn-outline-dark btn-sm"%>
         </div>
       <% end %>

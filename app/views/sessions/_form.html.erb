@@ -7,13 +7,13 @@
     </div>
     <div class="form-inline mb-3">
       <i class="fa fa-lock mr-2"></i>
-      <%= f.password_field :password, class:"form-control col-8", placeholder:"Password" %>
+      <%= f.password_field :password, class:"form-control col-8", placeholder: t("password.password") %>
     </div>
     <div class="form-inline mb-1">
       <%= check_box_tag :remember_me, 1 %>
-      <%= label_tag :remember_me %>
+      <%= label_tag t("sessions.remember_me") %>
     </div>
-    <%= link_to 'Forgot your password?', new_reset_password_path, class: 'form_link' %>
+    <%= link_to t("sessions.forgot_password"), new_reset_password_path, class: 'form_link' %>
     <div class="form-inline mt-2 mb-3">
       <%= f.submit 'Log in', class:"btn btn-outline-dark btn-sm mr-1" %>
       <%= link_to auth_at_provider_path(provider: :facebook), class:'btn btn-outline-dark btn-sm mr-1' do %>

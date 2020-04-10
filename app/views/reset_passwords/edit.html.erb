@@ -1,5 +1,5 @@
 <div class="container">
-  <h1>Choose a new password</h1>
+  <h1><%= t("password.choose_password") %></h1>
 
   <%= form_for @user, url: reset_password_path(@token), method: :patch do |f| %>
     <% if @user.errors.any? %>
@@ -22,6 +22,6 @@
       <%= f.password_field :password_confirmation, class: 'form-control', required: true %>
     </div>
 
-    <%= f.submit 'Set password', class: 'btn btn-primary btn-lg' %>
+    <%= f.submit t("password.set_password"), class: 'btn btn-primary btn-lg' %>
   <% end %>
 </div>
