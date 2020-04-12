@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Thinkiny</title>
+    <title><%= content_for?(:page_title) ? yield(:page_title) : "Thinkiny" %></title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <!--для быстрой разработки исключая вебпак-->
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-
     <script type="text/javascript" src="<%= "https://maps.googleapis.com/maps/api/js?key=#{ENV['GOOGLE_MAPS_API_KEY']}&libraries=places" %>"></script>
-    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application', media: 'all' %>
+    <%= javascript_pack_tag 'application' %>
     <%= yield(:head_tags) %>
   </head>
 
   <body>
-    <%= render 'shared/navbar' %>
-    <%= render 'shared/messages' %>
-    <%= yield %>
+    <div class="content">
+      <%= render 'shared/navbar' %>
+      <%= render 'shared/messages' %>
+      <%= yield %>
+    </div>
+    <%= render 'shared/footer' %>
   </body>
 </html>

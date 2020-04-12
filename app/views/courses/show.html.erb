@@ -1,20 +1,14 @@
-<div id="container__course">
+<% set_page_title("Course '#{@course.name}' | Thinkiny") %>
+<div id="container__course"  data-turbolinks="false">
   <section id="logo">
     <div class="course_description">
       <div class="offset-1 col-10 row">
         <div class="col-2 mr-5">
           <% if @course.logo? %>
             <%= image_tag @course.logo.url , class: 'img_logo'%>
-        <% else %>
-            <% if current_user %>
-              <% if  verify_organizer(@course, current_user) %>
-                <div id='form__nologo' class="offset-md-1 offset-lg-2 offset-xl-4">
-                  <p class="mr-5 p-2">Add logo to your course</p>
-                  <div class="p-1 "><%= render 'courses/add_logo' %></div>
-                </div>
-              <% end %>
-            <% end %>
-          <% end%>
+          <% else %>
+            <%= image_tag 'https://www.drillingauction.com/web/upload/store/no-image.png', class: 'img_logo' %>
+          <% end %>
         </div>
         <div class="col-4 offset-1">
           <h1 class="course_name" class="mb-2"><%= @course.name %></h1>
@@ -77,54 +71,63 @@
           <% if current_user %>
             <% if  verify_organizer(@course, current_user) %>
               <div class="edit_logo">
-                <p class="logo_text">Edit logo</p>
+                <% if @course.logo? %>
+                  <p class="logo_text">Змінити логотип</p>
+                <% else %>
+                  <p class="logo_text">Добавте логотип Вашого курсу</p>
+                <% end %>
                 <div class=""><%= render 'courses/add_logo' %></div>
               </div>
             <% end %>
           <% end %>
         </div>
 
-
-
         <div class="offset-1 ">
           <h3 class="text-center mt-5" id="all_lessons_title">all lessons
             <div class="m-2">
               <% if @course.lessons.size > 0 %>
-                <%= link_to "Посмотреть росписание", course_lesson_path(@course),
+                <%= link_to "Посмотреть росписание", root_path,
                             remote: true,  'data-toggle': "modal", 'data-target':'#show_calendar',
-                            class: "btn btn-outline-info" %>
+                            class: "btn btn-outline-info", id: 'show_it' %>
               <% end %>
             </div>
-            <div id="show_calendar" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div id="show_calendar" data-backdrop="true" data-show="true" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
               <div class="modal-dialog modal-xl" role="document">
                 <div class="modal-content"></div>
+                <button type="button" id="close_modal" class="btn btn-secondary" data-dismiss="modal">Close</button>
               </div>
             </div>
           </h3>
           <div  id="all__lessons">
             <% @lessons.each do |lesson| %>
-              <%= link_to course_path(@course, lesson), class:"lesson" do %>
-                <div class="card-body" id="card_lesson">
-                  <% if lesson.time > Time.now %>
-                    <div>
-                      <h5><%=lesson.theme%></h5>
-                      <p><%= lesson.time.strftime("%A") %> </p>
-                    </div>
-                  <% else %>
-                    <div>
-                      <h5> <%=lesson.theme%></h5>
-                      <p id="lessonday"><s><%= lesson.time.strftime("%A")%></s></p>
-                    </div>
-                  <% end %>
+              <%= link_to course_lesson_path(@course, lesson), remote: true, class:"lesson" do %>
+                <div id="<%= lesson.id %>">
+                  <div class="card-body" id="card_lesson">
+                    <% if lesson.time > Time.now %>
+                      <div>
+                        <h5><%=lesson.theme%></h5>
+                        <p><%= lesson.time.strftime("%A") %> </p>
+                      </div>
+                    <% else %>
+                      <div>
+                        <h5> <%=lesson.theme%></h5>
+                        <p id="lessonday"><s><%= lesson.time.strftime("%A")%></s></p>
+                      </div>
+                    <% end %>
+                  </div>
                 </div>
               <% end %>
             <% end %>
           </div>
           <div>
             <% if current_user && verify_instructor(@course, current_user) %>
-              <%= link_to "Add lesson", new_course_lesson_path(@course),
+              <%= link_to new_course_lesson_path(@course),
                           remote: true,  'data-toggle': "modal", 'data-target':'#modal_add_lesson',
-                          class: "btn btn-outline-light btn-block" %>
+                          class: "btn btn-outline-light btn-block" do %>
+                  <div id="add_lesson_modal">
+                    Add lesson
+                  </div>
+                <% end %>
               <div id="modal_add_lesson" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg" role="document">
                   <div class="modal-content"></div>
@@ -218,10 +221,24 @@
 
   </section>
 </div>
-<script>
-    $("#show_calendar").find(".modal-content").html("<%= j (render 'courses/calendar') %>");
-    $("#show_calendar").modal();
-</script>
+
+<!--scripts goes below-->
+<div data-turbolinks="false">
+  <script>
+      $("#show_calendar").find(".modal-content").html("<%= escape_javascript (render 'courses/calendar') %>");
+
+      document.addEventListener('DOMContentLoaded', function() {
+          $("#show_it").click( function()
+              {
+                  setTimeout(() =>
+                      { jQuery(function(){ jQuery('.fc-dayGridMonth-button').click(); });  },
+                      250);
+              }
+          );
+      });
+  </script>
+</div>
+
 <script>
     function pushNotification() {
         var notification = new window.Notification("Course started!!!",
@@ -235,6 +252,7 @@
         }
     }
 </script>
+
 <script>
   function initMap(lat, lng) {
     var myCoords = new google.maps.LatLng(lat, lng);
@@ -417,10 +435,8 @@
 });
 }
 </script>
-
-<script>
-    $('#map').prepend(initMap(<%= @course.latitude %>, <%= @course.longitude %>));
-</script>
-<script>
-  $(".calendar").html("<%= escape_javascript render(partial: "calendar", locals: {lessons: @lessons}) %>");
-</script>
+<% if @course.latitude && @course.longitude %>
+  <script>
+      $('#map').prepend(initMap(<%= @course.latitude %>, <%= @course.longitude %>));
+  </script>
+<% end %>

@@ -1,3 +1,4 @@
+<% set_page_title("User '#{@user.first_name}' | Thinkiny") %>
 <p>
   <strong>Email:</strong>
   <%= @user.email %>
@@ -32,11 +33,6 @@
   <strong>Rating:</strong>
   <%= @user.rating %>
 </p>
-<p class="text-center">Notifications</p>
-<p class="text-center">
-  <%@notifications.each do |notification|  %>
-    <p class="text-center"><%= notification.notification %> <%= link_to "View", viewed_notification_user_path(notification_id: notification.id) %></p>
-  <% end %>
-</p>
+
 <%= link_to 'Edit', edit_user_path(@user), class:"btn btn-outline-dark" %>
 <%= link_to 'Back', root_path, class:"btn btn-outline-dark" %>

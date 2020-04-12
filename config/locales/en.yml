@@ -1,33 +1,90 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t 'hello'
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t('hello') %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# The following keys must be escaped otherwise they will not be retrieved by
-# the default I18n backend:
-#
-# true, false, on, off, yes, no
-#
-# Instead, surround them with single quotes.
-#
-# en:
-#   'true': 'foo'
-#
-# To learn more, please read the Rails Internationalization guide
-# available at https://guides.rubyonrails.org/i18n.html.
-
 en:
-  hello: "Hello world"
+  main:
+    log_out: 'Log Out'
+    log_in: 'Log In'
+    sign_up: 'Sign Up'
+    edit: 'Edit'
+    destroy: 'Destroy'
+    are_you_sure: 'Are you sure?'
+    login: 'login'
+  navbar:
+    home: 'Home'
+    create_category: 'Create category'
+    unviewed_notifications: 'Unviewed notifications'
+    create_course: 'Create course'
+    show_courses: 'Show courses'
+  course:
+    description: 'Description'
+    pre_moderation: "Premoderation"
+    places: 'Places'
+    status: 'Status'
+    new: 'New course'
+    edit_logo: 'Edit logo'
+    add_logo: 'Add logo'
+    start_course: 'Start course'
+    index:
+      search_courses: 'Search courses'
+      search: 'Search'
+      nearbys: 'Courses near'
+      sort:
+        sort_by: 'Sort by'
+        newest: 'Newest'
+        oldest: 'Oldest'
+        popular: 'Popular'
+        unpopular: 'Unpopular'
+        fresh: 'Fresh(?)'
+        in_process: 'In proccess'
+        completed: 'Completed'
+        rated: 'Rated'
+    actions:
+      joinded: 'Joinded'
+      leave_rating: "Leave rating"
+      status:
+        completed: 'Completed'
+        available: 'Available'
+        no_places: 'No places :('
+        log_in_first: 'Firstly log in'
+    other:
+      already_joined: 'Already joined'
+      course_completed: 'Course completed!'
+      free_places: 'Free places'
+      admittance: 'Admittance'
+      by_confirmation: 'By confrimation'
+      created_by: 'Created by'
+      all_lessons: 'All lessons'
+      show_schedule: 'Show schedule'
+      add_lesson: 'Add lesson'
+      joined_users: 'Joined users'
+      candidates: 'Candidates'
+  user:
+    role:
+      orginizer: 'Orginizer'
+  category:
+    category: 'Category'
+    categories: 'Categories'
+    new_category: 'New Category'
+  lessons:
+    theme: 'Theme of lesson'
+    edit: 'Edit lesson'
+  check_ins:
+    check_ins: 'Check ins'
+    check: 'Check'
+    add_note: 'Add note'
+  password:
+    password: 'Password'
+    choose_password: 'Choose new password'
+    set_password: 'Set password'
+    reset_password: 'Reset password'
+    send_instructions: 'Send inctuctions'
+  sessions:
+    remember_me: 'Remember me'
+    forgot_password: 'Forgot password?'
+  other:
+    free: "Free"
+    require_attendance_rate: "Require attendance rate"
+    instructors: 'Instructors'
+  welcome:
+    title1: 'Thinkiny - a platform for training managers. You can not talk about what you need to be up to date with your affairs. Press the button to choose a course, you will like something.'
+    block1: 'Use Thinkiny for free. The project was created for students educational purposes Geekhub. You will not be asked for funds either monthly or annually. Of course, if you have one wish to thank for the great work write to our email address'
+    block2: 'Using Thinkiny is no more difficult than writing an email in Gmail. A lot of time has been spent on setting up the interface for your satisfaction'
+    block3: 'You can do as many courses as you want. Also, your courses may have an unlimited number of lessons and students. We will never charge you if your course is free. Otherwise, only 10% of total sales revenue'

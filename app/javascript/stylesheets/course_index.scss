@@ -1,0 +1,24 @@
+.course_index{
+  background: linear-gradient(to bottom, #000, #060623, #262829);
+  color: #F7F7F7;
+}
+.link_on_show_course{ color: #b5b5b5;}
+.link_on_show_course:hover{ text-decoration: none; color: #fbfbfb
+}
+.card_course{
+  background-color: #292929;
+}
+.img_logo_index{
+  height:200px;
+  width: 200px;
+  border-radius: 50%; /* Радиус скругления */
+  border: 1px solid #0b0b09; /* Параметры рамки */
+  box-shadow: 0 0 10px #ccc; /* Параметры тени */
+}
+.description_index{
+  margin-top: 40px;
+  background-color: #4c4c4c;
+  text-align: justify;
+  border-radius: 5%; /* Радиус скругления */
+  padding: 5%;
+}

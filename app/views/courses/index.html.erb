@@ -1,79 +1,79 @@
-<div class="dropright">
-  <a class="btn btn-outline-light dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    <%= params[:sort].present? ? params[:sort].humanize : 'Категория' %>
-  </a>
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-    <%= link_to 'Newest', courses_path(sort: 'All'), class:'dropdown-item' %>
-    <%= link_to 'Oldest', courses_path(sort: 'oldest'), class:'dropdown-item' %>
-    <%= link_to 'Popular', courses_path(sort: 'popular'), class:'dropdown-item' %>
-    <%= link_to 'Unpopular', courses_path(sort: 'unpopular'), class:'dropdown-item' %>
-    <%= link_to 'Fresh', courses_path(sort: 'fresh'), class:'dropdown-item' %>
-    <%= link_to 'In process', courses_path(sort: 'in_process'), class:'dropdown-item' %>
-    <%= link_to 'Completed', courses_path(sort: 'completed'), class:'dropdown-item' %>
-    <%= link_to 'Rated', courses_path(sort: 'rated'), class:'dropdown-item' %>
-  </div>
-</div>
+<% set_page_title("Courses | Thinkiny") %>
+<div class="course_index">
+  <div class="col-10 offset-1  pt-3">
+    <div class="dropright col-10 offset-1 pb-4">
+      <a class="btn btn-outline-light dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <%= params[:sort].present? ? params[:sort].humanize : 'Категория' %>
+      </a>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+        <%= link_to t('course.index.sort.newest'), courses_path(sort: 'All'), class:'dropdown-item' %>
+        <%= link_to t('course.index.sort.oldest'), courses_path(sort: 'oldest'), class:'dropdown-item' %>
+        <%= link_to t('course.index.sort.popular'), courses_path(sort: 'popular'), class:'dropdown-item' %>
+        <%= link_to t('course.index.sort.unpopular'), courses_path(sort: 'unpopular'), class:'dropdown-item' %>
+        <%= link_to t('course.index.sort.fresh'), courses_path(sort: 'fresh'), class:'dropdown-item' %>
+        <%= link_to t('course.index.sort.in_process'), courses_path(sort: 'in_process'), class:'dropdown-item' %>
+        <%= link_to t('course.index.sort.completed'), courses_path(sort: 'completed'), class:'dropdown-item' %>
+        <%= link_to t('course.index.sort.rated'), courses_path(sort: 'rated'), class:'dropdown-item' %>
+      </div>
 
-<section class="fourth">
-  <small><%= link_to "Courses near you", nearbys_courses_path%></small>
-  <div class="offset-1 offset-sm-2 offset-md-2 mt-5">
+    </div>
     <% @courses.each do |course| %>
-      <div class="col-10">
-        <div class="card">
+      <div class="col-10 offset-1 pb-4 ">
+        <div class="card_course">
           <%= link_to course_path(course, lesson_id: course&.lessons&.first&.id), class:"link_on_show_course" do %>
-            <div class="card-header">
-              <div class="row">
-                <div>
-                  <h2><%= course.name %></h2>
-                  <p class="blockquote-footer">Organizer: <b><%= course.course_users&.find_by(role: 'organizer')&.user&.email %></b></cite></p>
-                  </p>
-                </div>
-                <div class="ml-auto">
-                  <% if current_user %>
-                    <% if already_joined?(course, current_user) %>
-                      <button type="button" class="btn btn-outline-dark" disabled>Joinded</button>
-                      <%= link_to 'leave rating', course_rating_form_path(course_id: course.id) if completed_course?(course, current_user) %>
-                    <% elsif course.status == 'completed' %>
-                      Completeed
-                    <% elsif free_places?(course) %>
-                      Available!
-                    <% else %>
-                      Has no free places
-                    <% end %>
-                  <% else %>
-                    Log in first
-                  <% end %>
-                </div>
-              </div>
-            </div>
             <div class="card-body">
               <div class="row">
-                <div class="col">
-                  <% course.categories.each do |category| %>
-                    Category: <b><%= category.title %></b>
-                  <% end %>
-                  Description: <b><%= course.description %></b>
-                  <br>
-                  Pre-moderation: <b><%= course.pre_moderation %></b>
-                  <br>
-                  Places: <b><%= course.place_quantities %></b>
-                  Free:
-                  <%= count_free_places(course) %>
-                  <br>
-                  Course status:
-                  <%= course.status&.humanize %>
-                  <br>
-                  Required attendance rate:
-                  <%= course.attendance_rate %>
-                </div>
-                <div class="col">
+                <div class="col-12 col-md-5 col-lg-4 text-center pb-2">
+                  <div class="pb-2">
+                    <% if current_user %>
+                      <% if already_joined?(course, current_user) %>
+                        <button type="button" class="btn btn-outline-info" disabled><%= t('course.actions.joinded') %></button>
+                        <%= link_to t("course.actions.leave_rating"), course_rating_form_path(course_id: course.id) if completed_course?(course, current_user) %>
+                      <% elsif course.status == 'completed' %>
+                        <%= t("course.status.completed") %>
+                      <% elsif free_places?(course) %>
+                        <%= t("course.status.available") %>
+                      <% else %>
+                        <%= t("course.status.no_places") %>
+                      <% end %>
+                    <% else %>
+                      <%= t("course.status.log_in_first") %>
+                    <% end %>
+                  </div>
                   <% if course.logo? %>
-                    <%= image_tag course.logo.big_thumb.url %>
+                    <%= image_tag course.logo.big_thumb.url, class:'img_logo_index' %>
                   <% else %>
-                    <%= image_tag 'https://www.drillingauction.com/web/upload/store/no-image.png',
-                                  size: '400x250' %>
-                <% end %>
+                    <%= image_tag 'https://www.drillingauction.com/web/upload/store/no-image.png', class:'img_logo_index' %>
+                  <% end %>
+                </div>
+                <div class="col-7  col-md-4 col-lg-4 offset-md-1">
+                  <h2 class="pb-3"><%= course.name %></h2>
+                  <p>
+                    <% course.categories.each do |category| %>
+                      <%= t("category.category") %>: <b><%= category.title %></b>
+                    <% end %>
+                  </p>
+                  <p>
+                    <%= t("course.pre_moderation") %>: <b><%= course.pre_moderation %></b>
+                  </p>
+                  <p>
+                    <%= t("course.places") %>: <b><%= course.place_quantities %></b>
+                    <%= t("other.free") %>:
+                    <%= count_free_places(course) %>
+                  </p>
+                  <p>
+                    <%= t("course.status") %>: <%= course.status&.humanize %>
+                  </p>
+                </div>
+                <div class="col-5  col-md-2 col-lg-3 ">
+                  <p class="blockquote-footer"><%= t('user.role.orginizer') %>:
+                    <b><%= course.course_users&.find_by(role: 'organizer')&.user&.email %></b>
+                  </p>
+                  <div class="description_index">
+                    <p><%= t("course.description") %>:</p>
+                    <p class="pt-3 "><%= truncate( course.description, length: 30) %></p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -82,5 +82,4 @@
       </div>
     <% end %>
   </div>
-</section>
-<footer class="text-center p-2">bla bla bla</footer>
+</div>

@@ -1,0 +1,14 @@
+<%= form_with(model: [@course, @lesson, @lesson.tasks.build] ) do |form| %>
+  <div class="row mt-5 mb-5 offset-md-4">
+    <div class="col-6">
+      <%= form.text_field :title, class: "form-control", placeholder:'Введіть заголовок задачі' %>
+      <%= form.text_area :body, class: "form-control", placeholder:'Введіть саму задачу',
+                         maxlength:'300'%>
+    </div>
+    <div class="col-1 p-4">
+      <%= form.submit "Зберегти", class: "btn btn-outline-dark btn-sm" %>
+    </div>
+
+  </div>
+
+<% end %>

@@ -53,13 +53,21 @@ class User < ApplicationRecord
   class << self
     def current_users
       where("#{sorcery_config.last_activity_at_attribute_name} IS NOT NULL") \
-      .where("#{sorcery_config.last_logout_at_attribute_name} IS NULL
+        .where("#{sorcery_config.last_logout_at_attribute_name} IS NULL
       OR #{sorcery_config.last_activity_at_attribute_name} > #{sorcery_config.last_logout_at_attribute_name}") \
-      .where("#{sorcery_config.last_activity_at_attribute_name} > ? ", sorcery_config.activity_timeout.seconds.ago.utc.to_s(:db))
+        .where("#{sorcery_config.last_activity_at_attribute_name} > ? ", sorcery_config.activity_timeout.seconds.ago.utc.to_s(:db))
     end
   end
 
   authenticates_with_sorcery! do |config|
     config.authentications_class = Authentication
   end
+
+  # def course_status_changed
+  # UserMailer.course_status_changed(self).deliver!
+  # end
+
+  # def priv
+  #
+  # end
 end

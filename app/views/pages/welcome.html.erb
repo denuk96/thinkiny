@@ -8,11 +8,8 @@
 <section class="second">
   <div class="row justify-content-around content">
     <div class="offset-1 col-md col-lg-6 col-xl-5">
-      <h2>Thinkiny - площадка курсів з можливістю менеджменту. Ви можете не тілки створювати а й
-        шукати необхідні для вас курси у вашому місці. Перегляньте демо, так може виглядати сторінка
-        Вашого курсу або ж оберіть курс із існуючих. </h2>
+      <h2><%= t 'welcome.title1' %></h2>
       <div class="actions pt-1 pb-5">
-        <%= link_to 'Подивитись демо', '#', class: 'btn btn-outline-warning btn-lg ' %>
         <%= link_to "Підібрати курс", courses_path, class:'btn btn-outline-success btn-lg  ' %>
       </div>
     </div>
@@ -27,38 +24,21 @@
       <div class="text-center pb-5">
         <img src="https://www.teachery.co/assets/ico-dolar-8ea1b96ba16f2588ffd734682b63fab83d8e01a910179d67d70952d101800b03.svg">
       </div>
-      <p>Користуйтесь Thinkiny безкоштовно. Проект створено в навчальних цілях учнями
-      Geekhub. З Вас не проситимуть кошти ні щомісяця, ні щороку. Звісно, якщо у Вам
-        є бажання віддячити за велику працю пишіть на наш <a href="#email_suport">електронний адрес</a></p>
+      <p><%= t 'welcome.block1' %></p>
     </div>
     <div class="offset-xl-1 col-10 col-xl">
       <div class="text-center pb-5">
         <img src="https://www.teachery.co/assets/ico-mouse-4901e0fb1d7ce3bd53b0fa4162275fd767b51bee1aea97cb419234add6f40e30.svg" alt="pic">
       </div>
-      <p>Користування Thinkiny не складніше ніж написання електронного листа в Gmail.
-      Було виділено багато часу на облаштування інтерфейсу для Вашого задоволеня
-      в користувані. Проект в має підтримку , тому якщо ви знайшли якийсь баг або Вам просто щось не сподобалось
-      пишіть на нишу адресу розташовану <a href="#email_suport">внизу</a>.</p>
+      <p><%= t 'welcome.block2' %></p>
     </div>
     <div class="offset-xl-1 col-10 col-xl">
       <div class="text-center pb-5">
-      <img src="https://www.teachery.co/assets/ico-folder-27dd39a6043eeb83ef66c72a10098da69e65ae69b0917032c3193be5329eef21.svg" alt="pic">
+        <img src="https://www.teachery.co/assets/ico-folder-27dd39a6043eeb83ef66c72a10098da69e65ae69b0917032c3193be5329eef21.svg" alt="pic">
       </div>
-      <p>Ви можете зробити стільки курсів, скільки захочете.
-        Також Ваші курси можуть мати не обмежену кількість уроків та студентів.
-        Ми ніколи не будемо брати з вас плату, якщо ваш курс безкоштовний. В іншому випадку
-        лише 10% від загального доходу продаж</p>
+      <p><%= t 'welcome.block3' %></p>
     </div>
 
   </div>
 </section>
 <section><%= render "shared/nearbys" %></section>
-<footer class="footer">
-  <div class="col-10 offset-1">
-    <div class="row text-center">
-      <p class="col">GH-Group</p>
-      <p class="col"><a name="email_suport">thinkiny.ads@gmail.com</a></p>
-      <p class="col">© 2020 Thinkiny. All Rights Reserved.</p>
-    </div>
-  </div>
-</footer>

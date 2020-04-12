@@ -1,5 +1,6 @@
+<% set_page_title("Categories | Thinkiny") %>
 <div class="container">
-  <ul><h1>Categories:</h1></ul>
+  <ul><h1><%= t("category.categories") %>:</h1></ul>
   <% @categories.each do |category| %>
   <li><%= category.title %></li>
   <% end %>

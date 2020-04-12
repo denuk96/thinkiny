@@ -1,12 +1,12 @@
 <div id="lesson__header">
-  <div id="theme">Theme lesson <b>' <%= @lesson.theme %> '</b></div>
+  <div id="theme" tabindex="-1">Theme lesson <b>' <%= @lesson.theme %> '</b></div>
   <p id="lesson__pictures"><%= image_tag(@lesson.picture.url, width: 400) if @lesson.picture? %></p>
 
   <div  class="col-10 col-md-8" id="description"><%= @lesson.description %></div>
 </div>
 <div id="btn__lesson">
   <% if current_user && verify_instructor(@course, current_user) %>
-    <%= link_to 'check_ins', course_lesson_check_ins_path(course_id: @lesson.course.id, lesson_id: @lesson.id),
+    <%= link_to t("check_ins.check_ins"), course_lesson_check_ins_path(course_id: @lesson.course.id, lesson_id: @lesson.id),
                 remote: true,  'data-toggle': "modal", 'data-target':'#modal-window',
                 class: "btn btn-outline-dark" %>
     <div class="modal fade" id="modal-window" tabindex="-1" role="dialog" aria-hidden="true">
@@ -18,14 +18,63 @@
 
 
 
-    <%= link_to "Edit", edit_course_lesson_path(@course, @lesson),  remote: true,  'data-toggle': "modal", 'data-target':'#modal-edit',
+    <%= link_to t("main.edit"), edit_course_lesson_path(@course, @lesson),  remote: true,  'data-toggle': "modal", 'data-target':'#modal-edit',
                 class: "btn btn-outline-dark  " %>
     <div id="modal-edit" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content"></div>
       </div>
     </div>
-    <%= link_to "Destroy", course_lesson_path(@course, @lesson),
+    <%= link_to "Видалити урок", course_lesson_path(@course, @lesson),
                 method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-outline-dark" %>
+    <%= link_to "Добавить задачу", new_course_lesson_task_path(@course, @lesson),  remote: true,
+                class: "btn btn-outline-dark  " %>
+  <% end %>
+</div>
+<div class="mt-5 task_list">
+  <% @lesson.tasks.where(status: 'true').each do |task| %>
+    <div class="mt-1 task_true_container col-10 offset-1">
+      <div class="row justify-content-md-between ml-1 mr-1">
+        <h5 class="text-center mt-1"><%= task.title %> </h5>
+        <% if current_user && verify_instructor(@course, current_user)%>
+          <div class="row">
+            <div class="p-1">
+              <%= link_to 'Виконано', course_lesson_task_change_status_path(@course, @lesson, task_id: task.id),
+                          class: 'btn btn-success btn-sm' %>
+            </div>
+            <div class="p-1 mr-2">
+              <%= link_to [@course, task.lesson, task],
+                          method: :delete, data: { confirm: 'Are you sure?' } ,
+                          class: 'btn btn-danger btn-sm' do %>
+                <i class="fas fa-trash"></i>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      <div class="task_body"><%= task.body %></div>
+    </div>
+  <% end %>
+</div>
+<div class="mt-5 mb-4 row justify-content-center">
+  <% @lesson.tasks.where(status: 'false').each do |task| %>
+    <div class="m-1 task_false_container col-xl-3 col-lg-4 col-md-8 col-10 row justify-content-center">
+      <h5 class="task_false_title col-6"><%= truncate(task.title, length:11) %> </h5>
+      <% if current_user && verify_instructor(@course, current_user)%>
+        <div class="ml-3">
+          <%= link_to course_lesson_task_change_status_path(@course, @lesson, task_id: task.id),
+                      class: 'btn btn-success btn-sm' do %>
+            <i class="fas fa-arrow-up"></i>
+          <% end %>
+        </div>
+        <div class="ml-3">
+          <%= link_to [@course, task.lesson, task],
+                      method: :delete, data: { confirm: 'Are you sure?' } ,
+                      class: 'btn btn-danger btn-sm' do %>
+            <i class="fas fa-trash"></i>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
   <% end %>
 </div>

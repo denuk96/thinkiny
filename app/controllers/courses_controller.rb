@@ -29,7 +29,8 @@ class CoursesController < ApplicationController
                    @category = Category.find(params[:category_id])
                    @category.courses.includes(:categories).order(created_at: :desc)
                  else
-                   Course.includes([:categories]).all.order(created_at: :desc)
+                   @search = Course.search(params[:q])
+                   @products = @search.result
                  end
                end
   end
@@ -85,9 +86,9 @@ class CoursesController < ApplicationController
     @courses = Course.all
     location_info = request.location
     @courses_near = Course.near([location_info.latitude, location_info.longitude], 10)
-    @a = []
+    @locations = []
     @courses.each do |course|
-      @a.push(["<a href='#{course_url(course)}'>#{course.name}</a>", (course.logo.present? ? "<img src='#{course&.logo.url}' alt='#{course.name}' height='42' width='42'>" : "<img src='#{'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Google_Chrome_icon_%28September_2014%29.svg/1200px-Google_Chrome_icon_%28September_2014%29.svg.png'}' alt='#{course.name}' height='42' width='42'>"), course.latitude, course.longitude])
+      @locations.push(["<a href='#{course_url(course)}'>#{course.name}</a>", (course.logo.present? ? "<img src='#{course&.logo.url}' alt='#{course.name}' height='42' width='42'>" : "<img src='https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Google_Chrome_icon_%28September_2014%29.svg/1200px-Google_Chrome_icon_%28September_2014%29.svg.png' alt='#{course.name}' height='42' width='42'>"), course.latitude, course.longitude])
     end
   end
 
@@ -95,9 +96,11 @@ class CoursesController < ApplicationController
     if @course_user.confirmed == false
       @course_user.confirmed = true
       check_ins_create(@course.lessons, @course_user)
+      MailerWorkerWorker.perform_async(@course_user.id, 'user confirmed')
     else
       @course_user.confirmed = false
       check_ins_destroy(@course.lessons, @course_user)
+      MailerWorkerWorker.perform_async(@course_user.id, 'user unconfirmed')
     end
     @course_user.save
     redirect_to course_path(@course)
@@ -105,25 +108,19 @@ class CoursesController < ApplicationController
 
   def change_course_status
     case @course.status
+
     when 'new'
       @course.update(status: 'in_process')
+      MailerWorkerWorker.perform_async(@course.id, 'course started')
     when 'in_process'
       @course.update(status: 'completed', pre_moderation: true)
-      ### check attendance for completing course ###
-      @course.course_users.confirmed_participant.each do |course_user|
-        lessons_count = @course.lessons.size
-        @user_attendance = 0
-        @course.lessons.each do |lesson|
-          @user_attendance += 1 if lesson.check_ins.find_by(user_id: course_user.user_id, attendance: true).present?
-        end
-        user_attendance_rate = @user_attendance.to_f / lessons_count * 100
-        course_user.update(completed: true) if @course.attendance_rate <= user_attendance_rate
-      end
+      CountUsersAttendanceWorker.perform_async(@course.id)
     else
       flash[:alert] = 'Course is already completed'
     end
-    flash[:notice] = "Status has changed to #{@course.status&.humanize}"
     @course.users.each { |user| Notification.create(user_id: user.id, notification: "Course #{@course.name} has been changed status to #{@course.status}") }
+    flash[:notice] = "Status has changed to #{@course.status&.humanize}"
+
     redirect_to course_path(@course)
   end
 

@@ -1,11 +1,105 @@
-<div class="calendar">
-  <%= month_calendar events: @lessons do |time, lessons| %>
-    <%= time.to_formatted_s(:short) %>
-
-    <% lessons.each do |lesson| %>
-      <div>
-        <%= link_to lesson.theme, course_lesson_path(@course, lesson) %>
-      </div>
-    <% end %>
+<div class="calendar" data-turbolinks="false">
+  <div id='calendar'></div>
+  <% provide :head_tags do %>
+    <meta name='turbolinks-visit-control' content='reload'>
   <% end %>
 </div>
+<script>
+      document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                plugins: [ dayGridPlugin, interactionPlugin, timeGridPlugin, listPlugin, bootstrapPlugin, timelinePlugin ],
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth, dayGridDay' // dayGridMonth, dayGridWeek, dayGridDay, dayGrid, timeGridWeek, timeGridDay, timeGrid
+                },
+                defaultView: 'dayGridMonth', // dayGridMonth, dayGridWeek, dayGridDay, dayGrid, timeGridWeek, timeGridDay, timeGrid
+
+                navLinks: true, // can click day/week names to navigate views
+                editable: false,
+                eventLimit: true, // allow "more" link when too many events
+                eventClick: function(info) {
+                    info.jsEvent.preventDefault(); // don't let the browser navigate
+
+                    if (info.event.url) {
+                        window.open(info.event.url);
+                    }
+                    if (event.url) {
+                        window.open(event.url, "_blank");
+                        return false;
+                    }
+                },
+                events: [
+                   <% @lessons.each do |lesson| %>
+                    {
+                        title: "<%= lesson.theme.to_s %>",
+                        start: "<%= lesson.time.strftime("%Y-%m-%d %R") %>",
+                        allDay: false,
+                        extendedProps: {
+                            status: "<%= lesson_expired?(lesson) ? 'Complete' : 'Soon' %>",
+                            id: "<%= lesson.id %>"
+                        }
+                        // backgroundColor: 'blue',
+                        // borderColor: 'green',
+                        // url: 'http://google.com/',
+                    },
+
+                   <% end %>
+                    {
+
+                    }
+                ],
+                eventRender: function(info) {
+                    if (info.event.extendedProps.status === 'Complete') {
+
+                        // Change background color of row
+                        info.el.style.backgroundColor = 'red';
+
+                        // Change color of dot marker
+                        var dotEl = info.el.getElementsByClassName('fc-event-dot')[0];
+                        if (dotEl) {
+                            dotEl.style.backgroundColor = 'white';
+                        }
+                    }
+                },
+                eventClick: function(info) {
+                    $("#close_modal").click();
+
+                    var lesson_id = info.event.extendedProps.id;
+
+                    setTimeout(() => {
+                          $("#"+lesson_id).click();
+                          $('html, body').animate({
+                              scrollTop: $("#lesson__header").offset().top
+                          }, 500 )
+                        }, 500);
+
+                    // alert('Event: ' + info.event.title);
+                    // alert('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
+                    // alert('View: ' + info.view.type);
+                    // // change the border color just for fun
+                    // info.el.style.borderColor = 'red';
+                },
+                <% if verify_instructor(@course, current_user) %>
+                  dateClick: function(info) {
+                      $("#close_modal").click();
+                      setTimeout(() => {
+                          $("#add_lesson_modal").click();
+                      }, 500);
+                      setTimeout(() => {
+                          document.getElementById('lesson_time').value = info.dateStr + 'T00:00';
+                      }, 1000);
+
+                      // alert('Clicked on: ' + info.dateStr);
+                      // alert('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
+                      // alert('Current view: ' + info.view.type);
+                      // // change the day's background color just for fun
+                      // info.dayEl.style.backgroundColor = 'red';
+                  }
+                <% end %>
+            });
+        setTimeout(() => {  calendar.render(); }, 1000);
+      });
+  </script>
