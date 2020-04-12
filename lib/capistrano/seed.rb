@@ -7,5 +7,3 @@ end
 categories = %w[IT Health Medicine Homemade Art Sport]
 
 categories.each { |el| Category.create(title: el) }
-
-puts 'SEEDED'

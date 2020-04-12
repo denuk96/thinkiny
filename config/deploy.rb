@@ -18,6 +18,8 @@ set :config_files, %w[config/database.yml config/database_secret.yml config/mast
 
 set :rvm1_map_bins, fetch(:rvm1_map_bins).to_a.concat(%w[sidekiq sidekiqctl])
 
+load 'lib/capistrano/seed'
+
 namespace :deploy do
   before 'check:linked_files', 'config:push'
   before 'check:linked_files', 'puma:jungle:setup'
@@ -30,4 +32,11 @@ task :add_default_hooks do
   after 'deploy:updated', 'sidekiq:stop'
   after 'deploy:reverted', 'sidekiq:stop'
   after 'deploy:published', 'sidekiq:start'
+end
+
+namespace :db do
+  desc "reload the database with seed data"
+  task :seed do
+    run "cd #{current_path}; bundle exec rake db:seed RAILS_ENV=#{rails_env}"
+  end
 end
