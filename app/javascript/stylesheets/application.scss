@@ -1,7 +1,17 @@
 @import './bootstrap_custom.scss';
-//@import "navbar";
 @import '@fortawesome/fontawesome-free';
-/*@import "courses";*/
+@import "categories";
+@import "course_index";
+@import "courses";
+@import "footer";
+@import "form";
+@import "lesson";
+@import "navbar";
+@import "pages";
+@import "tasks";
+@import "user";
+@import "welcome";
+
 
 //@import 'simple_calendar';
 

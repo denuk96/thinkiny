@@ -12,6 +12,7 @@ en:
     create_category: 'Create category'
     unviewed_notifications: 'Unviewed notifications'
     create_course: 'Create course'
+    show_courses: 'Show courses'
   course:
     description: 'Description'
     pre_moderation: "Premoderation"
@@ -82,3 +83,8 @@ en:
     free: "Free"
     require_attendance_rate: "Require attendance rate"
     instructors: 'Instructors'
+  welcome:
+    title1: 'Thinkiny - a platform for training managers. You can not talk about what you need to be up to date with your affairs. Press the button to choose a course, you will like something.'
+    block1: 'Use Thinkiny for free. The project was created for students educational purposes Geekhub. You will not be asked for funds either monthly or annually. Of course, if you have one wish to thank for the great work write to our email address'
+    block2: 'Using Thinkiny is no more difficult than writing an email in Gmail. A lot of time has been spent on setting up the interface for your satisfaction'
+    block3: 'You can do as many courses as you want. Also, your courses may have an unlimited number of lessons and students. We will never charge you if your course is free. Otherwise, only 10% of total sales revenue'

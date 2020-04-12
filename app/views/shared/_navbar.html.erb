@@ -3,14 +3,22 @@
   <nav class="navbar navbar-expand-lg navbar-dark">
     <%= link_to root_path , id:'link_root' do %>
       <%= image_tag "https://i.ibb.co/GPmcXNq/received-217922532752718.png", size:"20x35" %>
-      <li class="navbar-brand">Thinkiny</li>
+      <li class="navbar-brand pb-3">Thinkiny</li>
     <% end %>
-
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <% if I18n.locale == :en %>
+          <%= link_to 'EN', url_for(locale: :en), class: 'nav-link active' %>
+          <%= link_to 'RU', url_for(locale: :ru), class: 'nav-link' %>
+        <% else %>
+          <%= link_to 'EN', url_for(locale: :en), class: 'nav-link' %>
+          <%= link_to 'RU', url_for(locale: :ru), class: 'nav-link active' %>
+        <% end %>
+      </ul>
       <ul class="navbar-nav ml-auto">
         <% if current_user %>
           <% if current_user&.admin? %>
@@ -29,7 +37,7 @@
             <%= link_to t('navbar.create_course'), new_course_path, class: "nav-link mr-3" %>
           </li>
           <li class="nav-item ">
-            <%= link_to "Show courses", courses_path(@course), class: "nav-link mr-3" %>
+            <%= link_to t('navbar.show_courses'), courses_path(@course), class: "nav-link mr-3" %>
           </li>
           <li class="nav-item">
             <%= link_to t('main.log_out'), logout_path, class:'nav-link' %>
