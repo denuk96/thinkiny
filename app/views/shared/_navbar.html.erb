@@ -27,7 +27,7 @@
             </li>
           <% else %>
             <li class="nav-item active">
-              <% if current_user.notifications.present? %>
+              <% if notification(current_user) %>
                 <%= link_to current_user.first_name.present? ? current_user.first_name : current_user.email,
                               user_path(current_user.id), remote: true, 'data-toggle': "modal",
                               'data-target':'#notification', class:'nav-link' %>

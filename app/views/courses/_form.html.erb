@@ -18,12 +18,33 @@
     <%= form.label :description %>
     <%= form.text_area :description, class: "form-control"%>
   </div>
-
-  <div class="field mt-5">
-    <%= form.label :category %>
-    <%= form.collection_check_boxes :category_ids, Category.all, :id, :title, class:'form-control' %>
+  <div class="pt-5 text-center">
+    <button type="button" class="btn btn-outline-light btn-sm"
+            data-toggle="modal" data-target="#add_category">
+      Select category
+    </button>
+  </div >
+  <div class="modal fade" id="add_category" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content add_category_to_course">
+        <div class="modal-body ">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <div class="row p-2 modal_add_category_to_course" >
+            <%= form.collection_check_boxes :category_ids, Category.all, :id, :title do |t| %>
+              <div class="card col-4 modal_add_category_to_course">
+                <div class="card-body text-center  " >
+                  <%= t.label %>
+                  <%= t.label { t.check_box } %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-
   <div class="field mt-5 text-center">
     <%= form.label :place_quantities %>
     <%= form.number_field :place_quantities, class: "form-control text-center",
