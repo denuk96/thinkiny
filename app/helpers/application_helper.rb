@@ -14,4 +14,8 @@ module ApplicationHelper
       flag_icon(:ru)
     end
   end
+
+  def notification(user)
+    user.notifications.find_by(viewed: false) != nil
+  end
 end
