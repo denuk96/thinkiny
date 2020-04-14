@@ -34,8 +34,9 @@
                 </li>
                 <p class='notification-count mr-3' data-toggle="tooltip" data-placement="right" title="Notifications count"><%= Notification.where(user_id: current_user.id, viewed: false).count %></p>
               <% else %>
-                <%= link_to current_user.first_name.present? ? current_user.first_name : current_user.email,
-                            user_path(current_user.id), class:'nav-link' %>
+                <p class="nav-link">
+                  <%= current_user.first_name.present? ? current_user.first_name : current_user.email %>
+                </p>
                 </li>
               <% end %>
           <% end %>
