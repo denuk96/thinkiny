@@ -1,13 +1,13 @@
-<div class="text-center p-4">
-  <% if request.location.latitude.nil? %>
-    <b>На локалке не работает</b>
-<% else %>
-    <b>Courses in your city:</b>
-    <% @courses_near.each do |course_near| %>
-      <li><%= link_to course_near.name, course_path(course_near) %> (<%= course_near.distance.round(2) %> miles)</li>
-    <% end %>
-  <% end %>
-</div>
+<!--<div class="text-center p-4">-->
+  <%# if request.location.latitude.nil? %>
+<!--    <b>На локалке не работает</b>-->
+<%# else %>
+<!--    <b>Courses in your city:</b>-->
+    <%# @courses_near.each do |course_near| %>
+<!--      <li><%#= link_to course_near.name, course_path(course_near) %> (<%#= course_near.distance.round(2) %> miles)</li>-->
+    <%# end %>
+  <%# end %>
+<!--</div>-->
 <div class="text-center">
   <div id="map"></div>
 </div>
