@@ -21,7 +21,7 @@ gem 'webpacker', '~> 4.0'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'carrierwave', '~> 2.0'
+gem 'carrierwave', '~> 2.1'
 gem 'file_validators'
 gem 'jbuilder', '~> 2.7'
 gem 'mini_magick'
@@ -88,4 +88,4 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'sorcery'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
-gem 'carrierwave', '~> 2.0'
+gem 'carrierwave', '~> 2.1'
